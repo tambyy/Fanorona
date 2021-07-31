@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditionActivity"
+    android:padding="15dp">
+
+
+    <!-- HEADER -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <android.widget.Button
+            android:id="@+id/edition_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jouer"
+            android:background="@drawable/border_bottom_3d_bg"
+            android:textColor="#FFF"
+            android:layout_alignParentEnd="true"
+            android:onClick="launchOptionActivity"/>
+
+    </RelativeLayout>
+
+
+    <!-- BODY -->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        app:cardCornerRadius="5dp"
+        android:layout_centerInParent="true">
+
+        <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
+            android:id="@+id/edition_akalana"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#999"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- FOOTER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <RadioGroup
+            android:id="@+id/edition_type"
+            style="@style/OptionsRadioGroup"
+            android:layout_width="0dip"
+            android:layout_weight="3">
+
+            <RadioButton
+                android:id="@+id/edition_black_pawn"
+                style="@style/EditionRadioButton"
+                android:background="@drawable/edition_black_pawn"
+                android:checked="true"
+                android:layout_centerInParent="true" />
+
+            <RadioButton
+                android:id="@+id/edition_white_pawn"
+                style="@style/EditionRadioButton"
+                android:background="@drawable/edition_white_pawn"
+                android:layout_centerInParent="true" />
+
+            <RadioButton
+                android:id="@+id/edition_trash"
+                style="@style/EditionRadioButton"
+                android:background="@drawable/edition_trash"
+                android:layout_centerInParent="true" />
+
+        </RadioGroup>
+
+        <ImageButton
+            android:id="@+id/edition_clear"
+            android:layout_width="0dip"
+            android:layout_height="40dp"
+            android:src="@drawable/edition_clear"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:padding="9dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:onClick="clearBoard"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

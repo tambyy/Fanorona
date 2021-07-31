@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SavedGameReviewActivity">
+
+
+    <!-- HEADER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Niveau 8 VS Tambyy"
+                android:textColor="#FFF"
+                android:textSize="16sp"
+                android:paddingBottom="2dp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="12/01/2020"
+                android:textColor="#BFFF"
+                android:textSize="13sp"
+                android:layout_marginTop="5dp">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/review_real_time"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/transparent"
+            android:src="@drawable/review_real_time"
+            android:scaleType="center"
+            android:onClick="toggleRealTime"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+
+    <!-- BODY -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="5dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            app:cardCornerRadius="5dp">
+
+            <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
+                android:id="@+id/review_akalana"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <!-- FOOTER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:layout_alignParentBottom="true">
+
+        <!-- REVIEW PROGRESS BAR -->
+
+        <com.tambyy.fanoronaakalana.graphics.customview.SeekBarWithMarkers
+            android:id="@+id/review_progress"
+            style="@style/ReviewProgressBar" />
+
+        <!-- REVIEW ACTION BUTTONS -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Replay -->
+
+            <ImageButton
+                style="@style/ReviewButton"
+                android:id="@+id/review_replay"
+                android:src="@drawable/review_replay"
+                android:onClick="replayReview" />
+
+            <!-- -->
+
+            <ImageButton
+                style="@style/ReviewButton"
+                android:id="@+id/review_prev"
+                android:src="@drawable/game_history_prev"
+                android:onClick="prevReview" />
+
+            <!-- We should toggle pause and play button
+            so we made play button visiblity=GONE by default -->
+
+            <ImageButton
+                style="@style/ReviewButton"
+                android:id="@+id/review_pause"
+                android:src="@drawable/review_pause"
+                android:onClick="pauseReview"
+                android:padding="0dp" />
+
+            <ImageButton
+                style="@style/ReviewButton"
+                android:id="@+id/review_play"
+                android:src="@drawable/review_play"
+                android:onClick="playReview"
+                android:padding="0dp"
+                android:visibility="gone" />
+
+            <!-- -->
+
+            <ImageButton
+                style="@style/ReviewButton"
+                android:id="@+id/review_next"
+                android:src="@drawable/game_history_next"
+                android:onClick="nextReview" />
+
+            <!-- -->
+
+            <ImageButton
+                style="@style/ReviewButton"
+                android:id="@+id/review_speed"
+                android:src="@drawable/review_speed"
+                android:onClick="showReviewSpeedContextMenu" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

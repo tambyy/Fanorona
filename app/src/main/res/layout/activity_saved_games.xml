@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingTop="15dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="7dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="40dp"
+            android:gravity="left|center"
+            android:text="Parties sauvegardées"
+            android:textColor="@color/white"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/edition_play"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/saved_game_create_folder"
+            android:background="#0000"
+            android:padding="2dp"
+            android:onClick="createFolder"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/saved_games_folders_breadcrumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="7dp"
+        android:paddingBottom="15dp"
+        android:background="#0000"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/saved_games_folders_list_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginBottom="15dp"
+                android:text="Dossiers"
+                android:textSize="15sp"
+                android:padding="10dp"
+                android:gravity="center"/>
+
+            <com.tambyy.fanoronaakalana.graphics.customview.ExpandedHeightGridView
+                android:id="@+id/saved_games_folders_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="7dp"
+                android:stretchMode="columnWidth"
+                android:layout_marginBottom="25dp"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/saved_games_list_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginBottom="15dp"
+                android:text="Parties enregistrées"
+                android:textSize="15sp"
+                android:padding="10dp"
+                android:gravity="center"/>
+
+            <com.tambyy.fanoronaakalana.graphics.customview.ExpandedHeightGridView
+                android:id="@+id/saved_games_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="2"
+                android:verticalSpacing="7dp"
+                android:horizontalSpacing="10dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/saved_games_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="7dp">
+
+        <LinearLayout
+            android:id="@+id/saved_games_create_folder"
+            style="@style/SavedGameButtonLayout">
+
+            <ImageView
+                style="@style/SavedGameButton"
+                android:src="@drawable/saved_game_create_folder"
+                android:onClick="createFolder"/>
+
+            <TextView
+                style="@style/SavedGameButtonText"
+                android:lines="1"
+                android:text="Nouveau dossier" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saved_games_remove_items"
+            style="@style/SavedGameButtonLayout"
+            android:onClick="removeSelectedItems">
+
+            <ImageView
+                style="@style/SavedGameButton"
+                android:src="@drawable/saved_game_remove"/>
+
+            <TextView
+                style="@style/SavedGameButtonText"
+                android:text="Supprimer" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saved_games_cancel"
+            style="@style/SavedGameButtonLayout"
+            android:onClick="movingSelectedItemsCancel">
+
+            <ImageView
+                style="@style/SavedGameButton"
+                android:src="@drawable/saved_game_cancel"/>
+
+            <TextView
+                style="@style/SavedGameButtonText"
+                android:text="Annuler" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saved_games_move_items"
+            style="@style/SavedGameButtonLayout"
+            android:onClick="movingSelectedItems">
+
+            <ImageView
+                style="@style/SavedGameButton"
+                android:src="@drawable/saved_game_move"/>
+
+            <TextView
+                style="@style/SavedGameButtonText"
+                android:text="Déplacer" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saved_games_move_items_validate"
+            style="@style/SavedGameButtonLayout"
+            android:onClick="moveSelectedItems">
+
+            <ImageView
+                style="@style/SavedGameButton"
+                android:src="@drawable/saved_game_move"/>
+
+            <TextView
+                style="@style/SavedGameButtonText"
+                android:text="Déplacer ici" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saved_games_rename_item"
+            style="@style/SavedGameButtonLayout"
+            android:onClick="editGame">
+
+            <ImageView
+                style="@style/SavedGameButton"
+                android:src="@drawable/saved_game_rename"/>
+
+            <TextView
+                style="@style/SavedGameButtonText"
+                android:text="Modifier" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saved_games_save_game"
+            style="@style/SavedGameButtonLayout"
+            android:onClick="createGame">
+
+            <ImageView
+                style="@style/SavedGameButton"
+                android:src="@drawable/saved_game_save"/>
+
+            <TextView
+                style="@style/SavedGameButtonText"
+                android:text="Sauvegarder ici" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

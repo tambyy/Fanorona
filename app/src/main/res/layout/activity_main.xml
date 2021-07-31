@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/app_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FANORONA"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="#FFFF"
+            android:textStyle="bold"
+            android:transitionName="app_title_transition"
+            android:fontFamily="@font/any_male"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AKALANA"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:textColor="#FFFF"
+            android:textStyle="bold"
+            android:transitionName="app_title_transition"
+            android:fontFamily="@font/any_male"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

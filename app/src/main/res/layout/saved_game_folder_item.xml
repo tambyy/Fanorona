@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:backgroundTint="@color/transparent">
+
+            <com.tambyy.fanoronaakalana.graphics.customview.FolderView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp"
+                android:backgroundTint="@color/transparent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/saved_game_folder"
+                        android:layout_centerInParent="true">
+
+                    </ImageView>
+
+                </RelativeLayout>
+
+            </com.tambyy.fanoronaakalana.graphics.customview.FolderView>
+
+            <TextView
+                android:id="@+id/saved_folder_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFF"
+                android:textSize="13sp"
+                android:paddingBottom="2dp"
+                android:ellipsize="end"
+                android:singleLine="false"
+                android:lines="1"
+                android:paddingTop="5dp"
+                android:gravity="center">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/saved_folder_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="25/01/2021"
+                android:textColor="#BFFF"
+                android:textSize="11sp"
+                android:paddingBottom="5dp"
+                android:gravity="center">
+
+            </TextView>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/saved_folder_check"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/saved_game_checked" />
+
+</RelativeLayout>

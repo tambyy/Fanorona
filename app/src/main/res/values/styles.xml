@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">#1E1B19</item>
+    </style>
+
+    <!-- Home -->
+
+    <style name="HomeButton" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:background">@drawable/border_bottom_3d_bg</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <!-- Options -->
+
+    <style name="OptionsItemLayout" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:background">@drawable/option_layout_border_top</item>
+    </style>
+
+    <!-- Options icon -->
+    <style name="OptionsIcon" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">@dimen/option_icon_size</item>
+        <item name="android:layout_height">@dimen/option_icon_size</item>
+        <item name="android:padding">@dimen/option_icon_padding</item>
+    </style>
+
+    <!-- Options label -->
+    <style name="OptionsLabel" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:paddingLeft">@dimen/option_label_padding_left</item>
+        <item name="android:textSize">@dimen/option_label_text_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">left|center</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!-- Options radio group -->
+    <style name="OptionsRadioGroup" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!-- Options radio -->
+    <style name="OptionsRadio" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/option_radio_button_height</item>
+        <item name="android:padding">@dimen/option_radio_button_padding</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/option_radio_bg</item>
+        <item name="android:button">@android:color/transparent</item>
+        <item name="android:textColor">@color/option_radio_text_color</item>
+        <item name="android:textSize">@dimen/option_radio_button_text_size</item>
+        <item name="android:layout_marginLeft">@dimen/option_radio_button_margin_left</item>
+        <item name="android:layout_marginRight">@dimen/option_radio_button_margin_right</item>
+    </style>
+
+    <!-- Options button -->
+    <style name="OptionsButton" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/border_bottom_3d_bg</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+
+    <style name="OptionsRadioIALevel" parent="OptionsRadio">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">-1dp</item>
+    </style>
+
+
+    <!-- Game -->
+
+    <style name="GameButton" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="LSGameButton" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+
+    <!-- Edition -->
+
+    <style name="EditionRadioButton" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:button">@android:color/transparent</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+
+
+    <!-- Saved game -->
+
+    <style name="SavedGameButtonLayout" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="SavedGameButton" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="SavedGameButtonText" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <!-- Review -->
+
+    <style name="ReviewProgressBar" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:max">@integer/progress_max_value</item>
+    </style>
+
+    <style name="ReviewButton" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:padding">7dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="ReviewButtonLand" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:padding">7dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+</resources>

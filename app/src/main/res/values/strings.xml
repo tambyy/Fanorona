@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Fanorona Akalana</string>
+
+    <!-- Home -->
+    <string name="home_play">Nouvelle partie</string>
+    <string name="home_edit">Editer</string>
+    <string name="home_load_save">Sauvegarde</string>
+    <string name="home_setting">Paramètre</string>
+
+    <!-- Opions -->
+    <string name="game_option_mode">Mode du jeu</string>
+    <string name="game_option_against">Jouer contre</string>
+    <string name="game_option_move_first">Joue en premier</string>
+    <string name="game_option_ai_level">Niveau de l\'IA</string>
+    <string name="game_option_ai_max_eval_time">Temps max de refléxion (s)</string>
+    <string name="game_option_ia_ponder">Refléchit pendant votre tour</string>
+
+    <!-- Opion mode -->
+    <string name="game_option_mode_riatra">Riatra</string>
+    <string name="game_option_mode_vela_black">Vela [Noir]</string>
+    <string name="game_option_mode_vela_white">Vela [Blanc]</string>
+
+    <!-- Opion against -->
+    <string name="game_option_against_human">Humain</string>
+    <string name="game_option_against_ai_black">IA [Noir]</string>
+    <string name="game_option_against_ai_white">IA [Blanc]</string>
+
+    <!-- Opion move first -->
+    <string name="game_option_move_first_black">Noir</string>
+    <string name="game_option_move_first_white">Blanc</string>
+
+    <!-- Opion AI level -->
+    <string name="game_option_ai_level_1">1</string>
+    <string name="game_option_ai_level_2">2</string>
+    <string name="game_option_ai_level_3">3</string>
+    <string name="game_option_ai_level_4">4</string>
+    <string name="game_option_ai_level_5">5</string>
+    <string name="game_option_ai_level_6">6</string>
+    <string name="game_option_ai_level_7">7</string>
+    <string name="game_option_ai_level_8">8</string>
+    <string name="game_option_ai_level_9">9</string>
+    <string name="game_option_ai_level_10">10</string>
+    <string name="game_option_ai_level_11">11</string>
+    <string name="game_option_ai_level_12">12</string>
+
+    <!-- Opion AI max time eval in second -->
+    <string name="game_option_ai_max_time_eval_1">1</string>
+    <string name="game_option_ai_max_time_eval_2">2</string>
+    <string name="game_option_ai_max_time_eval_3">3</string>
+    <string name="game_option_ai_max_time_eval_4">4</string>
+    <string name="game_option_ai_max_time_eval_5">5</string>
+    <string name="game_option_ai_max_time_eval_6">6</string>
+    <string name="game_option_ai_max_time_eval_7">7</string>
+    <string name="game_option_ai_max_time_eval_8">8</string>
+    <string name="game_option_ai_max_time_eval_9">9</string>
+    <string name="game_option_ai_max_time_eval_10">10</string>
+
+    <!-- Opion AI ponder -->
+    <string name="game_option_ai_ponder_yes">Oui</string>
+    <string name="game_option_ai_ponder_no">Non</string>
+
+    <!-- Opion Buttons -->
+    <string name="game_option_action_play">Jouer</string>
+    <string name="game_option_action_resume">Reprendre</string>
+    <string name="game_option_action_re_edit">Re-éditer</string>
+
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Opions -->
+    <dimen name="option_icon_size">30dp</dimen>
+    <dimen name="option_icon_padding">4dp</dimen>
+
+    <dimen name="option_label_text_size">14sp</dimen>
+    <dimen name="option_label_margin_bottom">5dp</dimen>
+    <dimen name="option_label_padding_left">15dp</dimen>
+
+    <dimen name="option_radio_group_margin_bottom">10dp</dimen>
+
+    <dimen name="option_radio_button_height">32dp</dimen>
+    <dimen name="option_radio_button_padding">7dp</dimen>
+    <dimen name="option_radio_button_margin_left">-1dp</dimen>
+    <dimen name="option_radio_button_margin_right">0dp</dimen>
+    <dimen name="option_radio_button_text_size">14sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+</resources>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GameActivity"
+    android:id="@+id/game_background">
+
+
+    <!-- HEADER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/game_history_prev"
+            />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:padding="15dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FANORONA"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#FFFF"
+                android:textStyle="bold"
+                android:transitionName="app_title_transition"
+                android:fontFamily="@font/any_male"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="AKALANA"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="#FFFF"
+                android:textStyle="bold"
+                android:transitionName="app_title_transition"
+                android:fontFamily="@font/any_male"
+                android:paddingTop="5dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="12:23"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+    <!-- BODY -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="#2FFF">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            android:layout_centerInParent="true"
+            app:cardElevation="0dp">
+
+            <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
+                android:id="@+id/game_akalana"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#999"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <!-- FOOTER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="7dp">
+
+        <ImageButton
+            style="@style/GameButton"
+            android:id="@+id/game_save"
+            android:src="@drawable/game_save"
+            android:onClick="launchSavedGamesActivity"/>
+
+        <ImageButton
+            style="@style/GameButton"
+            android:id="@+id/game_history_prev"
+            android:src="@drawable/game_history_prev"
+            android:onClick="prevHistory" />
+
+        <ImageButton
+            style="@style/GameButton"
+            android:id="@+id/game_stop_moves_sequence"
+            android:src="@drawable/game_stop_moves_sequence"
+            android:onClick="stopMovesSequence"
+            android:background="@drawable/border_bottom_3d_bg"
+            android:padding="5dp"/>
+
+        <ImageButton
+            style="@style/GameButton"
+            android:id="@+id/game_history_next"
+            android:src="@drawable/game_history_next"
+            android:onClick="nextHistory" />
+
+        <ImageButton
+            style="@style/GameButton"
+            android:id="@+id/game_fullscreen"
+            android:src="@drawable/game_fullscreen"
+            android:onClick="toggleOrientation"/>
+
+    </LinearLayout>
+
+</LinearLayout>

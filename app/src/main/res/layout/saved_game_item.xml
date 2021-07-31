@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            app:cardCornerRadius="5dp">
+
+            <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
+                android:id="@+id/saved_game_akalana"
+                android:layout_width="fill_parent"
+                android:layout_height="1000dp"
+                android:background="#999"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/saved_game_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFF"
+                    android:textSize="13sp"
+                    android:paddingBottom="2dp"
+                    android:gravity="center">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/saved_game_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#BFFF"
+                    android:textSize="12sp"
+                    android:gravity="center">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <!--ImageButton
+                android:id="@+id/saved_game_review"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toStartOf="@+id/saved_game_play"
+                android:layout_centerVertical="true"
+                android:src="@drawable/saved_game_review"
+                android:background="#0000"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:focusable="false" />
+
+            <ImageButton
+                android:id="@+id/saved_game_play"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/play"
+                android:background="#0000"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:focusable="false" /-->
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/saved_game_checked"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/saved_game_checked" />
+
+    <ImageView
+        android:id="@+id/saved_game_check"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/saved_game_check" />
+
+</RelativeLayout>

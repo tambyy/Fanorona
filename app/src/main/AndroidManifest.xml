@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tambyy.fanoronaakalana">
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/icon"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+        <activity android:name=".EditGameActivity"></activity>
+        <activity android:name=".SavedGameReviewActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".OptionAiMaxSearchTimeActivity" />
+        <activity android:name=".OptionAiLevelActivity" />
+        <activity android:name=".SavedGamesActivity" />
+        <activity android:name=".ThemeActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".OptionActivity" />
+        <activity android:name=".EditionActivity" />
+        <activity android:name=".GameActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

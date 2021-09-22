@@ -5,11 +5,14 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.AsyncTask;
 
 import com.tambyy.fanoronaakalana.config.Theme;
 import com.tambyy.fanoronaakalana.dao.PreferenceDao;
 import com.tambyy.fanoronaakalana.dao.ThemeDao;
 import com.tambyy.fanoronaakalana.database.FanoronaDatabase;
+import com.tambyy.fanoronaakalana.graphics.customview.AkalanaView;
+import com.tambyy.fanoronaakalana.graphics.drawable.item.Pawn;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,59 +43,88 @@ public class ThemeManager {
         dao = FanoronaDatabase.getInstance(context).themeDao();
     }
 
-    public Theme getTheme(long themeId) {
-        com.tambyy.fanoronaakalana.models.Theme theme = dao.getTheme(themeId);
+    public static interface ThemeLoadedListener {
+        public void onThemeLoaded(Theme theme);
+    }
 
-        if (theme != null) {
-            Theme configTheme = new Theme();
-            configTheme.setAkalanaBgColor(Color.TRANSPARENT);
+    /**
+     *
+     */
+    private class LoadThemeProcess extends AsyncTask<Long, Void, Theme> {
 
-            try {
-                if (Arrays.asList(assetManager.list("themes")).contains(theme.getFolder_name())) {
-                    final String folder = "themes/" + theme.getFolder_name();
-                    for (String imageName : assetManager.list(folder)) {
+        private ThemeLoadedListener listener;
 
-                        try {
-                            InputStream in = assetManager.open(folder + "/" + imageName);
-                            Bitmap bitmap = BitmapFactory.decodeStream(in);
-
-                            switch (imageName) {
-                                case "background.png":
-                                    configTheme.setBackgroundBitmap(bitmap);
-                                    break;
-                                case "akalana.png":
-                                    configTheme.setAkalanaBitmap(bitmap);
-                                    break;
-                                case "black_default.png":
-                                    configTheme.setBlackDefaultBitmap(bitmap);
-                                    break;
-                                case "black_movable.png":
-                                    configTheme.setBlackMovableBitmap(bitmap);
-                                    break;
-                                case "black_selected.png":
-                                    configTheme.setBlackSelectedBitmap(bitmap);
-                                    break;
-                                case "white_default.png":
-                                    configTheme.setWhiteDefaultBitmap(bitmap);
-                                    break;
-                                case "white_movable.png":
-                                    configTheme.setWhiteMovableBitmap(bitmap);
-                                    break;
-                                case "white_selected.png":
-                                    configTheme.setWhiteSelectedBitmap(bitmap);
-                                    break;
-                            }
-                        } catch (IOException e) {
-                        }
-                    }
-
-                    return configTheme;
-                }
-            } catch (IOException e) {
-            }
+        public void setListener(ThemeLoadedListener listener) {
+            this.listener = listener;
         }
 
-        return null;
+        @Override
+        protected Theme doInBackground(Long... arg0) {
+            com.tambyy.fanoronaakalana.models.Theme theme = dao.getTheme(arg0[0]);
+
+            if (theme != null) {
+                Theme configTheme = new Theme();
+                configTheme.setAkalanaBgColor(Color.TRANSPARENT);
+
+                try {
+                    if (Arrays.asList(assetManager.list("themes")).contains(theme.getFolder_name())) {
+                        final String folder = "themes/" + theme.getFolder_name();
+                        for (String imageName : assetManager.list(folder)) {
+
+                            try {
+                                InputStream in = assetManager.open(folder + "/" + imageName);
+                                Bitmap bitmap = BitmapFactory.decodeStream(in);
+
+                                switch (imageName) {
+                                    case "background.png":
+                                        configTheme.setBackgroundBitmap(bitmap);
+                                        break;
+                                    case "akalana.png":
+                                        configTheme.setAkalanaBitmap(bitmap);
+                                        break;
+                                    case "black_default.png":
+                                        configTheme.setBlackDefaultBitmap(bitmap);
+                                        break;
+                                    case "black_movable.png":
+                                        configTheme.setBlackMovableBitmap(bitmap);
+                                        break;
+                                    case "black_selected.png":
+                                        configTheme.setBlackSelectedBitmap(bitmap);
+                                        break;
+                                    case "white_default.png":
+                                        configTheme.setWhiteDefaultBitmap(bitmap);
+                                        break;
+                                    case "white_movable.png":
+                                        configTheme.setWhiteMovableBitmap(bitmap);
+                                        break;
+                                    case "white_selected.png":
+                                        configTheme.setWhiteSelectedBitmap(bitmap);
+                                        break;
+                                }
+                            } catch (IOException e) {
+                            }
+                        }
+
+                        return configTheme;
+                    }
+                } catch (IOException e) {
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Theme theme) {
+            this.listener.onThemeLoaded(theme);
+        }
+
+    };
+
+    public void getTheme(long themeId, ThemeLoadedListener listener) {
+        LoadThemeProcess loadThemeProcess = new LoadThemeProcess();
+        loadThemeProcess.setListener(listener);
+        loadThemeProcess.execute(themeId);
     }
 
 }

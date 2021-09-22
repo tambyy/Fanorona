@@ -3,38 +3,202 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity"
-    android:padding="50dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:gravity="center">
 
-        <android.widget.Button
-            android:id="@+id/home_play"
-            style="@style/HomeButton"
-            android:text="@string/home_play"
-            android:onClick="launchOptionActivity" />
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:gravity="center">
 
-        <android.widget.Button
-            android:id="@+id/home_edit"
-            style="@style/HomeButton"
-            android:text="@string/home_edit"
-            android:onClick="launchEditionActivity" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="5"
+                android:weightSum="10"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <android.widget.Button
-            android:id="@+id/home_load_save"
-            style="@style/HomeButton"
-            android:text="@string/home_load_save"
-            android:onClick="launchSavedGamesActivity" />
+                <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_centerInParent="true"
+                    android:backgroundTint="#0000"
+                    android:layout_weight="6">
 
-        <android.widget.Button
-            android:id="@+id/home_setting"
-            style="@style/HomeButton"
-            android:text="@string/home_setting"
-            android:onClick="launchThemeActivity" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/home_play_bg"
+                        android:weightSum="10"
+                        android:orientation="vertical"
+                        android:onClick="launchOptionActivity">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="7"
+                            android:orientation="vertical"
+                            android:weightSum="10"
+                            android:src="@drawable/home_play_ic"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="6"
+                                android:src="@drawable/home_play_ic">
+
+                            </ImageView>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="3"
+                            android:layout_alignParentBottom="true"
+                            android:text="@string/home_play"
+                            android:textColor="#AFFF"
+                            android:gravity="center"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
+                </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:orientation="horizontal"
+                android:layout_weight="2">
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:weightSum="10"
+                    android:onClick="launchEditionActivity">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="6"
+                        android:src="@drawable/home_edit_ic"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="4"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/home_edit"
+                        android:textColor="#AFFF"
+                        android:gravity="center"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:weightSum="10"
+                    android:onClick="launchSavedGamesActivity">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="6"
+                        android:src="@drawable/home_save_ic"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="4"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/home_save"
+                        android:textColor="#AFFF"
+                        android:gravity="center"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:weightSum="10"
+                    android:onClick="launchSettingActivity">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="6"
+                        android:src="@drawable/home_setting_ic"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="4"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/home_setting"
+                        android:textColor="#AFFF"
+                        android:gravity="center"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:weightSum="10">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="6"
+                        android:src="@drawable/home_about_ic"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="4"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/home_about"
+                        android:textColor="#AFFF"
+                        android:gravity="center"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

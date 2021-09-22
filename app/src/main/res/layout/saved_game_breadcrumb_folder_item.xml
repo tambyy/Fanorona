@@ -14,7 +14,7 @@
         android:text="dossier"
         android:textColor="#CCC"
         android:gravity="left|center"
-        android:textSize="13sp"/>
+        android:textSize="16sp"/>
 
     <ImageView
         android:id="@+id/saved_game_breadcrumb_folder_next"

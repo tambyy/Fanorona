@@ -56,16 +56,13 @@ public class OptionAiLevelAdapter extends BaseAdapter {
         }
 
         viewHolder.aiLevelValue = (TextView) convertView.findViewById(R.id.option_ai_level_value);
-        viewHolder.aiLevelWinsCount = (TextView) convertView.findViewById(R.id.option_ai_level_wins_count);
 
         viewHolder.aiLevelValue.setText(aiStats.get(position).getLevel() + "");
-        viewHolder.aiLevelWinsCount.setText(aiStats.get(position).getWinsCount() + "");
 
         return convertView;
     }
 
     private static class ViewHolder{
         public TextView aiLevelValue;
-        public TextView aiLevelWinsCount;
     }
 }

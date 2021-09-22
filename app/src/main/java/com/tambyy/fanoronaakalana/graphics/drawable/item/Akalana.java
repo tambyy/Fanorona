@@ -60,7 +60,7 @@ public class Akalana extends Drawable {
      */
     private void updateScaledBitmap() {
         if (bitmap != null && width > 0 && height > 0) {
-            scaledBitmap   = Bitmap.createScaledBitmap(bitmap, width, height, false);
+            scaledBitmap   = Bitmap.createScaledBitmap(bitmap, width, height, true);
         }
     }
 

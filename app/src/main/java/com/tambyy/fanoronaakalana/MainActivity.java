@@ -11,31 +11,31 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
+import com.tambyy.fanoronaakalana.utils.LocaleManager;
+
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.app_title)
     LinearLayout linearLayoutAppTitle;
-
-    /**
-     * App title scale and alpha animation
-     */
-    Animation appTitleAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        LocaleManager.getInstance(this);
 
-        animateLogo();
+        animateSplashScreen();
         launchHomeActivity();
     }
 
     /**
-     * Animate Fanorona Akalana Logo
+     * We add here all animations
+     * we should do before
+     * we start the HomeActivity
      */
-    private void animateLogo() {
-        appTitleAnimation = AnimationUtils.loadAnimation(this, R.anim.app_title_appears_animation);
+    private void animateSplashScreen() {
+        Animation appTitleAnimation = AnimationUtils.loadAnimation(this, R.anim.app_title_appears_animation);
         linearLayoutAppTitle.setAnimation(appTitleAnimation);
     }
 
@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
      * Launch home activity
      */
     private void launchHomeActivity() {
+        // We wait for 1800ms before starting
+        // the HomeActivity
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(this, HomeActivity.class);
             // ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, appTitleTextview, "app_title_transition");

@@ -264,7 +264,7 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
 
     // s'il n'y a qu'une seule pièce adverse menacée
     // alors enlever toute menace venant de cette pièce
-    if (allThreatenedThem && (allThreatenedThem & (allThreatenedThem - 1)) == 0) {
+    /*if (allThreatenedThem && (allThreatenedThem & (allThreatenedThem - 1)) == 0) {
 
         allOccupationPositionThem = 0;
         movablePositionsBitboardThem = 0;
@@ -319,7 +319,7 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
         // comme positions où les pièces peuvent se deplacer
         movablePositionsBitboardUs   &= ~occupationPositionsBitboardThem;
         movablePositionsBitboardThem &= ~occupationPositionsBitboardUs;
-    } else {
+    } else */{
 
         // positions menacées
         occupationPositionsBitboardThem = allOccupationPositionThem & emptyBitboard;

@@ -1,5 +1,6 @@
 package com.tambyy.fanoronaakalana;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +20,8 @@ import com.tambyy.fanoronaakalana.utils.EngineActionsConverter;
 import com.tambyy.fanoronaakalana.utils.PreferenceManager;
 import com.tambyy.fanoronaakalana.utils.ThemeManager;
 
+import java.util.ArrayList;
+
 public class EditionActivity extends AppCompatActivity {
 
     @BindView(R.id.edition_akalana)
@@ -36,6 +39,10 @@ public class EditionActivity extends AppCompatActivity {
      * Theme
      */
     private ThemeManager themeManager;
+
+
+    public static final String EDITION_BLACK_CONFIG_VALUE_CODE = "EDITION_BLACK_CONFIG_VALUE_CODE";
+    public static final String EDITION_WHITE_CONFIG_VALUE_CODE = "EDITION_WHITE_CONFIG_VALUE_CODE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,30 @@ public class EditionActivity extends AppCompatActivity {
         intentFromOptionActivity();
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putString(
+                EditionActivity.EDITION_BLACK_CONFIG_VALUE_CODE,
+                EngineActionsConverter.positionsToString(akalanaView.getBlackActivePieces().stream().map(pawn -> new Engine.Point(pawn.getFx(), pawn.getFy())).toArray(Engine.Point[]::new))
+        );
+        savedInstanceState.putString(
+                EditionActivity.EDITION_WHITE_CONFIG_VALUE_CODE,
+                EngineActionsConverter.positionsToString(akalanaView.getWhiteActivePieces().stream().map(pawn -> new Engine.Point(pawn.getFx(), pawn.getFy())).toArray(Engine.Point[]::new))
+        );
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        initPieces(
+                savedInstanceState.getString(EditionActivity.EDITION_BLACK_CONFIG_VALUE_CODE),
+                savedInstanceState.getString(EditionActivity.EDITION_WHITE_CONFIG_VALUE_CODE)
+        );
+    }
+
     /**
      *
      */
@@ -76,17 +107,26 @@ public class EditionActivity extends AppCompatActivity {
 
         if (bundle != null) {
             if (bundle.containsKey(OptionActivity.EXTRA_EDITION_BLACK_CONFIG) && bundle.containsKey(OptionActivity.EXTRA_EDITION_WHITE_CONFIG)) {
-                Engine.Point[] blackPositions = EngineActionsConverter.stringToPositions(bundle.getString(OptionActivity.EXTRA_EDITION_BLACK_CONFIG));
-                Engine.Point[] whitePositions = EngineActionsConverter.stringToPositions(bundle.getString(OptionActivity.EXTRA_EDITION_WHITE_CONFIG));
-
-                for (Engine.Point blackPosition: blackPositions) {
-                    akalanaView.EDITION_ADD_BLACK_PAWN.applyAction(blackPosition);
-                }
-
-                for (Engine.Point whitePosition: whitePositions) {
-                    akalanaView.EDITION_ADD_WHITE_PAWN.applyAction(whitePosition);
-                }
+                initPieces(
+                        bundle.getString(OptionActivity.EXTRA_EDITION_BLACK_CONFIG),
+                        bundle.getString(OptionActivity.EXTRA_EDITION_WHITE_CONFIG)
+                );
             }
+        }
+    }
+
+    private void initPieces(String black, String white) {
+        akalanaView.removeAllPieces();
+
+        Engine.Point[] blackPositions = EngineActionsConverter.stringToPositions(black);
+        Engine.Point[] whitePositions = EngineActionsConverter.stringToPositions(white);
+
+        for (Engine.Point blackPosition: blackPositions) {
+            akalanaView.EDITION_ADD_BLACK_PAWN.applyAction(blackPosition);
+        }
+
+        for (Engine.Point whitePosition: whitePositions) {
+            akalanaView.EDITION_ADD_WHITE_PAWN.applyAction(whitePosition);
         }
     }
 
@@ -118,10 +158,11 @@ public class EditionActivity extends AppCompatActivity {
      *
      */
     private void loadPreferences() {
-        Theme theme = themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 0l));
-        if (theme != null) {
-            akalanaView.setTheme(theme);
-        }
+        themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 0l), theme -> {
+            if (theme != null) {
+                akalanaView.setTheme(theme);
+            }
+        });
     }
 
 }

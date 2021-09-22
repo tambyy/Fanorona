@@ -1,55 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView
+<com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#333"
     android:layout_weight="1"
-    app:cardCornerRadius="10dp"
     android:layout_margin="4dp"
-    android:backgroundTint="#3FFF">
+    android:backgroundTint="#0000"
+    app:cardElevation="0dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/btn_white_border">
 
         <TextView
             android:id="@+id/option_ai_level_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp"
+            android:textSize="25sp"
             android:textColor="#FFF"
             android:layout_centerInParent="true"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:orientation="horizontal"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="7dp">
-
-            <TextView
-                android:id="@+id/option_ai_level_wins_count"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="#FFF"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"/>
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ai_level_win" />
-
-        </LinearLayout>
-
     </RelativeLayout>
 
-</com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView>
+</com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView>

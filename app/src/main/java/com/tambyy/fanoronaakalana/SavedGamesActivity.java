@@ -41,11 +41,21 @@ public class SavedGamesActivity extends AppCompatActivity {
     @BindView(R.id.saved_games_list)
     GridView gridViewSavedGamesList;
 
+    @BindView(R.id.saved_games_folders_list_empty_text)
+    TextView textViewSavedGamesFoldersListEmpty;
+
+    @BindView(R.id.saved_games_list_empty_text)
+    TextView textViewSavedGamesListEmpty;
+
+    /*
     @BindView(R.id.saved_games_list_title)
     TextView textViewSavedGamesListTitle;
 
     @BindView(R.id.saved_games_folders_list_title)
     TextView textViewSavedGamesFoldersListTitle;
+*/
+    @BindView(R.id.saved_games_options)
+    LinearLayout linearLayoutSavedGamesOptions;
 
     @BindView(R.id.saved_games_remove_items)
     LinearLayout linearLayoutSavedGamesRemoveItems;
@@ -113,15 +123,24 @@ public class SavedGamesActivity extends AppCompatActivity {
     public static final String GAME_EDIT_IMAGE_INDEX_CODE = "GAME_EDIT_IMAGE_INDEX_CODE";
     public static final String GAME_ID_CODE = "GAME_ID_CODE";
 
+    public static final String FOLDER_EDIT_NAME_CODE = "FOLDER_EDIT_NAME_CODE";
+
     /**
      *
      */
     public static final int GAME_EDIT_CODE = 0;
+    public static final int FOLDER_EDIT_CODE = 1;
+    public static final int GAME_NEW_CODE = 2;
+    public static final int FOLDER_NEW_CODE = 3;
 
     /**
      * Extras
      */
     public static final String EXTRA_GAME_ID = "EXTRA_GAME_ID";
+    public static final String EXTRA_FOLDER_ID = "EXTRA_FOLDER_ID";
+    public static final String EXTRA_NEW_GAME_CONFIG = "EXTRA_NEW_GAME_CONFIG";
+    public static final String EXTRA_NEW_GAME_IMAGE_INDEX = "EXTRA_NEW_GAME_IMAGE_INDEX";
+    public static final String EXTRA_NEW_FOLDER_CONFIG = "EXTRA_NEW_FOLDER_CONFIG";
 
     private String gameToSaveConfigs = null;
     private int gameToSaveHistoryIndex = 0;
@@ -182,6 +201,12 @@ public class SavedGamesActivity extends AppCompatActivity {
 
             if (requestCode == GAME_EDIT_CODE) {
                 onEditGameActivityResult(bundle);
+            } else if (requestCode == FOLDER_EDIT_CODE) {
+                onEditFolderActivityResult(bundle);
+            } else if (requestCode == GAME_NEW_CODE) {
+                onNewGameActivityResult(bundle);
+            } else if (requestCode == FOLDER_NEW_CODE) {
+                onNewFolderActivityResult(bundle);
             }
         }
     }
@@ -221,7 +246,7 @@ public class SavedGamesActivity extends AppCompatActivity {
      *
      */
     public void launchSavedGamesReviewActivity(Game game) {
-        Intent intent = new Intent(this, SavedGameReviewActivity.class);
+        Intent intent = new Intent(this, SavedGamesReviewActivity.class);
 
         intent.putExtra(EXTRA_GAME_ID, game.getId());
         this.startActivity(intent);
@@ -302,46 +327,13 @@ public class SavedGamesActivity extends AppCompatActivity {
     }
 
     /**
-     * Show a dialog box aloowing us to create
+     * Show a dialog box alowing us to create
      * a new folder inside the current folder
      * @param view
      */
     public void createFolder(View view) {
-        // get prompts.xml view
-        LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.saved_game_new_folder_dialog, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        alertDialogBuilder.setTitle("Nom du dossier");
-
-        // set prompts.xml to alertdialog builder
-        alertDialogBuilder.setView(promptsView);
-
-        final EditText editTextFolderName = (EditText) promptsView.findViewById(R.id.saved_game_new_folder_name);
-
-        // set dialog message
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("Valider",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                String folderName = editTextFolderName.getText().toString();
-                                storeFolder(folderName);
-                            }
-                        })
-                .setNegativeButton("Annuler",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
+        Intent intent = new Intent(this, SavedGamesEditFolderActivity.class);
+        startActivityForResult(intent, FOLDER_NEW_CODE);
     }
 
     /**
@@ -369,51 +361,6 @@ public class SavedGamesActivity extends AppCompatActivity {
      *
      * @param folder
      */
-    private void editFolder(Folder folder) {
-        // get prompts.xml view
-        LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.saved_game_new_folder_dialog, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        alertDialogBuilder.setTitle("Modifier le nom du dossier");
-
-        // set prompts.xml to alertdialog builder
-        alertDialogBuilder.setView(promptsView);
-
-        final EditText editTextFolderName = (EditText) promptsView.findViewById(R.id.saved_game_new_folder_name);
-        editTextFolderName.setText(folder.getName());
-
-        // set dialog message
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("Valider",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                String folderName = editTextFolderName.getText().toString();
-                                folder.setName(folderName);
-                                updateFolder(folder);
-                            }
-                        })
-                .setNegativeButton("Annuler",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
-        editTextFolderName.requestFocus();
-    }
-
-    /**
-     *
-     * @param folder
-     */
     private void updateFolder(Folder folder) {
         this.database.folderDao().updateFolder(folder);
 
@@ -435,53 +382,21 @@ public class SavedGamesActivity extends AppCompatActivity {
      * @param view
      */
     public void createGame(View view) {
-        // get prompts.xml view
-        LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.saved_game_new_folder_dialog, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        alertDialogBuilder.setTitle("Nom de la partie");
-
-        // set prompts.xml to alertdialog builder
-        alertDialogBuilder.setView(promptsView);
-
-        final EditText editTextFolderName = (EditText) promptsView.findViewById(R.id.saved_game_new_folder_name);
-
-        // set dialog message
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("Sauvegarder",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                String gameName = editTextFolderName.getText().toString();
-                                storeGame(gameName);
-                            }
-                        })
-                .setNegativeButton("Annuler",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
-        editTextFolderName.requestFocus();
+        Intent intent = new Intent(this, SavedGamesEditGameActivity.class);
+        intent.putExtra(EXTRA_NEW_GAME_CONFIG, gameToSaveConfigs);
+        intent.putExtra(EXTRA_NEW_GAME_IMAGE_INDEX, gameToSaveHistoryIndex);
+        startActivityForResult(intent, GAME_NEW_CODE);
     }
 
     /**
      *
      * @param name
      */
-    private void storeGame(String name) {
+    private void storeGame(String name, int imageIndex) {
         if (gameToSaveConfigs != null) {
             Game game = new Game();
             game.setName(name);
-            game.setImage_index(gameToSaveHistoryIndex);
+            game.setImage_index(imageIndex);
             game.setConfigs(gameToSaveConfigs);
             game.setCreated_at(new Date());
             game.setFolder_id(currentFolder != null ? currentFolder.getId() : null);
@@ -501,9 +416,12 @@ public class SavedGamesActivity extends AppCompatActivity {
      * @param view
      */
     public void editGame(View view) {
-        if (savedGameAdapter.getSelectedGamesCount() == 1) {
+        if (savedGameAdapter.getSelectedGamesCount() == 1 && savedGameFolderAdapter.getSelectedFoldersCount() == 0) {
             Game game = savedGameAdapter.getSelectedGames().get(0);
             launchEditGameActivity(game);
+        } else if (savedGameFolderAdapter.getSelectedFoldersCount() == 1 && savedGameAdapter.getSelectedGamesCount() == 0) {
+            Folder folder = savedGameFolderAdapter.getSelectedFolders().get(0);
+            launchEditFolderActivity(folder);
         }
     }
 
@@ -660,6 +578,22 @@ public class SavedGamesActivity extends AppCompatActivity {
         savedGameFolderAdapter.clearSelectedFolders();
         savedGameAdapter.clearSelectedGames();
 
+        if (this.folders.isEmpty()) {
+            this.gridViewSavedGamesFoldersList.setVisibility(View.GONE);
+            this.textViewSavedGamesFoldersListEmpty.setVisibility(View.VISIBLE);
+        } else {
+            this.gridViewSavedGamesFoldersList.setVisibility(View.VISIBLE);
+            this.textViewSavedGamesFoldersListEmpty.setVisibility(View.GONE);
+        }
+
+        if (this.games.isEmpty()) {
+            this.gridViewSavedGamesList.setVisibility(View.GONE);
+            this.textViewSavedGamesListEmpty.setVisibility(View.VISIBLE);
+        } else {
+            this.gridViewSavedGamesList.setVisibility(View.VISIBLE);
+            this.textViewSavedGamesListEmpty.setVisibility(View.GONE);
+        }
+
         // update breadcrumb
         updateBreadCrumb();
 
@@ -694,9 +628,19 @@ public class SavedGamesActivity extends AppCompatActivity {
      * @param game
      */
     private void launchEditGameActivity(Game game) {
-        Intent intent = new Intent(this, EditGameActivity.class);
+        Intent intent = new Intent(this, SavedGamesEditGameActivity.class);
         intent.putExtra(EXTRA_GAME_ID, game.getId());
         startActivityForResult(intent, GAME_EDIT_CODE);
+    }
+
+    /**
+     *
+     * @param folder
+     */
+    private void launchEditFolderActivity(Folder folder) {
+        Intent intent = new Intent(this, SavedGamesEditFolderActivity.class);
+        intent.putExtra(EXTRA_FOLDER_ID, folder.getId());
+        startActivityForResult(intent, FOLDER_EDIT_CODE);
     }
 
     /**
@@ -716,8 +660,41 @@ public class SavedGamesActivity extends AppCompatActivity {
 
     /**
      *
+     * @param bundle
      */
-    private void toggleGamesFoldersTitle() {
+    private void onNewGameActivityResult(Bundle bundle) {
+        String gameName = bundle.getString(GAME_EDIT_NAME_CODE);
+        int imageIndex = bundle.getInt(GAME_EDIT_IMAGE_INDEX_CODE);
+        storeGame(gameName, imageIndex);
+    }
+
+    /**
+     *
+     * @param bundle
+     */
+    private void onEditFolderActivityResult(Bundle bundle) {
+        if (savedGameFolderAdapter.getSelectedFoldersCount() == 1) {
+            Folder folder = savedGameFolderAdapter.getSelectedFolders().get(0);
+
+            folder.setName(bundle.getString(FOLDER_EDIT_NAME_CODE));
+
+            updateFolder(folder);
+        }
+    }
+
+    /**
+     *
+     * @param bundle
+     */
+    private void onNewFolderActivityResult(Bundle bundle) {
+        String folderName = bundle.getString(FOLDER_EDIT_NAME_CODE);
+        storeFolder(folderName);
+    }
+
+    /**
+     *
+     */
+    private void toggleGamesFoldersTitle() {/*
         if (games.size() > 0) {
             textViewSavedGamesListTitle.setVisibility(View.VISIBLE);
             textViewSavedGamesListTitle.setText(games.size() + " parties sauvegardées");
@@ -734,16 +711,18 @@ public class SavedGamesActivity extends AppCompatActivity {
         } else {
             textViewSavedGamesFoldersListTitle.setVisibility(View.GONE);
             gridViewSavedGamesFoldersList.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     /**
      *
      */
     private void checkEnabledButtons() {
-        linearLayoutSavedGamesRenameItem.setVisibility((savedGameAdapter.getSelectedGamesCount() + savedGameFolderAdapter.getSelectedFoldersCount()) == 1 ? View.VISIBLE : View.GONE);
-        linearLayoutSavedGamesRemoveItems.setVisibility((savedGameAdapter.getSelectedGamesCount() + savedGameFolderAdapter.getSelectedFoldersCount()) > 0 ? View.VISIBLE : View.GONE);
-        linearLayoutSavedGamesMoveItems.setVisibility(savedGameAdapter.getSelectedGamesCount() > 0 || savedGameFolderAdapter.getSelectedFoldersCount() > 0 ? View.VISIBLE : View.GONE);
+        int selectedItemsCount = savedGameAdapter.getSelectedGamesCount() + savedGameFolderAdapter.getSelectedFoldersCount();
+
+        linearLayoutSavedGamesRenameItem.setVisibility(selectedItemsCount == 1 ? View.VISIBLE : View.GONE);
+        linearLayoutSavedGamesRemoveItems.setVisibility(selectedItemsCount > 0 ? View.VISIBLE : View.GONE);
+        linearLayoutSavedGamesMoveItems.setVisibility(selectedItemsCount > 0 ? View.VISIBLE : View.GONE);
         linearLayoutSavedGamesMoveItemsValidate.setVisibility(gamesToMove.size() > 0 || foldersToMove.size() > 0 ? View.VISIBLE : View.GONE);
         linearLayoutSavedGamesCancel.setVisibility(gamesToMove.size() > 0 || foldersToMove.size() > 0 ? View.VISIBLE : View.GONE);
         linearLayoutSavedGamesSaveGame.setVisibility(gameToSaveConfigs != null ? View.VISIBLE : View.GONE);

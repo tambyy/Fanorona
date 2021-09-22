@@ -10,24 +10,95 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-        <activity android:name=".EditGameActivity"></activity>
-        <activity android:name=".SavedGameReviewActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".OptionAiMaxSearchTimeActivity" />
-        <activity android:name=".OptionAiLevelActivity" />
-        <activity android:name=".SavedGamesActivity" />
-        <activity android:name=".ThemeActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".OptionActivity" />
-        <activity android:name=".EditionActivity" />
-        <activity android:name=".GameActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".SettingLocaleActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".OptionAiPonderActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".OptionGameModeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".OptionFirstMoveActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".OptionPlayAgainstActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".OptionAiLevelActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".OptionAiMaxSearchTimeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".BluetoothActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SavedGamesActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SavedGamesReviewActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SavedGamesEditGameActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".SavedGamesEditFolderActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".SettingActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SettingThemeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".SettingSoundActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+        <activity
+            android:name=".EditionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".GameActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".OptionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
     </application>
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
 </manifest>

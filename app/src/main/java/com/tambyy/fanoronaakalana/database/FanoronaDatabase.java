@@ -2,6 +2,7 @@ package com.tambyy.fanoronaakalana.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
 
 import com.tambyy.fanoronaakalana.dao.FolderDao;
 import com.tambyy.fanoronaakalana.dao.GameDao;
@@ -59,7 +60,7 @@ public abstract class FanoronaDatabase extends RoomDatabase {
         return new Callback() {
 
             @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
 
                 // Folder
@@ -127,27 +128,35 @@ public abstract class FanoronaDatabase extends RoomDatabase {
 
         ContentValues contentValues1 = new ContentValues();
         contentValues1.put("id", 1);
-        contentValues1.put("name", "Perle");
+        contentValues1.put("name", "Lite");
         contentValues1.put("created_at", dateNow);
-        contentValues1.put("folder_name", "pearl");
+        contentValues1.put("folder_name", "lite");
 
         db.insert("Theme", OnConflictStrategy.IGNORE, contentValues1);
 
         ContentValues contentValues2 = new ContentValues();
         contentValues2.put("id", 2);
-        contentValues2.put("name", "Echec");
+        contentValues2.put("name", "Perle");
         contentValues2.put("created_at", dateNow);
-        contentValues2.put("folder_name", "chessboard");
+        contentValues2.put("folder_name", "pearl");
 
         db.insert("Theme", OnConflictStrategy.IGNORE, contentValues2);
 
         ContentValues contentValues3 = new ContentValues();
         contentValues3.put("id", 3);
-        contentValues3.put("name", "Bouton");
+        contentValues3.put("name", "Echec");
         contentValues3.put("created_at", dateNow);
-        contentValues3.put("folder_name", "button");
+        contentValues3.put("folder_name", "chessboard");
 
         db.insert("Theme", OnConflictStrategy.IGNORE, contentValues3);
+
+        ContentValues contentValues4 = new ContentValues();
+        contentValues4.put("id", 4);
+        contentValues4.put("name", "Bouton");
+        contentValues4.put("created_at", dateNow);
+        contentValues4.put("folder_name", "button");
+
+        db.insert("Theme", OnConflictStrategy.IGNORE, contentValues4);
 
     }
 }

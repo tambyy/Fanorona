@@ -1,337 +1,549 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".OptionActivity"
-    android:orientation="vertical"
-    android:padding="15dp">
+    android:orientation="vertical">
 
-    <ScrollView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:gravity="center">
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:orientation="vertical"
+            android:weightSum="20"
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dip"
+                android:layout_weight="14"
+                android:weightSum="10"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/app_title"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:gravity="center"
-                    android:textSize="25sp"
-                    android:textColor="#FFFF"
-                    android:textStyle="bold"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="30dp"
-                    android:transitionName="app_title_transition"/>
+                    android:layout_height="0dip"
+                    android:layout_weight="5"
+                    android:orientation="horizontal"
+                    android:gravity="center">
 
-                <!-- Game mode -->
+                    <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:backgroundTint="#0000"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:onClick="launchOptionGameModeActivity">
 
-                <LinearLayout
-                    style="@style/OptionsItemLayout">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/option_game_mode_bg"
+                            android:weightSum="20"
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
 
-                    <ImageView
-                        style="@style/OptionsIcon"
-                        android:src="@drawable/option_mode"
-                        android:contentDescription="@string/game_option_mode"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="6"
+                                android:layout_alignParentBottom="true"
+                                android:text="@string/game_option_mode"
+                                android:textColor="#FFF"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:maxLines="2"/>
 
-                    <TextView
-                        style="@style/OptionsLabel"
-                        android:text="@string/game_option_mode" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="9"
+                                android:orientation="vertical"
+                                android:weightSum="10"
+                                android:src="@drawable/home_play_ic"
+                                android:gravity="center|top">
 
-                    <RadioGroup
-                        android:id="@+id/game_option_mode"
-                        style="@style/OptionsRadioGroup">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="6"
+                                    android:src="@drawable/option_game_mode_ic">
 
-                        <RadioButton
-                            android:id="@+id/game_option_mode_riatra"
-                            style="@style/OptionsRadio"
-                            android:text="@string/game_option_mode_riatra"
-                            android:checked="true"/>
+                                </ImageView>
 
-                        <RadioButton
-                            android:id="@+id/game_option_mode_vela_black"
-                            style="@style/OptionsRadio"
-                            android:text="@string/game_option_mode_vela_black"/>
+                            </LinearLayout>
 
-                        <RadioButton
-                            android:id="@+id/game_option_mode_vela_white"
-                            style="@style/OptionsRadio"
-                            android:text="@string/game_option_mode_vela_white"/>
+                            <TextView
+                                android:id="@+id/option_game_mode_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="5"
+                                android:layout_alignParentBottom="true"
+                                android:text="@string/game_option_mode_riatra"
+                                android:textColor="#FFF"
+                                android:gravity="center"
+                                android:textStyle="bold"/>
 
-                    </RadioGroup>
+                        </LinearLayout>
+
+                    </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
+
+                    <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:backgroundTint="#0000"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:onClick="launchOptionFirstMoveActivity">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/option_first_move_bg"
+                            android:weightSum="20"
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="6"
+                                android:layout_alignParentBottom="true"
+                                android:text="@string/game_option_move_first"
+                                android:textColor="#FFF"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:maxLines="2"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="9"
+                                android:orientation="vertical"
+                                android:weightSum="10"
+                                android:src="@drawable/home_play_ic"
+                                android:gravity="center|top">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="6"
+                                    android:src="@drawable/option_first_move_ic">
+
+                                </ImageView>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/option_first_move_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="5"
+                                android:layout_alignParentBottom="true"
+                                android:text="Noir"
+                                android:textColor="#FFF"
+                                android:gravity="center"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+                    </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
+
+                    <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:backgroundTint="#0000"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:onClick="launchOptionPlayAgainstActivity">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/option_play_against_bg"
+                            android:weightSum="20"
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="6"
+                                android:layout_alignParentBottom="true"
+                                android:text="@string/game_option_against"
+                                android:textColor="#FFF"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:maxLines="2"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="9"
+                                android:orientation="vertical"
+                                android:weightSum="10"
+                                android:src="@drawable/home_play_ic"
+                                android:gravity="center|top">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="6"
+                                    android:src="@drawable/option_play_against_ic">
+
+                                </ImageView>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/option_play_against_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="5"
+                                android:layout_alignParentBottom="true"
+                                android:text="Humain"
+                                android:textColor="#FFF"
+                                android:gravity="center"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+                    </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
 
                 </LinearLayout>
 
-
-                <!-- Move first -->
-
                 <LinearLayout
-                    style="@style/OptionsItemLayout">
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="5"
+                    android:orientation="horizontal"
+                    android:gravity="center">
 
-                    <ImageView
-                        style="@style/OptionsIcon"
-                        android:src="@drawable/option_first"
-                        android:contentDescription="@string/game_option_move_first" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        style="@style/OptionsLabel"
-                        android:text="@string/game_option_move_first" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="10dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/option_ai_level_header_ic">
 
-                    <RadioGroup
-                        android:id="@+id/game_option_move_first"
-                        style="@style/OptionsRadioGroup">
+                        </ImageView>
 
-                        <RadioButton
-                            android:id="@+id/game_option_move_first_black"
-                            style="@style/OptionsRadio"
-                            android:text="@string/game_option_move_first_black"
-                            android:checked="true"/>
+                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:backgroundTint="#0000"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="15dp"
+                            android:onClick="launchOptionAiLevelActivity">
 
-                        <RadioButton
-                            android:id="@+id/game_option_move_first_white"
-                            style="@style/OptionsRadio"
-                            android:text="@string/game_option_move_first_white"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/option_ai_level_bg"
+                                android:weightSum="20"
+                                android:orientation="vertical"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp">
 
-                    </RadioGroup>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="6"
+                                    android:layout_alignParentBottom="true"
+                                    android:text="@string/game_option_ai_level"
+                                    android:textColor="#FFF"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:maxLines="2"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="9"
+                                    android:orientation="vertical"
+                                    android:weightSum="10"
+                                    android:src="@drawable/home_play_ic"
+                                    android:gravity="center|top">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dip"
+                                        android:layout_weight="6"
+                                        android:src="@drawable/option_ai_level_ic">
+
+                                    </ImageView>
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/option_ai_level_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="5"
+                                    android:layout_alignParentBottom="true"
+                                    android:text="10"
+                                    android:textColor="#FFF"
+                                    android:gravity="center"
+                                    android:textStyle="bold"/>
+
+                            </LinearLayout>
+
+                        </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="10dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/option_ai_max_reflexion_time_header_ic">
+
+                        </ImageView>
+
+                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:backgroundTint="#0000"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="15dp"
+                            android:onClick="launchOptionAiMaxSearchTimeActivity">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/option_ai_max_reflexion_time_bg"
+                                android:weightSum="20"
+                                android:orientation="vertical"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="6"
+                                    android:layout_alignParentBottom="true"
+                                    android:text="@string/game_option_ai_max_time_eval"
+                                    android:textColor="#FFF"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:maxLines="2"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="9"
+                                    android:orientation="vertical"
+                                    android:weightSum="10"
+                                    android:src="@drawable/home_play_ic"
+                                    android:gravity="center|top">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dip"
+                                        android:layout_weight="6"
+                                        android:src="@drawable/option_ai_max_reflexion_time_ic">
+
+                                    </ImageView>
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/option_ai_max_relexion_time_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="5"
+                                    android:layout_alignParentBottom="true"
+                                    android:text="10s"
+                                    android:textColor="#FFF"
+                                    android:gravity="center"
+                                    android:textStyle="bold"/>
+
+                            </LinearLayout>
+
+                        </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="10dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/option_ai_ponder_header_ic">
+
+                        </ImageView>
+
+                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:backgroundTint="#0000"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="15dp"
+                            android:onClick="launchOptionAiPonderActivity">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/option_ai_ponder_bg"
+                                android:weightSum="20"
+                                android:orientation="vertical"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="6"
+                                    android:layout_alignParentBottom="true"
+                                    android:text="@string/game_option_ai_ponder"
+                                    android:textColor="#FFF"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:maxLines="2"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="9"
+                                    android:orientation="vertical"
+                                    android:weightSum="10"
+                                    android:src="@drawable/home_play_ic"
+                                    android:gravity="center|top">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dip"
+                                        android:layout_weight="6"
+                                        android:src="@drawable/option_ai_ponder_ic">
+
+                                    </ImageView>
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/option_ai_ponder_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dip"
+                                    android:layout_weight="5"
+                                    android:layout_alignParentBottom="true"
+                                    android:text="Oui"
+                                    android:textColor="#FFF"
+                                    android:gravity="center"
+                                    android:textStyle="bold"/>
+
+                            </LinearLayout>
+
+                        </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
-
-                <!-- Against -->
-
-                <LinearLayout
-                    style="@style/OptionsItemLayout">
-
-                    <ImageView
-                        style="@style/OptionsIcon"
-                        android:src="@drawable/option_vs"
-                        android:contentDescription="@string/game_option_against" />
-
-                    <TextView
-                        style="@style/OptionsLabel"
-                        android:text="@string/game_option_against" />
-
-                    <RadioGroup
-                        android:id="@+id/game_option_against"
-                        style="@style/OptionsRadioGroup">
-
-                        <RadioButton
-                            style="@style/OptionsRadio"
-                            android:id="@+id/game_option_against_human"
-                            android:text="@string/game_option_against_human"
-                            android:checked="true"/>
-
-                        <RadioButton
-                            android:id="@+id/game_option_against_ai_black"
-                            style="@style/OptionsRadio"
-                            android:text="@string/game_option_against_ai_black"/>
-
-                        <RadioButton
-                            style="@style/OptionsRadio"
-                            android:id="@+id/game_option_against_ai_white"
-                            android:text="@string/game_option_against_ai_white"/>
-
-                    </RadioGroup>
-
-                </LinearLayout>
             </LinearLayout>
 
-
-            <!-- IA -->
-
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="7dp"
-                android:layout_marginTop="20dp">
+                android:layout_height="0dip"
+                android:orientation="horizontal"
+                android:layout_weight="3"
+                android:gravity="center|bottom">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="#333">
+                <Button
+                    android:id="@+id/game_option_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/btn_blue"
+                    android:textColor="#FFF"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/game_option_play"
+                    android:onClick="launchGameActivity"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="IA"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:padding="7dp"
-                        android:paddingStart="15dp"
-                        android:textColor="#FFF"/>
+                <Button
+                    android:id="@+id/game_option_resume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/btn_green"
+                    android:textColor="#FFF"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/game_option_resume"
+                    android:visibility="gone"
+                    android:onClick="resumeGameActivity"/>
 
+                <Button
+                    android:id="@+id/game_option_re_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/btn_orange"
+                    android:textColor="#FFF"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/game_option_re_edit"
+                    android:visibility="gone"
+                    android:onClick="resumeEditionActivity"/>
 
-                    <!-- IA Level -->
-
-                    <LinearLayout
-                        android:id="@+id/game_option_ai_level_choose"
-                        style="@style/OptionsItemLayout"
-                        android:onClick="launchOptionAiLevelActivity">
-
-                        <ImageView
-                            style="@style/OptionsIcon"
-                            android:src="@drawable/option_ai_level"
-                            android:contentDescription="@string/game_option_ai_level" />
-
-                        <TextView
-                            style="@style/OptionsLabel"
-                            android:text="@string/game_option_ai_level" />
-
-                        <TextView
-                            android:id="@+id/game_option_ai_level"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:textSize="15sp"
-                            android:textColor="#FFF"
-                            android:gravity="center"
-                            android:textStyle="bold"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
-                            android:background="@drawable/border_bottom_3d_bg"
-                            android:text="@string/game_option_ai_level_8" />
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="30dp"
-                            android:padding="5dp"
-                            android:src="@drawable/option_ai_level_choose" />
-
-                    </LinearLayout>
-
-
-                    <!-- IA max search time -->
-
-                    <LinearLayout
-                        android:id="@+id/game_option_ai_max_search_time_choose"
-                        style="@style/OptionsItemLayout"
-                        android:onClick="launchOptionAiMaxSearchTimeActivity">
-
-                        <ImageView
-                            style="@style/OptionsIcon"
-                            android:src="@drawable/option_ai_max_reflexion_time"
-                            android:contentDescription="@string/game_option_ai_max_eval_time" />
-
-                        <TextView
-                            style="@style/OptionsLabel"
-                            android:text="@string/game_option_ai_max_eval_time" />
-
-                        <TextView
-                            android:id="@+id/game_option_ai_max_search_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:textSize="15sp"
-                            android:textColor="#FFF"
-                            android:gravity="center"
-                            android:textStyle="bold"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
-                            android:background="@drawable/border_bottom_3d_bg"
-                            android:text="5s" />
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="30dp"
-                            android:padding="5dp"
-                            android:paddingEnd="0dp"
-                            android:src="@drawable/option_ai_level_choose" />
-
-                    </LinearLayout>
-
-
-                    <!-- IA ponder -->
-
-                    <LinearLayout
-                        style="@style/OptionsItemLayout">
-
-                        <ImageView
-                            style="@style/OptionsIcon"
-                            android:src="@drawable/option_ai_ponder"
-                            android:contentDescription="@string/game_option_ia_ponder" />
-
-                        <TextView
-                            style="@style/OptionsLabel"
-                            android:text="@string/game_option_ia_ponder" />
-
-                        <RadioGroup
-                            android:id="@+id/game_option_ai_ponder"
-                            style="@style/OptionsRadioGroup">
-
-                            <RadioButton
-                                android:id="@+id/game_option_ai_ponder_yes"
-                                style="@style/OptionsRadio"
-                                android:text="@string/game_option_ai_ponder_yes"
-                                android:checked="true"/>
-
-                            <RadioButton
-                                android:id="@+id/game_option_ai_ponder_no"
-                                style="@style/OptionsRadio"
-                                android:text="@string/game_option_ai_ponder_no"/>
-
-                        </RadioGroup>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
-
-    <!-- FOOTER -->
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_centerInParent="true"
-            android:paddingTop="15dp">
-
-            <!-- Play -->
-
-            <android.widget.Button
-                style="@style/OptionsButton"
-                android:id="@+id/game_option_play"
-                android:text="@string/game_option_action_play"
-                android:onClick="launchGameActivity" />
-
-            <!-- Resume previous game -->
-
-            <android.widget.Button
-                style="@style/OptionsButton"
-                android:id="@+id/game_option_resume"
-                android:text="@string/game_option_action_resume"
-                android:visibility="gone"
-                android:onClick="resumeGameActivity" />
-
-            <!-- Re edit gale board -->
-
-            <android.widget.Button
-                style="@style/OptionsButton"
-                android:id="@+id/game_option_re_edit"
-                android:text="@string/game_option_action_re_edit"
-                android:visibility="gone"
-                android:onClick="resumeEditionActivity" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

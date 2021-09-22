@@ -1,0 +1,41 @@
+{
+	"akalana": {
+		"bg": "akalana.png"
+	},
+	"black": {
+		"default": {
+			"image": "black_default.png"
+		},
+		"movable": {
+			"image": "black_movable.png"
+		},
+		"selected": {
+			"image": "black_selected.png"
+		}
+	},
+	"white": {
+		"default": {
+			"image": "white_default.png"
+		},
+		"movable": {
+			"image": "white_movable.png"
+		},
+		"selected": {
+			"image": "white_selected.png"
+		}
+	},
+	"position": {
+		"traveled": {
+			"color": "#FFFFFF",
+			"opacity": 100
+		},
+		"movable": {
+			"color": "#FFFFFF",
+			"opacity": 100
+		},
+		"removeble": {
+			"color": "#FFFFFF",
+			"opacity": 100
+		},
+	}
+}

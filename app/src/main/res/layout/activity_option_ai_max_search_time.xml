@@ -3,36 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".OptionAiMaxSearchTimeActivity"
-    android:padding="20dp">
+    android:layout_height="wrap_content"
+    tools:context=".OptionAiLevelActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:paddingTop="30dp">
 
-        <TextView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Temps de refléxion max en second"
-            android:textColor="#FFF"
-            android:textSize="25sp"
-            android:layout_marginBottom="20dp"/>
+            app:cardCornerRadius="20dp"
+            android:backgroundTint="#294155">
 
-        <GridView
-            android:id="@+id/option_ai_max_search_time_grid_view"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="5"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            android:stretchMode="columnWidth"
-            android:gravity="center"
-            />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </LinearLayout>
+                <ImageView
+                    android:src="@drawable/background_popup"
+                    android:scaleType="fitXY"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_alignTop="@+id/option_ai_max_search_time_grid_view"
+                    android:layout_alignBottom="@id/option_ai_max_search_time_grid_view"
+                    android:layout_alignLeft="@id/option_ai_max_search_time_grid_view"
+                    android:layout_alignRight="@id/option_ai_max_search_time_grid_view" />
 
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/background_popup_header" />
+
+                <GridView
+                    android:id="@+id/option_ai_max_search_time_grid_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="5"
+                    android:verticalSpacing="10dp"
+                    android:horizontalSpacing="10dp"
+                    android:stretchMode="columnWidth"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="40dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp"
+                    />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/option_ai_max_reflexion_time_popup_ic" />
 
 </RelativeLayout>

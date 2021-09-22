@@ -536,7 +536,7 @@ PieceMoveSession* Search::evaluate(const Fanorona &f, bool forPonder) {
     ) {
         //std::cout << currentIterativeDeepeningLevel << " ";
         //ALOG("%d: %d", (int) forPonder, currentIterativeDeepeningLevel);
-        ALOG(" >> %d %d %d %d", currentIterativeDeepeningLevel, (int) forPonder, (int) pondering, n);
+        ALOG(" >> %d %d %d %d %d", currentIterativeDeepeningLevel, (int) forPonder, (int) pondering, n, nodesCount);
 
         //if (!pondering) {
         //std::cout << currentIterativeDeepeningLevel << " ";

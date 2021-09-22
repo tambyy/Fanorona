@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/transparent"
-            app:cardCornerRadius="5dp">
+            app:cardCornerRadius="8dp">
 
             <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
                 android:id="@+id/saved_game_akalana"
@@ -43,6 +43,7 @@
                     android:textColor="#FFF"
                     android:textSize="13sp"
                     android:paddingBottom="2dp"
+                    android:textStyle="bold"
                     android:gravity="center">
 
                 </TextView>

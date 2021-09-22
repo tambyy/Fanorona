@@ -6,6 +6,9 @@ import butterknife.ButterKnife;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.WindowManager;
 import android.widget.GridView;
 
 import com.tambyy.fanoronaakalana.adapter.OptionAiLevelAdapter;
@@ -27,7 +30,19 @@ public class OptionAiLevelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_option_ai_level);
         ButterKnife.bind(this);
 
-        for (int i = 1; i <= 20; ++i) {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int width = dm.widthPixels;
+
+        getWindow().setLayout((int) (width * 0.35), WindowManager.LayoutParams.WRAP_CONTENT);
+
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+
+        getWindow().setAttributes(params);
+
+        for (int i = 1; i <= 12; ++i) {
             aiStats.add(new AIStat(i, 0));
         }
 

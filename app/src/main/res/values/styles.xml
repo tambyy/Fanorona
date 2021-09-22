@@ -14,7 +14,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">5dp</item>
-        <item name="android:background">@drawable/border_bottom_3d_bg</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">10dp</item>
@@ -30,7 +29,6 @@
         <item name="android:paddingRight">7dp</item>
         <item name="android:paddingTop">12dp</item>
         <item name="android:paddingBottom">12dp</item>
-        <item name="android:background">@drawable/option_layout_border_top</item>
     </style>
 
     <!-- Options icon -->
@@ -76,7 +74,6 @@
     <style name="OptionsButton" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/border_bottom_3d_bg</item>
         <item name="android:textColor">#FFF</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
@@ -106,7 +103,7 @@
         <item name="android:layout_height">40dp</item>
         <item name="android:background">@color/transparent</item>
         <item name="android:scaleType">fitCenter</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:padding">3dp</item>
     </style>
 
 
@@ -125,24 +122,24 @@
     <!-- Saved game -->
 
     <style name="SavedGameButtonLayout" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginBottom">10dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
     <style name="SavedGameButton" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
         <item name="android:background">@color/transparent</item>
         <item name="android:scaleType">fitCenter</item>
-        <item name="android:padding">4dp</item>
     </style>
 
     <style name="SavedGameButtonText" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
     </style>

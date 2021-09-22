@@ -6,6 +6,9 @@ import butterknife.ButterKnife;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.WindowManager;
 import android.widget.GridView;
 
 import com.tambyy.fanoronaakalana.adapter.OptionAiMaxSearchTimeAdapter;
@@ -24,9 +27,21 @@ public class OptionAiMaxSearchTimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_option_ai_max_search_time);
         ButterKnife.bind(this);
 
-        List<Float> times = new ArrayList<>();
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        for (float i = 0.5f; i <= 20f; i += 0.5f) {
+        int width = dm.widthPixels;
+
+        getWindow().setLayout((int) (width * 0.4), WindowManager.LayoutParams.WRAP_CONTENT);
+
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+
+        getWindow().setAttributes(params);
+
+        List<Integer> times = new ArrayList<>();
+
+        for (int i = 1; i <= 20; i++) {
             times.add(i);
         }
 

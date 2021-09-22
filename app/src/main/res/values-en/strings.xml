@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Home -->
+    <string name="home_play">New game</string>
+    <string name="home_edit">Edit</string>
+    <string name="home_save">Save</string>
+    <string name="home_setting">Setting</string>
+    <string name="home_about">About</string>
+
+    <!-- Opions -->
+    <string name="game_option_mode">Game mode</string>
+    <string name="game_option_against">Agaisnt</string>
+    <string name="game_option_move_first">First move</string>
+    <string name="game_option_ai_level">Level</string>
+    <string name="game_option_ai_max_time_eval">Max time</string>
+    <string name="game_option_ai_ponder">Ponder</string>
+
+    <!-- Opion mode -->
+    <string name="game_option_mode_riatra">Riatra</string>
+    <string name="game_option_mode_vela_black">Vela [Black]</string>
+    <string name="game_option_mode_vela_white">Vela [White]</string>
+
+    <!-- Opion against -->
+    <string name="game_option_against_human">Human</string>
+    <string name="game_option_against_ai_black">AI [Black]</string>
+    <string name="game_option_against_ai_white">AI [White]</string>
+
+    <!-- Opion move first -->
+    <string name="game_option_move_first_black">Black</string>
+    <string name="game_option_move_first_white">White</string>
+
+    <!-- Opion AI ponder -->
+    <string name="game_option_ai_ponder_yes">Yes</string>
+    <string name="game_option_ai_ponder_no">No</string>
+
+    <!-- Opion Buttons -->
+    <string name="game_option_play">Play</string>
+    <string name="game_option_resume">Resume</string>
+    <string name="game_option_re_edit">Re-edit</string>
+
+    <!-- Save games -->
+    <string name="saved_games_new_folder">New folder</string>
+    <string name="saved_games_move_items">Move</string>
+    <string name="saved_games_move_items_here">Move here</string>
+    <string name="saved_games_cancel">Cancel</string>
+    <string name="saved_games_remove">Remove</string>
+    <string name="saved_games_edit">Edit</string>
+    <string name="saved_games_save_here">Save here</string>
+    <string name="saved_games_game_name_placeholder">Game name ...</string>
+    <string name="saved_games_game_name_empty_msg">You should fill the game name field</string>
+    <string name="saved_games_edit_save">Save</string>
+
+    <!-- Save games -->
+    <string name="setting_theme">Theme</string>
+    <string name="setting_sound">Sound</string>
+    <string name="setting_language">Language</string>
+
+</resources>

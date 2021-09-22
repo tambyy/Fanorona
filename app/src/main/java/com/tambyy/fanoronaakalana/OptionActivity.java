@@ -5,44 +5,40 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.tambyy.fanoronaakalana.engine.Engine;
 import com.tambyy.fanoronaakalana.utils.EngineActionsConverter;
+import com.tambyy.fanoronaakalana.utils.LocaleManager;
 import com.tambyy.fanoronaakalana.utils.PreferenceManager;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class OptionActivity extends AppCompatActivity {
 
-    @BindView(R.id.game_option_mode)
-    RadioGroup radioGroupOptionMode;
+    @BindView(R.id.option_game_mode_text)
+    TextView textViewGameMode;
 
-    @BindView(R.id.game_option_move_first)
-    RadioGroup radioGroupOptionMoveFirst;
+    @BindView(R.id.option_first_move_text)
+    TextView textViewFirstMove;
 
-    @BindView(R.id.game_option_against)
-    RadioGroup radioGroupOptionAgainst;
+    @BindView(R.id.option_play_against_text)
+    TextView textViewPlayAgainst;
 
-    @BindView(R.id.game_option_ai_ponder)
-    RadioGroup radioGroupOptionAiPonder;
+    @BindView(R.id.option_ai_level_text)
+    TextView textViewAILevel;
 
-    @BindView(R.id.game_option_ai_level_choose)
-    LinearLayout linearLayoutGameOptionAiLevelChoose;
+    @BindView(R.id.option_ai_max_relexion_time_text)
+    TextView textViewAIMaxReflexionTime;
 
-    @BindView(R.id.game_option_ai_max_search_time_choose)
-    LinearLayout linearLayoutGameOptionAiMaxSearchTimeChoose;
+    @BindView(R.id.option_ai_ponder_text)
+    TextView textViewAIPonder;
 
-    @BindView(R.id.game_option_ai_level)
-    TextView textViewGameOptionAiLevel;
-
-    @BindView(R.id.game_option_ai_max_search_time)
-    TextView textViewGameOptionAiMaxSearchTime;
 
     @BindView(R.id.game_option_play)
     Button buttonGameOptionPlay;
@@ -53,39 +49,10 @@ public class OptionActivity extends AppCompatActivity {
     @BindView(R.id.game_option_re_edit)
     Button buttonGameOptionReEdit;
 
-    /**
-     *
-     */
-    private static final Map<Integer, Integer> GAME_MODE_OPTION_VALUES = Map.of(
-            R.id.game_option_mode_riatra,     0,
-            R.id.game_option_mode_vela_black, 1,
-            R.id.game_option_mode_vela_white, 2
-    );
-
-    /**
-     *
-     */
-    private static final Map<Integer, Integer> GAME_MOVE_FIRST_OPTION_VALUES = Map.of(
-            R.id.game_option_move_first_black, 0,
-            R.id.game_option_move_first_white, 1
-    );
-
-    /**
-     *
-     */
-    private static final Map<Integer, Integer> GAME_AGAINST_OPTION_VALUES = Map.of(
-            R.id.game_option_against_human,    0,
-            R.id.game_option_against_ai_black, 1,
-            R.id.game_option_against_ai_white, 2
-    );
-
-    /**
-     *
-     */
-    private static final Map<Integer, Integer> GAME_AI_PONDER_OPTION_VALUES = Map.of(
-            R.id.game_option_ai_ponder_yes, 0,
-            R.id.game_option_ai_ponder_no,  1
-    );
+    private Map<Integer, String> game_mode_option_values;
+    private Map<Integer, String> first_move_option_values;
+    private Map<Integer, String> play_against_option_values;
+    private Map<Integer, String> ai_ponder_values;
 
     private static final String PREF_OPTION_MODE = "OPTION_MODE";
     private static final String PREF_OPTION_MOVE_FIRST = "OPTION_MOVE_FIRST";
@@ -94,13 +61,21 @@ public class OptionActivity extends AppCompatActivity {
     private static final String PREF_OPTION_AI_MAX_SEARCH_TIME = "OPTION_AI_MAX_SEARCH_TIME";
     private static final String PREF_OPTION_AI_PONDER = "OPTION_AI_PONDER";
 
-    public static final int AI_LEVEL_CODE = 0;
-    public static final int AI_MAX_SEARCH_TIME_CODE = 1;
-    public static final int GAME_RESUME_CODE = 2;
-    public static final int EDITION_OK = 3;
+    public static final int GAME_MODE_CODE = 0;
+    public static final int FIRST_MOVE_CODE = 1;
+    public static final int PLAY_AGAINST_CODE = 2;
+    public static final int AI_LEVEL_CODE = 3;
+    public static final int AI_MAX_SEARCH_TIME_CODE = 4;
+    public static final int AI_PONDER_CODE = 5;
+    public static final int GAME_RESUME_CODE = 6;
+    public static final int EDITION_OK = 7;
 
+    public static final String GAME_MODE_VALUE_CODE = "GAME_MODE_VALUE_CODE";
+    public static final String FIRST_MOVE_VALUE_CODE = "FIRST_MOVE_VALUE_CODE";
+    public static final String PLAY_AGAINST_VALUE_CODE = "PLAY_AGAINST_VALUE_CODE";
     public static final String AI_LEVEL_VALUE_CODE = "AI_LEVEL_VALUE";
     public static final String AI_MAX_SEARCh_TIME_VALUE_CODE = "AI_MAX_SEARCH_TIME_VALUE";
+    public static final String AI_PONDER_VALUE_CODE = "AI_PONDER_VALUE_CODE";
     public static final String GAME_RESUME_HISTORY_VALUE_CODE = "GAME_RESUME_CODE_VALUE_CODE";
     public static final String GAME_RESUME_HISTORY_INDEX_VALUE_CODE = "GAME_RESUME_HISTORY_INDEX_VALUE_CODE";
     public static final String GAME_RESUME_HISTORY_BEGIN_TIME_VALUE_CODE = "GAME_RESUME_HISTORY_BEGIN_TIME_VALUE_CODE";
@@ -183,7 +158,7 @@ public class OptionActivity extends AppCompatActivity {
      * 1: black AI
      * 2: White AI
      */
-    private int optionAiMaxSearchTime = 5000;
+    private int optionAiMaxReflexionTime = 5000;
 
     /**
      * Option AI Ponder
@@ -219,10 +194,11 @@ public class OptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_option);
         ButterKnife.bind(this);
 
+        loadOptionsValues();
+
         this.preferenceManager = PreferenceManager.getInstance(this);
-
         loadPreferences();
-
+/*
         // Set game mode
         radioGroupOptionMode.setOnCheckedChangeListener((group, checkedId) -> optionMode = GAME_MODE_OPTION_VALUES.get(checkedId));
         // Set move first
@@ -231,7 +207,7 @@ public class OptionActivity extends AppCompatActivity {
         radioGroupOptionAgainst.setOnCheckedChangeListener((group, checkedId) -> optionAgaisnt = GAME_AGAINST_OPTION_VALUES.get(checkedId));
         // Set AI ponder
         radioGroupOptionAiPonder.setOnCheckedChangeListener((group, checkedId) -> optionAiPonder = GAME_AI_PONDER_OPTION_VALUES.get(checkedId));
-
+*/
         // check intent from EditionActivity
         intentFromEditionActivity();
     }
@@ -253,28 +229,52 @@ public class OptionActivity extends AppCompatActivity {
 
                 // Vela black
                 if (blackPositions.length == 22 && whitePositions.length < 20) {
-                    radioGroupOptionMode.check(R.id.game_option_mode_vela_black);
+                    setOptionGameMode(Constants.OPTION_GAME_MODE_VELA_BLACK);
 
                     // White must move first
                     if (whitePositions.length == 5) {
-                        radioGroupOptionMoveFirst.check(R.id.game_option_move_first_white);
+                        setOptionFirstMove(Constants.OPTION_FIRST_MOVE_WHITE);
                     }
                 // Vela White
                 } else if (blackPositions.length < 20 && whitePositions.length == 22) {
-                    radioGroupOptionMode.check(R.id.game_option_mode_vela_white);
+                    setOptionGameMode(Constants.OPTION_GAME_MODE_VELA_WHITE);
 
                     // Black must move first
                     if (blackPositions.length == 5) {
-                        radioGroupOptionMoveFirst.check(R.id.game_option_move_first_black);
+                        setOptionFirstMove(Constants.OPTION_FIRST_MOVE_BLACK);
                     }
                 // Riatra
                 } else {
-                    radioGroupOptionMode.check(R.id.game_option_mode_riatra);
+                    setOptionGameMode(Constants.OPTION_GAME_MODE_RIATRA);
                 }
 
                 buttonGameOptionReEdit.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    /**
+     *
+     */
+    public void launchOptionGameModeActivity(View v) {
+        Intent intent = new Intent(this, OptionGameModeActivity.class);
+        startActivityForResult(intent, GAME_MODE_CODE);
+    }
+
+    /**
+     *
+     */
+    public void launchOptionFirstMoveActivity(View v) {
+        Intent intent = new Intent(this, OptionFirstMoveActivity.class);
+        startActivityForResult(intent, FIRST_MOVE_CODE);
+    }
+
+    /**
+     *
+     */
+    public void launchOptionPlayAgainstActivity(View v) {
+        Intent intent = new Intent(this, OptionPlayAgainstActivity.class);
+        startActivityForResult(intent, PLAY_AGAINST_CODE);
     }
 
     /**
@@ -296,6 +296,14 @@ public class OptionActivity extends AppCompatActivity {
     /**
      *
      */
+    public void launchOptionAiPonderActivity(View v) {
+        Intent intent = new Intent(this, OptionAiPonderActivity.class);
+        startActivityForResult(intent, AI_PONDER_CODE);
+    }
+
+    /**
+     *
+     */
     public void launchGameActivity(View v) {
         Intent intent = new Intent(this, GameActivity.class);
 
@@ -303,7 +311,7 @@ public class OptionActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_GAME_MOVE_FIRST_CODE,         optionMoveFirst);
         intent.putExtra(EXTRA_GAME_AGAINST_CODE,            optionAgaisnt);
         intent.putExtra(EXTRA_GAME_AI_LEVEL_CODE,           optionAiLevel);
-        intent.putExtra(EXTRA_GAME_AI_MAX_SEARCH_TIME_CODE, optionAiMaxSearchTime);
+        intent.putExtra(EXTRA_GAME_AI_MAX_SEARCH_TIME_CODE, optionAiMaxReflexionTime);
         intent.putExtra(EXTRA_GAME_AI_PONDER_CODE,          optionAiPonder);
 
         // config from EditionActivity if exists
@@ -330,7 +338,7 @@ public class OptionActivity extends AppCompatActivity {
 
         intent.putExtra(EXTRA_GAME_AGAINST_CODE,            optionAgaisnt);
         intent.putExtra(EXTRA_GAME_AI_LEVEL_CODE,           optionAiLevel);
-        intent.putExtra(EXTRA_GAME_AI_MAX_SEARCH_TIME_CODE, optionAiMaxSearchTime);
+        intent.putExtra(EXTRA_GAME_AI_MAX_SEARCH_TIME_CODE, optionAiMaxReflexionTime);
         intent.putExtra(EXTRA_GAME_AI_PONDER_CODE,          optionAiPonder);
 
         startActivityForResult(intent, GAME_RESUME_CODE);
@@ -353,9 +361,33 @@ public class OptionActivity extends AppCompatActivity {
      *
      * @param bundle
      */
+    private void onOptionGameModeActivityResult(Bundle bundle) {
+        setOptionGameMode(bundle.getInt(GAME_MODE_VALUE_CODE));
+    }
+
+    /**
+     *
+     * @param bundle
+     */
+    private void onOptionFirstMoveActivityResult(Bundle bundle) {
+        setOptionFirstMove(bundle.getInt(FIRST_MOVE_VALUE_CODE));
+    }
+
+    /**
+     *
+     * @param bundle
+     */
+    private void onOptionPlayAgainstActivityResult(Bundle bundle) {
+        setOptionPlayAgainst(bundle.getInt(PLAY_AGAINST_VALUE_CODE));
+    }
+
+    /**
+     *
+     * @param bundle
+     */
     private void onOptionAiLevelActivityResult(Bundle bundle) {
-        optionAiLevel = bundle.getInt(AI_LEVEL_VALUE_CODE);
-        textViewGameOptionAiLevel.setText(optionAiLevel + "");
+        setOptionAILevel(bundle.getInt(AI_LEVEL_VALUE_CODE));
+        // textViewGameOptionAiLevel.setText(optionAiLevel + "");
     }
 
     /**
@@ -364,8 +396,15 @@ public class OptionActivity extends AppCompatActivity {
      */
     private void onOptionAiMaxSearchTimeActivityResult(Bundle bundle) {
         float value = bundle.getFloat(AI_MAX_SEARCh_TIME_VALUE_CODE);
-        optionAiMaxSearchTime = (int) (1000 * value);
-        textViewGameOptionAiMaxSearchTime.setText(value + "s");
+        setOptionAIMaxReflexionTime((int) (1000 * value));
+    }
+
+    /**
+     *
+     * @param bundle
+     */
+    private void onOptionAiPonderActivityResult(Bundle bundle) {
+        setOptionAIPonder(bundle.getInt(AI_PONDER_VALUE_CODE));
     }
 
     /**
@@ -385,10 +424,18 @@ public class OptionActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
 
-            if (requestCode == AI_LEVEL_CODE) {
+            if (requestCode == GAME_MODE_CODE) {
+                onOptionGameModeActivityResult(bundle);
+            } else if (requestCode == FIRST_MOVE_CODE) {
+                onOptionFirstMoveActivityResult(bundle);
+            } else if (requestCode == PLAY_AGAINST_CODE) {
+                onOptionPlayAgainstActivityResult(bundle);
+            } else if (requestCode == AI_LEVEL_CODE) {
                 onOptionAiLevelActivityResult(bundle);
             } else if (requestCode == AI_MAX_SEARCH_TIME_CODE) {
                 onOptionAiMaxSearchTimeActivityResult(bundle);
+            } else if (requestCode == AI_PONDER_CODE) {
+                onOptionAiPonderActivityResult(bundle);
             } else if (requestCode == GAME_RESUME_CODE) {
                 onGameActivityResult(bundle);
             }
@@ -404,23 +451,46 @@ public class OptionActivity extends AppCompatActivity {
         return null;
     }
 
+    private void setOptionGameMode(int mode) {
+        optionMode = mode;
+        textViewGameMode.setText(game_mode_option_values.get(optionMode));
+    }
+
+    private void setOptionFirstMove(int firstMove) {
+        optionMoveFirst = firstMove;
+        textViewFirstMove.setText(first_move_option_values.get(optionMoveFirst));
+    }
+
+    private void setOptionPlayAgainst(int playAgainst) {
+        optionAgaisnt = playAgainst;
+        textViewPlayAgainst.setText(play_against_option_values.get(optionAgaisnt));
+    }
+
+    private void setOptionAILevel(int aiLevel) {
+        optionAiLevel = aiLevel;
+        textViewAILevel.setText(optionAiLevel + "");
+    }
+
+    private void setOptionAIMaxReflexionTime(int aiMaxReflexionTime) {
+        optionAiMaxReflexionTime = aiMaxReflexionTime;
+        textViewAIMaxReflexionTime.setText((optionAiMaxReflexionTime / 1000) + "s");
+    }
+
+    private void setOptionAIPonder(int aiPonder) {
+        optionAiPonder = aiPonder;
+        textViewAIPonder.setText(ai_ponder_values.get(optionAiPonder));
+    }
+
     /**
      *
      */
     private void loadPreferences() {
-        optionMode            = preferenceManager.get(PREF_OPTION_MODE, 0);
-        optionMoveFirst       = preferenceManager.get(PREF_OPTION_MOVE_FIRST, 0);
-        optionAgaisnt         = preferenceManager.get(PREF_OPTION_AGAISNT, 0);
-        optionAiLevel         = preferenceManager.get(PREF_OPTION_AI_LEVEL, 8);
-        optionAiMaxSearchTime = preferenceManager.get(PREF_OPTION_AI_MAX_SEARCH_TIME, 5000);
-        optionAiPonder        = preferenceManager.get(PREF_OPTION_AI_PONDER, 0);
-
-        radioGroupOptionMode.check(getKey(GAME_MODE_OPTION_VALUES, optionMode));
-        radioGroupOptionMoveFirst.check(getKey(GAME_MOVE_FIRST_OPTION_VALUES, optionMoveFirst));
-        radioGroupOptionAgainst.check(getKey(GAME_AGAINST_OPTION_VALUES, optionAgaisnt));
-        textViewGameOptionAiLevel.setText(optionAiLevel + "");
-        textViewGameOptionAiMaxSearchTime.setText((((float) optionAiMaxSearchTime) / 1000) + "s");
-        radioGroupOptionAiPonder.check(getKey(GAME_AI_PONDER_OPTION_VALUES, optionAiPonder));
+        setOptionGameMode(preferenceManager.get(Constants.PREF_OPTION_GAME_MODE, Constants.OPTION_GAME_MODE_RIATRA));
+        setOptionFirstMove(preferenceManager.get(Constants.PREF_OPTION_FIRST_MOVE, Constants.OPTION_FIRST_MOVE_BLACK));
+        setOptionPlayAgainst(preferenceManager.get(Constants.PREF_OPTION_PLAY_AGAISNT, Constants.OPTION_PLAY_AGAINST_HUMAN));
+        setOptionAILevel(preferenceManager.get(Constants.PREF_OPTION_AI_LEVEL, 8));
+        setOptionAIMaxReflexionTime(preferenceManager.get(Constants.PREF_OPTION_AI_MAX_SEARCH_TIME, 5000));
+        setOptionAIPonder(preferenceManager.get(Constants.PREF_OPTION_AI_PONDER, Constants.OPTION_AI_PONDER_YES));
     }
 
     /**
@@ -431,7 +501,30 @@ public class OptionActivity extends AppCompatActivity {
         preferenceManager.put(PREF_OPTION_MOVE_FIRST, optionMoveFirst);
         preferenceManager.put(PREF_OPTION_AGAISNT, optionAgaisnt);
         preferenceManager.put(PREF_OPTION_AI_LEVEL, optionAiLevel);
-        preferenceManager.put(PREF_OPTION_AI_MAX_SEARCH_TIME, optionAiMaxSearchTime);
+        preferenceManager.put(PREF_OPTION_AI_MAX_SEARCH_TIME, optionAiMaxReflexionTime);
         preferenceManager.put(PREF_OPTION_AI_PONDER, optionAiPonder);
+    }
+
+    private void loadOptionsValues() {
+        Resources res = getResources();
+
+        game_mode_option_values = new HashMap<>();
+        game_mode_option_values.put(Constants.OPTION_GAME_MODE_RIATRA, res.getString(R.string.game_option_mode_riatra));
+        game_mode_option_values.put(Constants.OPTION_GAME_MODE_VELA_BLACK, res.getString(R.string.game_option_mode_vela_black));
+        game_mode_option_values.put(Constants.OPTION_GAME_MODE_VELA_WHITE, res.getString(R.string.game_option_mode_vela_white));
+
+        first_move_option_values = new HashMap<>();
+        first_move_option_values.put(Constants.OPTION_FIRST_MOVE_BLACK, res.getString(R.string.game_option_move_first_black));
+        first_move_option_values.put(Constants.OPTION_FIRST_MOVE_WHITE, res.getString(R.string.game_option_move_first_white));
+
+        play_against_option_values = new HashMap<>();
+        play_against_option_values.put(Constants.OPTION_PLAY_AGAINST_HUMAN, res.getString(R.string.game_option_against_human));
+        play_against_option_values.put(Constants.OPTION_PLAY_AGAINST_AI_BLACK, res.getString(R.string.game_option_against_ai_black));
+        play_against_option_values.put(Constants.OPTION_PLAY_AGAINST_AI_WHITE, res.getString(R.string.game_option_against_ai_white));
+
+        ai_ponder_values = new HashMap<>();
+        ai_ponder_values.put(Constants.OPTION_AI_PONDER_YES, res.getString(R.string.game_option_ai_ponder_yes));
+        ai_ponder_values.put(Constants.OPTION_AI_PONDER_NO, res.getString(R.string.game_option_ai_ponder_no));
+
     }
 }

@@ -4,16 +4,17 @@
     <!-- Home -->
     <string name="home_play">Nouvelle partie</string>
     <string name="home_edit">Editer</string>
-    <string name="home_load_save">Sauvegarde</string>
+    <string name="home_save">Sauvegarde</string>
     <string name="home_setting">Paramètre</string>
+    <string name="home_about">A propos</string>
 
     <!-- Opions -->
     <string name="game_option_mode">Mode du jeu</string>
     <string name="game_option_against">Jouer contre</string>
     <string name="game_option_move_first">Joue en premier</string>
     <string name="game_option_ai_level">Niveau de l\'IA</string>
-    <string name="game_option_ai_max_eval_time">Temps max de refléxion (s)</string>
-    <string name="game_option_ia_ponder">Refléchit pendant votre tour</string>
+    <string name="game_option_ai_max_time_eval">Temps max</string>
+    <string name="game_option_ai_ponder">Ponder</string>
 
     <!-- Opion mode -->
     <string name="game_option_mode_riatra">Riatra</string>
@@ -60,8 +61,25 @@
     <string name="game_option_ai_ponder_no">Non</string>
 
     <!-- Opion Buttons -->
-    <string name="game_option_action_play">Jouer</string>
-    <string name="game_option_action_resume">Reprendre</string>
-    <string name="game_option_action_re_edit">Re-éditer</string>
+    <string name="game_option_play">Jouer</string>
+    <string name="game_option_resume">Reprendre</string>
+    <string name="game_option_re_edit">Re-éditer</string>
+
+    <!-- Save games -->
+    <string name="saved_games_new_folder">Nouveau dossier</string>
+    <string name="saved_games_move_items">Déplacer</string>
+    <string name="saved_games_move_items_here">Déplacer ici</string>
+    <string name="saved_games_cancel">Annuler</string>
+    <string name="saved_games_remove">Supprimer</string>
+    <string name="saved_games_edit">Modifier</string>
+    <string name="saved_games_save_here">Sauvegarder ici</string>
+    <string name="saved_games_game_name_placeholder">Nom de la partie ...</string>
+    <string name="saved_games_game_name_empty_msg">Veuillez renseigner le nom de la partie</string>
+    <string name="saved_games_edit_save">Sauvegarder</string>
+
+    <!-- Save games -->
+    <string name="setting_theme">Theme</string>
+    <string name="setting_sound">Son</string>
+    <string name="setting_language">Langue</string>
 
 </resources>

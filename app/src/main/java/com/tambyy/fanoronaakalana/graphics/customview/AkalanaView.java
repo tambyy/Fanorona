@@ -3,7 +3,6 @@ package com.tambyy.fanoronaakalana.graphics.customview;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.tambyy.fanoronaakalana.config.Theme;
 import com.tambyy.fanoronaakalana.engine.EngineAction;
@@ -215,10 +214,10 @@ public class AkalanaView extends SceneView {
         public void onMovesSequenceOver();
     }
 
-    MovesSequenceOverListener movesSequenceOverListener = null;
+    List<MovesSequenceOverListener> movesSequenceOverListeners = new ArrayList<>();
 
-    public void setMovesSequenceOverListener(MovesSequenceOverListener movesSequenceOverListener) {
-        this.movesSequenceOverListener = movesSequenceOverListener;
+    public void addMovesSequenceOverListener(MovesSequenceOverListener movesSequenceOverListener) {
+        this.movesSequenceOverListeners.add(movesSequenceOverListener);
     }
 
     /**
@@ -478,9 +477,9 @@ public class AkalanaView extends SceneView {
 
         // update black pieces bitmaps
 
-        Bitmap blackDefaultBitmap = theme.getBlackDefaultBitmap() != null ? Bitmap.createScaledBitmap(theme.getBlackDefaultBitmap(), unitSize, unitSize, false): null;
-        Bitmap blackMovableBitmap = theme.getBlackMovableBitmap() != null ? Bitmap.createScaledBitmap(theme.getBlackMovableBitmap(), unitSize, unitSize, false): null;
-        Bitmap blackSelectedBitmap = theme.getBlackSelectedBitmap() != null ? Bitmap.createScaledBitmap(theme.getBlackSelectedBitmap(), unitSize, unitSize, false): null;
+        Bitmap blackDefaultBitmap = theme.getBlackDefaultBitmap() != null ? Bitmap.createScaledBitmap(theme.getBlackDefaultBitmap(), unitSize, unitSize, true): null;
+        Bitmap blackMovableBitmap = theme.getBlackMovableBitmap() != null ? Bitmap.createScaledBitmap(theme.getBlackMovableBitmap(), unitSize, unitSize, true): null;
+        Bitmap blackSelectedBitmap = theme.getBlackSelectedBitmap() != null ? Bitmap.createScaledBitmap(theme.getBlackSelectedBitmap(), unitSize, unitSize, true): null;
 
         for (final Pawn pawn : blackActivePieces) {
             pawn.setBitmaps(
@@ -502,9 +501,9 @@ public class AkalanaView extends SceneView {
             pawn.setStrokeColor(theme.getBlackStrokeColor());
         }
 
-        Bitmap whiteDefaultBitmap = theme.getWhiteDefaultBitmap() != null ? Bitmap.createScaledBitmap(theme.getWhiteDefaultBitmap(), unitSize, unitSize, false) : null;
-        Bitmap whiteMovableBitmap = theme.getWhiteMovableBitmap() != null ? Bitmap.createScaledBitmap(theme.getWhiteMovableBitmap(), unitSize, unitSize, false): null;
-        Bitmap whiteSelectedBitmap = theme.getWhiteSelectedBitmap() != null ? Bitmap.createScaledBitmap(theme.getWhiteSelectedBitmap(), unitSize, unitSize, false): null;
+        Bitmap whiteDefaultBitmap = theme.getWhiteDefaultBitmap() != null ? Bitmap.createScaledBitmap(theme.getWhiteDefaultBitmap(), unitSize, unitSize, true) : null;
+        Bitmap whiteMovableBitmap = theme.getWhiteMovableBitmap() != null ? Bitmap.createScaledBitmap(theme.getWhiteMovableBitmap(), unitSize, unitSize, true): null;
+        Bitmap whiteSelectedBitmap = theme.getWhiteSelectedBitmap() != null ? Bitmap.createScaledBitmap(theme.getWhiteSelectedBitmap(), unitSize, unitSize, true): null;
 
         // update black pieces bitmaps
         for (final Pawn pawn : whiteActivePieces) {
@@ -910,7 +909,7 @@ public class AkalanaView extends SceneView {
         removablePawn.setPos(graphicsPosition(position.y), graphicsPosition(position.x));
         removablePawn.setSize(unitSize);
         removablePawn.setZ(3);
-        removablePawn.setColor(theme.getRemovablePieceColor());
+        removablePawn.setColor(theme.getRemovablePositionColor());
 
         synchronized (removablePawns) {
             removablePawns.add(removablePawn);
@@ -1032,7 +1031,7 @@ public class AkalanaView extends SceneView {
                     traveledPosition.setSize(unitSize);
                     traveledPosition.setPos(graphicsPosition(position.y), graphicsPosition(position.x));
                     traveledPosition.setZ(1);
-                    traveledPosition.setColor(theme.getTraveledPositionsColor());
+                    traveledPosition.setColor(theme.getTraveledPositionColor());
                     traveledPositions.add(traveledPosition);
 
                     // anim traveled position scale
@@ -1344,7 +1343,7 @@ public class AkalanaView extends SceneView {
         hideMovablePieces();
         showMovablePieces();
 
-        if (movesSequenceOverListener != null) {
+        for (MovesSequenceOverListener movesSequenceOverListener: movesSequenceOverListeners)  {
             movesSequenceOverListener.onMovesSequenceOver();
         }
     }
@@ -1356,14 +1355,14 @@ public class AkalanaView extends SceneView {
         public void onEngineAction(EngineAction action);
     }
 
-    private EngineActionListener engineActionListener = null;
+    private List<EngineActionListener> engineActionListeners = new ArrayList<>();
 
     /**
      *
      * @param engineActionListener
      */
-    public void setEngineActionListener(EngineActionListener engineActionListener) {
-        this.engineActionListener = engineActionListener;
+    public void addEngineActionListener(EngineActionListener engineActionListener) {
+        this.engineActionListeners.add(engineActionListener);
     }
 
     /**
@@ -1371,7 +1370,7 @@ public class AkalanaView extends SceneView {
      * @param action
      */
     private void onEngineAction(EngineAction action) {
-        if (engineActionListener != null) {
+        for (EngineActionListener engineActionListener: engineActionListeners) {
             engineActionListener.onEngineAction(action);
         }
     }

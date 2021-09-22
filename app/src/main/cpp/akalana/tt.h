@@ -203,7 +203,7 @@ inline void Tt::add(const int vela, const int deep, const int blackPlayer, const
         map5[white] = entry;
         map4[black] = map5;
     } else {
-        (*it).second[white] = entry;
+        it->second[white] = entry;
     }
 }
 
@@ -212,26 +212,32 @@ inline TTEntry* Tt::get(const int vela, const int deep, const int blackPlayer, c
         return NULL;
     }
 
+
     std::map<Bitboard, std::map<Bitboard, TTEntry>>* map3 = FOUND_RESULTS[getTTIndex(vela, blackPlayer, deep - 1)];
-    if (map3 != NULL) {
-        const bool blackPlayerFirst = scene.getFirstPlayerBlack();
-        const Bitboard black = serialize(scene, blackPlayerFirst);
+    if (map3 == NULL) {
+		return NULL;
+	}
 
-        std::map<Bitboard, std::map<Bitboard, TTEntry>>& map4 = map3[getBlackTeam(black)];
 
-        const std::map<Bitboard, std::map<Bitboard, TTEntry>>::iterator& it4 = map4.find(black);
+	const bool blackPlayerFirst = scene.getFirstPlayerBlack();
+	const Bitboard black = serialize(scene, blackPlayerFirst);
 
-        if (it4 != map4.end()) {
-            std::map<Bitboard, TTEntry>& map5 = (*it4).second;
+	std::map<Bitboard, std::map<Bitboard, TTEntry>>& map4 = map3[getBlackTeam(black)];
 
-            const std::map<Bitboard, TTEntry>::iterator& it5 = map5.find(serialize(scene, !blackPlayerFirst));
-            if (it5 != map5.end()) {
-                return &((*it5).second);
-            }
-        }
-    }
+	const std::map<Bitboard, std::map<Bitboard, TTEntry>>::iterator& it4 = map4.find(black);
+	if (it4 == map4.end()) {
+		return NULL;
+	}
 
-    return NULL;
+
+	std::map<Bitboard, TTEntry>& map5 = it4->second;
+
+	const std::map<Bitboard, TTEntry>::iterator& it5 = map5.find(serialize(scene, !blackPlayerFirst));
+	if (it5 == map5.end()) {
+		return NULL;
+	}
+		
+	return &(it5->second);
 }
 
 inline int Tt::getVela(const Fanorona& scene) const {

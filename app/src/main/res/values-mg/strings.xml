@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Home -->
+    <string name="home_play">Lalao vaovao</string>
+    <string name="home_edit">Hanova</string>
+    <string name="home_save">Tahiry</string>
+    <string name="home_setting">Fanamboarana</string>
+    <string name="home_about">Mombamomba</string>
+
+    <!-- Opions -->
+    <string name="game_option_mode">Karazan-dalao</string>
+    <string name="game_option_against">Hifaninana @</string>
+    <string name="game_option_move_first">Manomboka</string>
+    <string name="game_option_ai_level">Hakingana</string>
+    <string name="game_option_ai_max_time_eval">Fotoana</string>
+    <string name="game_option_ai_ponder">Mieritreritra ambadika</string>
+
+    <!-- Opion mode -->
+    <string name="game_option_mode_riatra">Riatra</string>
+    <string name="game_option_mode_vela_black">Vela [Mainty]</string>
+    <string name="game_option_mode_vela_white">Vela [Fotsy]</string>
+
+    <!-- Opion against -->
+    <string name="game_option_against_human">Olona</string>
+    <string name="game_option_against_ai_black">IA [Mainty]</string>
+    <string name="game_option_against_ai_white">IA [Fotsy]</string>
+
+    <!-- Opion move first -->
+    <string name="game_option_move_first_black">Mainty</string>
+    <string name="game_option_move_first_white">Fotsy</string>
+
+    <!-- Opion AI ponder -->
+    <string name="game_option_ai_ponder_yes">Eny</string>
+    <string name="game_option_ai_ponder_no">Tsia</string>
+
+    <!-- Opion Buttons -->
+    <string name="game_option_play">Hilalao</string>
+    <string name="game_option_resume">Hiverina</string>
+    <string name="game_option_re_edit">Hiverina hanova</string>
+
+    <!-- Save games -->
+    <string name="saved_games_new_folder">Lahatahiry vaovao</string>
+    <string name="saved_games_move_items">Afindra</string>
+    <string name="saved_games_move_items_here">Afindra eto</string>
+    <string name="saved_games_cancel">Ajanona</string>
+    <string name="saved_games_remove">Fafana</string>
+    <string name="saved_games_edit">Ovaina</string>
+    <string name="saved_games_save_here">Tahirizina eto</string>
+    <string name="saved_games_game_name_placeholder">Anaran\'ny lalao ...</string>
+    <string name="saved_games_game_name_empty_msg">Ampidiro ny anaran\'ny lalao azafady</string>
+    <string name="saved_games_edit_save">Tahirizina</string>
+
+    <!-- Save games -->
+    <string name="setting_theme">Endrika</string>
+    <string name="setting_sound">Feo</string>
+    <string name="setting_language">Fiteny</string>
+
+</resources>

@@ -5,18 +5,18 @@ import android.graphics.Color;
 
 public class Theme {
 
-    private int akalanaBgColor         = Color.rgb(205, 193, 180);
-    private int akalanaLinesColor      = Color.rgb(245, 240, 235);
+    private int akalanaBgColor         = Color.rgb(131, 149, 155);
+    private int akalanaLinesColor      = Color.rgb(184, 200, 204);
 
     private int whiteDefaultColor      = Color.rgb(255, 255, 255);
-    private int whiteStrokeColor       = Color.rgb(120, 103, 86);
+    private int whiteStrokeColor       = Color.argb(125, 120, 103, 86);
 
     private int blackDefaultColor      = Color.rgb(31, 16, 9);
-    private int blackStrokeColor       = Color.rgb(31, 16, 9);
+    private int blackStrokeColor       = Color.argb(125, 31, 16, 9);
 
     private int movablePositionColor   = Color.rgb(110, 66, 39);
-    private int removablePieceColor    = Color.rgb(255, 150, 30);
-    private int traveledPositionsColor = Color.rgb(255, 255, 255);
+    private int removablePositionColor = Color.rgb(255, 150, 30);
+    private int traveledPositionColor  = Color.rgb(255, 255, 255);
 
     private Bitmap backgroundBitmap = null;
     private Bitmap akalanaBitmap = null;
@@ -28,6 +28,10 @@ public class Theme {
     private Bitmap whiteDefaultBitmap = null;
     private Bitmap whiteMovableBitmap = null;
     private Bitmap whiteSelectedBitmap = null;
+
+    private Bitmap movablePositionBitmap = null;
+    private Bitmap traveledPositionBitmap = null;
+    private Bitmap removablePositionBitmap = null;
 
     public int getAkalanaBgColor() {
         return akalanaBgColor;
@@ -77,20 +81,20 @@ public class Theme {
         this.movablePositionColor = movablePositionColor;
     }
 
-    public int getRemovablePieceColor() {
-        return removablePieceColor;
+    public int getRemovablePositionColor() {
+        return removablePositionColor;
     }
 
-    public void setRemovablePieceColor(int removablePieceColor) {
-        this.removablePieceColor = removablePieceColor;
+    public void setRemovablePositionColor(int removablePositionColor) {
+        this.removablePositionColor = removablePositionColor;
     }
 
-    public int getTraveledPositionsColor() {
-        return traveledPositionsColor;
+    public int getTraveledPositionColor() {
+        return traveledPositionColor;
     }
 
-    public void setTraveledPositionsColor(int traveledPositionsColor) {
-        this.traveledPositionsColor = traveledPositionsColor;
+    public void setTraveledPositionColor(int traveledPositionColor) {
+        this.traveledPositionColor = traveledPositionColor;
     }
 
     public Bitmap getBackgroundBitmap() {

@@ -48,8 +48,8 @@ public class HomeActivity extends AppCompatActivity {
     /**
      *
      */
-    public void launchThemeActivity(View v) {
-        Intent intent = new Intent(this, ThemeActivity.class);
+    public void launchSettingActivity(View v) {
+        Intent intent = new Intent(this, SettingActivity.class);
         startActivity(intent);
     }
 

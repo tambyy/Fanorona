@@ -14,12 +14,12 @@ import java.util.List;
 public class OptionAiMaxSearchTimeAdapter extends BaseAdapter {
 
     // FOR DATA
-    private List<Float> times;
+    private List<Integer> times;
 
     Context context;
     LayoutInflater inflater;
 
-    public OptionAiMaxSearchTimeAdapter(Context context, List<Float> times) {
+    public OptionAiMaxSearchTimeAdapter(Context context, List<Integer> times) {
         this.context = context;
         this.times = times;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SavedGamesReviewActivity"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="20">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:gravity="center"
+            android:background="@drawable/saved_game_review_header_bg">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:src="@drawable/saved_game_review_popup_ic"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/review_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:text="Fanorona vela"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="15"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="15dp"
+            android:paddingBottom="10dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:cardCornerRadius="25dp"
+                android:backgroundTint="@color/transparent"
+                app:cardElevation="0dp"
+                android:layout_centerInParent="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
+                        android:id="@+id/review_akalana"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </com.tambyy.fanoronaakalana.graphics.customview.AkalanaView>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:background="@drawable/saved_game_review_options_bg">
+
+            <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                android:backgroundTint="#0000"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp">
+
+                <ImageButton
+                    android:id="@+id/review_replay"
+                    style="@style/LSGameButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/saved_game_review_replay_ic"
+                    android:onClick="replayReview"/>
+
+            </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
+
+            <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                android:backgroundTint="#0000"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp">
+
+                <ImageButton
+                    android:id="@+id/review_play"
+                    style="@style/LSGameButton"
+                    android:padding="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/saved_game_review_play_ic"
+                    android:onClick="playReview"
+                    android:visibility="gone"/>
+
+                <ImageButton
+                    android:id="@+id/review_pause"
+                    style="@style/LSGameButton"
+                    android:padding="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/saved_game_review_pause_ic"
+                    android:onClick="pauseReview"/>
+
+            </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp">
+
+                <!-- REVIEW PROGRESS BAR -->
+
+                <com.tambyy.fanoronaakalana.graphics.customview.SeekBarWithMarkers
+                    android:id="@+id/review_progress"
+                    style="@style/ReviewProgressBar"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+            <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                android:backgroundTint="#0000"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp">
+
+                <ImageButton
+                    android:id="@+id/review_speed"
+                    style="@style/LSGameButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/saved_game_review_speed_ic"
+                    android:onClick="showReviewSpeedContextMenu"/>
+
+            </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
+
+            <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                android:backgroundTint="#0000"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp">
+
+                <ImageButton
+                    android:id="@+id/review_real_time"
+                    style="@style/LSGameButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/saved_game_review_real_time_ic"
+                    android:onClick="toggleRealTime"/>
+
+            </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromHeightCardView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

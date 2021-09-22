@@ -6,50 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/transparent"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="0dp"
+    android:id="@+id/theme_container">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         >
 
-        <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
-            android:id="@+id/theme_akalana"
-            android:layout_width="fill_parent"
-            android:layout_height="500dp"
-            android:background="#999"/>
-
-        <TextView
-            android:id="@+id/theme_name"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:textColor="#FFF"
-            android:textSize="15sp"
-            android:padding="15dp"
-            android:gravity="center|bottom"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/theme_title_bg"
-            android:text="Echec">
-
-        </TextView>
-
-        <ImageView
-            android:id="@+id/theme_checked"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/saved_game_checked" />
-
-        <ImageView
-            android:id="@+id/theme_check"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/saved_game_check" />
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="7dp"
+            android:backgroundTint="@color/transparent"
+            app:cardElevation="0dp">
+            <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
+                android:id="@+id/theme_akalana"
+                android:layout_width="fill_parent"
+                android:layout_height="500dp"
+                android:background="#999"/>
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

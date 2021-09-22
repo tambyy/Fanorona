@@ -8,13 +8,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tambyy.fanoronaakalana.Constants;
 import com.tambyy.fanoronaakalana.R;
 import com.tambyy.fanoronaakalana.engine.Engine;
 import com.tambyy.fanoronaakalana.graphics.customview.AkalanaView;
 import com.tambyy.fanoronaakalana.models.Theme;
 import com.tambyy.fanoronaakalana.utils.ThemeManager;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import androidx.cardview.widget.CardView;
 
 public class ThemeAdapter extends BaseAdapter {
 
@@ -23,6 +28,7 @@ public class ThemeAdapter extends BaseAdapter {
     // FOR DATA
     private final Engine engine;
     private final List<Theme> themes;
+    private final Map<Long, com.tambyy.fanoronaakalana.config.Theme> configThemes = new HashMap<>();
     private final Context context;
     private final LayoutInflater inflater;
     private final ThemeManager themeManager;
@@ -53,7 +59,7 @@ public class ThemeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ThemeAdapter.ViewHolder viewHolder = null;
+        final ThemeAdapter.ViewHolder viewHolder;
 
         if (convertView == null) {
             viewHolder = new ThemeAdapter.ViewHolder();
@@ -63,14 +69,13 @@ public class ThemeAdapter extends BaseAdapter {
             viewHolder = (ThemeAdapter.ViewHolder) convertView.getTag();
         }
 
+        viewHolder.container = (CardView) convertView.findViewById(R.id.theme_container);
         viewHolder.akalana = (AkalanaView) convertView.findViewById(R.id.theme_akalana);
-        viewHolder.name = (TextView) convertView.findViewById(R.id.theme_name);
-        viewHolder.gameCheck = (ImageView) convertView.findViewById(R.id.theme_check);
-        viewHolder.gameChecked = (ImageView) convertView.findViewById(R.id.theme_checked);
 
         Theme theme = themes.get(position);
 
-        viewHolder.akalana.setTheme(this.themeManager.getTheme(theme.getId()));
+        viewHolder.container.setBackgroundTintList(position == selectedTheme ? Constants.SELECTED_OPTION_BC : Constants.OPTION_BC);
+
         viewHolder.akalana.setTouchable(false);
         viewHolder.akalana.setMovablePawnsShown(false);
         viewHolder.akalana.setMovablePositionsShown(false);
@@ -80,19 +85,24 @@ public class ThemeAdapter extends BaseAdapter {
         viewHolder.akalana.setEngine(engine);
         viewHolder.akalana.updateConfigFromEngine();
 
-        viewHolder.name.setText(theme.getName());
-
-        viewHolder.gameCheck.setVisibility(position != selectedTheme ? View.VISIBLE : View.GONE);
-        viewHolder.gameChecked.setVisibility(position == selectedTheme ? View.VISIBLE : View.GONE);
+        com.tambyy.fanoronaakalana.config.Theme configTheme = configThemes.get(theme.getId());
+        if (configTheme == null) {
+            themeManager.getTheme(theme.getId(), th -> {
+                if (th != null) {
+                    configThemes.put(theme.getId(), th);
+                    viewHolder.akalana.setTheme(th);
+                }
+            });
+        } else {
+            viewHolder.akalana.setTheme(configTheme);
+        }
 
         return convertView;
     }
 
     private static class ViewHolder {
+        public CardView container;
         public AkalanaView akalana;
-        public TextView name;
-        public ImageView gameCheck;
-        public ImageView gameChecked;
     }
 
     public int getSelectedTheme() {

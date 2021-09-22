@@ -6,16 +6,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tambyy.fanoronaakalana.config.Theme;
@@ -24,6 +24,7 @@ import com.tambyy.fanoronaakalana.engine.EngineAction;
 import com.tambyy.fanoronaakalana.engine.EngineActionMoveSelectedPiece;
 import com.tambyy.fanoronaakalana.engine.EngineActionSelectPiece;
 import com.tambyy.fanoronaakalana.engine.EngineActionStopMove;
+import com.tambyy.fanoronaakalana.graphics.anim.item.ProgressBarAnimation;
 import com.tambyy.fanoronaakalana.graphics.customview.AkalanaView;
 import com.tambyy.fanoronaakalana.utils.EngineActionsHistoryManager;
 import com.tambyy.fanoronaakalana.utils.EngineActionsConverter;
@@ -35,9 +36,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class GameActivity extends AppCompatActivity {
-
-    @BindView(R.id.game_background)
-    View viewBackground;
 
     @BindView(R.id.game_akalana)
     AkalanaView akalanaView;
@@ -54,13 +52,14 @@ public class GameActivity extends AppCompatActivity {
     @BindView(R.id.game_save)
     ImageButton imageButtonGameSave;
 
-    @BindView(R.id.game_fullscreen)
-    ImageButton imageButtonGameFullScreen;
+    @BindView(R.id.game_ai_level_text)
+    TextView textViewAiLevel;
 
-    private static final String PREF_ORIENTATION = "PREF_ORIENTATION";
+    @BindView(R.id.game_ai_thinking_progress)
+    ProgressBar progressBarAiThinking;
 
-    public static final String EXTRA_GAME_RESUME                  = "EXTRA_GAME_RESUME";
-    public static final String EXTRA_GAME_RESUME_HISTORY_INDEX    = "EXTRA_GAME_RESUME_HISTORY_INDEX";
+    public static final String EXTRA_GAME_RESUME               = "EXTRA_GAME_RESUME";
+    public static final String EXTRA_GAME_RESUME_HISTORY_INDEX = "EXTRA_GAME_RESUME_HISTORY_INDEX";
 
     /**
      * Preference
@@ -91,6 +90,11 @@ public class GameActivity extends AppCompatActivity {
     /**
      * AI pondering
      */
+    private int aiMaxReflexionTime = 0;
+
+    /**
+     * AI pondering
+     */
     private boolean ponder = false;
 
     /**
@@ -106,7 +110,17 @@ public class GameActivity extends AppCompatActivity {
      * also game resume when we go back to OptionActivity
      * > See: onBackPressed
      */
-    EngineActionsHistoryManager history = new EngineActionsHistoryManager();
+    private EngineActionsHistoryManager history = new EngineActionsHistoryManager();
+
+
+    // Sounds
+
+
+    private MediaPlayer putPieceSound;
+    private MediaPlayer movePieceSound;
+    private MediaPlayer stopMoveSound;
+    private MediaPlayer selectPieceSound;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +136,7 @@ public class GameActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setAiThinking(false);
+        loadSoundEffects();
         configureAkalana();
         loadPreferences();
         intentFromOptionActivity(savedInstanceState);
@@ -198,12 +213,40 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     *
+     */
+    private void loadSoundEffects() {
+        movePieceSound = MediaPlayer.create(this, R.raw.move_piece);
+        putPieceSound = MediaPlayer.create(this, R.raw.put_piece);
+        stopMoveSound = MediaPlayer.create(this, R.raw.stop_move);
+        selectPieceSound = MediaPlayer.create(this, R.raw.select_piece);
+    }
+
+    /**
      * Configure Akanala view
      */
     private void configureAkalana() {
         akalanaView.setEngine(engine);
-        akalanaView.setEngineActionListener(engineActionListener);
-        akalanaView.setMovesSequenceOverListener(movesSequenceOverListener);
+        akalanaView.addEngineActionListener(engineActionListenerPushHistory);
+        akalanaView.addEngineActionListener(engineActionListenerSoundEffect);
+        akalanaView.addMovesSequenceOverListener(movesSequenceOverListener);
+    }
+
+    /**
+     *
+     */
+    private void startAnimateAiThinking() {
+        /*ProgressBarAnimation anim = new ProgressBarAnimation(progressBarAiThinking, 0, progressBarAiThinking.getMax());
+        anim.setDuration(aiMaxReflexionTime);
+        progressBarAiThinking.startAnimation(anim);*/
+    }
+
+    /**
+     *
+     */
+    private void stopAnimateAiThinking() {
+        /*progressBarAiThinking.clearAnimation();
+        progressBarAiThinking.setProgress(progressBarAiThinking.getMax());*/
     }
 
     /**
@@ -273,11 +316,14 @@ public class GameActivity extends AppCompatActivity {
     private void checkOptionActivityAIConfig(Bundle bundle) {
         // IA.1. Check IA level
         // between 1 and 12
-        engine.setSearchDepth(0, bundle.getInt(OptionActivity.EXTRA_GAME_AI_LEVEL_CODE));
+        int searchDepth = bundle.getInt(OptionActivity.EXTRA_GAME_AI_LEVEL_CODE);
+        engine.setSearchDepth(0, searchDepth);
+        textViewAiLevel.setText(searchDepth + "");
 
         // IA.2. Check max time evaluation
         // between 1 and 20
-        engine.setSearchMaxTime(0, bundle.getInt(OptionActivity.EXTRA_GAME_AI_MAX_SEARCH_TIME_CODE));
+        aiMaxReflexionTime = bundle.getInt(OptionActivity.EXTRA_GAME_AI_MAX_SEARCH_TIME_CODE);
+        engine.setSearchMaxTime(0, aiMaxReflexionTime);
 
         // IA.3. Check IA ponder
         // 0: yes
@@ -339,7 +385,6 @@ public class GameActivity extends AppCompatActivity {
         imageButtonGameHistoryNext.setEnabled(!aiThinking);
         imageButtonGameStopMovesSequence.setEnabled(!aiThinking);
         imageButtonGameSave.setEnabled(!aiThinking);
-        imageButtonGameFullScreen.setEnabled(!aiThinking);
     }
 
     /**
@@ -351,6 +396,7 @@ public class GameActivity extends AppCompatActivity {
         protected void onPreExecute() {
             akalanaView.setTouchable(false);
             setAiThinking(true);
+            startAnimateAiThinking();
 
             // before making search
             // stop AI pondering
@@ -392,6 +438,7 @@ public class GameActivity extends AppCompatActivity {
                 setAiThinking(false);
             });
             evaluateProcess = null;
+            stopAnimateAiThinking();
         }
 
     };
@@ -448,15 +495,31 @@ public class GameActivity extends AppCompatActivity {
 
 
     /**
-     * this will be call after each engine action
-     * (init, piece selection, move, move sequence stop)
+     * After each engine action
+     * we register this action in a actions history
+     * to alloq player to undo his move
      */
-    private final AkalanaView.EngineActionListener engineActionListener = action -> {
+    private final AkalanaView.EngineActionListener engineActionListenerPushHistory = action -> {
         // register action in history
         action.setTime(System.currentTimeMillis() - beginTime);
         history.addHistory(action);
+    };
 
-        // Log.d("AKALANA", EngineActionsConverter.engineActionsToString(history.getHistory()));
+
+    /**
+     *
+     */
+    private final AkalanaView.EngineActionListener engineActionListenerSoundEffect = action -> {
+        if (action instanceof EngineActionStopMove) {
+            stopMoveSound.start();
+        } else if (action instanceof EngineActionSelectPiece) {
+            selectPieceSound.start();
+        } else if (action instanceof EngineActionMoveSelectedPiece) {
+            movePieceSound.start();
+            new Handler().postDelayed(() -> {
+                putPieceSound.start();
+            }, 130);
+        }
     };
 
     /**
@@ -549,19 +612,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * Toggle screen orientation
-     */
-    public void toggleOrientation(View view) {
-        if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        } else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
-
-        savePreferences();
-    }
-
-    /**
      *
      * @param view
      */
@@ -588,22 +638,26 @@ public class GameActivity extends AppCompatActivity {
      */
     private void loadPreferences() {
 
-        // orientation
-        setRequestedOrientation(preferenceManager.get(PREF_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT));
-
         // Theme
-        Theme theme = themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 0l));
-        if (theme != null) {
-            akalanaView.setTheme(theme);
-            viewBackground.setBackground(new BitmapDrawable(getResources(), theme.getBackgroundBitmap()));
-        }
 
+        themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 0l), theme -> {
+            if (theme != null) {
+                akalanaView.setTheme(theme);
+            }
+        });
+
+        // Sound volume
+        float volume = Math.min((float) preferenceManager.get(Constants.PREF_SETTING_SOUND_VOLUME, 10) / 10f, 1f);
+
+        movePieceSound.setVolume(volume * 0.05f, volume * 0.05f);
+        putPieceSound.setVolume(volume, volume);
+        stopMoveSound.setVolume(volume, volume);
+        selectPieceSound.setVolume(volume, volume * 0.2f);
     }
 
     /**
      *
      */
     private void savePreferences() {
-        preferenceManager.put(PREF_ORIENTATION, getRequestedOrientation());
     }
 }

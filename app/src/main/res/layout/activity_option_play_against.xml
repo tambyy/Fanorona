@@ -7,57 +7,33 @@
     tools:context=".OptionPlayAgainstActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="30dp">
+        style="@style/PopupContainer">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            android:backgroundTint="#294155">
+            style="@style/PopupBodyContainer">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@drawable/background_popup"
-                    android:scaleType="centerCrop"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    style="@style/PopupBg"
                     android:layout_alignTop="@+id/option_play_against_list"
                     android:layout_alignBottom="@id/option_play_against_list"
                     android:layout_alignLeft="@id/option_play_against_list"
                     android:layout_alignRight="@id/option_play_against_list" />
 
-                <ImageView
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/background_popup_header" />
+                <ImageView style="@style/PopupHeader"/>
 
                 <LinearLayout
                     android:id="@+id/option_play_against_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="40dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="20dp">
+                    style="@style/PopupBody"
+                    android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/option_play_against_human"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="#0000"
-                        android:onClick="setPlayAgainstHuman"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="0dp">
+                        style="@style/OptionsPopupItemContainer"
+                        android:onClick="setPlayAgainstHuman">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -75,11 +51,8 @@
                                 android:src="@drawable/option_play_against_humain_ic" />
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:gravity="center"
-                                android:text="@string/game_option_against_human"
-                                android:textColor="#FFF" />
+                                style="@style/PopupItemTitle"
+                                android:text="@string/game_option_against_human"/>
 
                         </LinearLayout>
 
@@ -87,13 +60,8 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/option_play_against_ai_black"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="#0FFF"
-                        android:onClick="setPlayAgainstAiBlack"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="0dp">
+                        style="@style/OptionsPopupItemContainer"
+                        android:onClick="setPlayAgainstAiBlack">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -111,11 +79,8 @@
                                 android:src="@drawable/option_play_against_ai_black_ic" />
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:gravity="center"
-                                android:text="@string/game_option_against_ai_black"
-                                android:textColor="#FFF" />
+                                style="@style/PopupItemTitle"
+                                android:text="@string/game_option_against_ai_black"/>
 
                         </LinearLayout>
 
@@ -123,13 +88,8 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/option_play_against_ai_white"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="#0FFF"
-                        android:onClick="setPlayAgainstAiWhite"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="0dp">
+                        style="@style/OptionsPopupItemContainer"
+                        android:onClick="setPlayAgainstAiWhite">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -147,11 +107,8 @@
                                 android:src="@drawable/option_play_against_ai_white_ic" />
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:gravity="center"
-                                android:text="@string/game_option_against_ai_white"
-                                android:textColor="#FFF" />
+                                style="@style/PopupItemTitle"
+                                android:text="@string/game_option_against_ai_white"/>
 
                         </LinearLayout>
 
@@ -166,9 +123,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
+        style="@style/PopupHeaderImage"
         android:src="@drawable/option_play_against_popup_ic" />
 
 </RelativeLayout>

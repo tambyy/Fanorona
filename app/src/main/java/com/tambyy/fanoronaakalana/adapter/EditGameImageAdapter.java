@@ -106,7 +106,12 @@ public class EditGameImageAdapter extends BaseAdapter {
      * @return
      */
     private List<EngineAction> getEngineActionToShow(List<EngineAction> actions) {
-        List<EngineAction> act = actions.stream().filter(EngineActionSelectPiece.class::isInstance).collect(Collectors.toList());
+        List<EngineAction> act = new ArrayList<>();
+        for (EngineAction action : actions) {
+            if (action instanceof EngineActionSelectPiece) {
+                act.add(action);
+            }
+        }
 
         EngineAction lastAction = actions.get(actions.size() - 1);
 

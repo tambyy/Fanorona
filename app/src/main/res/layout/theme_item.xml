@@ -6,27 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/transparent"
-    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="@color/transparent"
     app:cardElevation="0dp"
     android:id="@+id/theme_container">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/setting_theme_item_padding"
         >
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="7dp"
+            app:cardCornerRadius="@dimen/setting_theme_border_radius"
             android:backgroundTint="@color/transparent"
             app:cardElevation="0dp">
+
             <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
                 android:id="@+id/theme_akalana"
                 android:layout_width="fill_parent"
                 android:layout_height="500dp"
                 android:background="#999"/>
+
         </androidx.cardview.widget.CardView>
 
     </RelativeLayout>

@@ -27,12 +27,18 @@ public class Constants {
     public static final String PREF_OPTION_AI_MAX_SEARCH_TIME = "OPTION_AI_MAX_SEARCH_TIME";
     public static final String PREF_OPTION_AI_PONDER = "OPTION_AI_PONDER";
 
+    public static final String PREF_LAST_GAME_CONFIG = "PREF_LAST_GAME_CONFIG";
+    public static final String PREF_LAST_HISTORY_INDEX = "PREF_LAST_HISTORY_INDEX";
+
     public static final String PREF_SETTING_SOUND_VOLUME = "PREF_SETTING_SOUND_VOLUME";
     public static final String PREF_SETTING_LOCALE = "PREF_SETTING_LOCALE";
 
 
-    public static final ColorStateList OPTION_BC = ColorStateList.valueOf(Color.TRANSPARENT);
-    public static final ColorStateList SELECTED_OPTION_BC = ColorStateList.valueOf(Color.argb(70, 0, 0, 0));
+    public static final ColorStateList OPTION_BGH = ColorStateList.valueOf(Color.TRANSPARENT);
+    public static final ColorStateList SELECTED_OPTION_BGH = ColorStateList.valueOf(Color.argb(70, 0, 0, 0));
+
+    public static final int OPTION_BG = Color.TRANSPARENT;
+    public static final int SELECTED_OPTION_BG = Color.argb(70, 0, 0, 0);
 
 
     public static final String SETTING_LOCALE_MG = "mg";

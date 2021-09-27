@@ -1,12 +1,11 @@
 package com.tambyy.fanoronaakalana.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.tambyy.fanoronaakalana.Constants;
 import com.tambyy.fanoronaakalana.R;
@@ -74,7 +73,11 @@ public class ThemeAdapter extends BaseAdapter {
 
         Theme theme = themes.get(position);
 
-        viewHolder.container.setBackgroundTintList(position == selectedTheme ? Constants.SELECTED_OPTION_BC : Constants.OPTION_BC);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            viewHolder.container.setBackgroundTintList(position == selectedTheme ? Constants.SELECTED_OPTION_BGH : Constants.OPTION_BGH);
+        } else {
+            viewHolder.container.setCardBackgroundColor(position == selectedTheme ? Constants.SELECTED_OPTION_BG : Constants.OPTION_BG);
+        }
 
         viewHolder.akalana.setTouchable(false);
         viewHolder.akalana.setMovablePawnsShown(false);

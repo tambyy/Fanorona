@@ -29,9 +29,7 @@ public class SavedGameBreadcrumbFolderViewHolder extends RecyclerView.ViewHolder
 
     public void updateWithFolder(Folder folder, View.OnClickListener clickListener, boolean last) {
         if (textViewFolderName != null) {
-            if (folder == null) {
-                textViewFolderName.setText("Accueil");
-            } else {
+            if (folder != null) {
                 textViewFolderName.setText(folder.getName());
             }
 

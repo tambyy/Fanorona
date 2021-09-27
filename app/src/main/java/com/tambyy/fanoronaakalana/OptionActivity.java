@@ -1,6 +1,7 @@
 package com.tambyy.fanoronaakalana;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -9,11 +10,11 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tambyy.fanoronaakalana.engine.Engine;
 import com.tambyy.fanoronaakalana.utils.EngineActionsConverter;
-import com.tambyy.fanoronaakalana.utils.LocaleManager;
 import com.tambyy.fanoronaakalana.utils.PreferenceManager;
 
 import java.util.HashMap;
@@ -49,6 +50,24 @@ public class OptionActivity extends AppCompatActivity {
     @BindView(R.id.game_option_re_edit)
     Button buttonGameOptionReEdit;
 
+    @BindView(R.id.option_game_mode)
+    CardView cardViewOptionGameMode;
+
+    @BindView(R.id.option_first_move)
+    CardView cardViewOptionMoveFirst;
+
+    @BindView(R.id.option_ai_level)
+    CardView cardViewOptionAiLevel;
+
+    @BindView(R.id.option_ai_max_relexion_time)
+    CardView cardViewOptionAiMaxReflexionTime;
+
+    @BindView(R.id.option_ai_ponder)
+    CardView cardViewOptionAiPonder;
+
+    @BindView(R.id.option_ai)
+    LinearLayout linearLayoutOptionAi;
+
     private Map<Integer, String> game_mode_option_values;
     private Map<Integer, String> first_move_option_values;
     private Map<Integer, String> play_against_option_values;
@@ -82,6 +101,7 @@ public class OptionActivity extends AppCompatActivity {
 
     public static final String EDITION_BLACK_VALUE_CODE = "EDITION_BLACK_VALUE_CODE";
     public static final String EDITION_WHITE_VALUE_CODE = "EDITION_WHITE_VALUE_CODE";
+    public static final String SAVED_GAMES_CONFIG_CODE = "SAVED_GAMES_CONFIG_CODE";
 
     /*
      * extras exchanged between OptionActivity and GameActivity
@@ -110,6 +130,7 @@ public class OptionActivity extends AppCompatActivity {
      */
     public static final String EXTRA_EDITION_BLACK_CONFIG = "EXTRA_EDITION_BLACK_CONFIG";
     public static final String EXTRA_EDITION_WHITE_CONFIG = "EXTRA_EDITION_WHITE_CONFIG";
+    public static final String EXTRA_SAVED_GAMES_CONFIG = "EXTRA_SAVED_GAMES_CONFIG";
 
     /**
      * Preference
@@ -181,6 +202,11 @@ public class OptionActivity extends AppCompatActivity {
     /**
      *
      */
+    private String savedGameConfig = null;
+
+    /**
+     *
+     */
     private String gameResume = null;
 
     /**
@@ -198,18 +224,15 @@ public class OptionActivity extends AppCompatActivity {
 
         this.preferenceManager = PreferenceManager.getInstance(this);
         loadPreferences();
-/*
-        // Set game mode
-        radioGroupOptionMode.setOnCheckedChangeListener((group, checkedId) -> optionMode = GAME_MODE_OPTION_VALUES.get(checkedId));
-        // Set move first
-        radioGroupOptionMoveFirst.setOnCheckedChangeListener((group, checkedId) -> optionMoveFirst = GAME_MOVE_FIRST_OPTION_VALUES.get(checkedId));
-        // Set against
-        radioGroupOptionAgainst.setOnCheckedChangeListener((group, checkedId) -> optionAgaisnt = GAME_AGAINST_OPTION_VALUES.get(checkedId));
-        // Set AI ponder
-        radioGroupOptionAiPonder.setOnCheckedChangeListener((group, checkedId) -> optionAiPonder = GAME_AI_PONDER_OPTION_VALUES.get(checkedId));
-*/
+
         // check intent from EditionActivity
         intentFromEditionActivity();
+
+        // check intent from SavedGamesActivity
+        intentFromSavedGamesActivity();
+
+        // check if we must continue last game
+        checkLastGame();
     }
 
     /**
@@ -235,7 +258,7 @@ public class OptionActivity extends AppCompatActivity {
                     if (whitePositions.length == 5) {
                         setOptionFirstMove(Constants.OPTION_FIRST_MOVE_WHITE);
                     }
-                // Vela White
+                    // Vela White
                 } else if (blackPositions.length < 20 && whitePositions.length == 22) {
                     setOptionGameMode(Constants.OPTION_GAME_MODE_VELA_WHITE);
 
@@ -243,7 +266,7 @@ public class OptionActivity extends AppCompatActivity {
                     if (blackPositions.length == 5) {
                         setOptionFirstMove(Constants.OPTION_FIRST_MOVE_BLACK);
                     }
-                // Riatra
+                    // Riatra
                 } else {
                     setOptionGameMode(Constants.OPTION_GAME_MODE_RIATRA);
                 }
@@ -251,6 +274,35 @@ public class OptionActivity extends AppCompatActivity {
                 buttonGameOptionReEdit.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    /**
+     *
+     */
+    private void intentFromSavedGamesActivity() {
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null) {
+            if (bundle.containsKey(OptionActivity.SAVED_GAMES_CONFIG_CODE)) {
+                savedGameConfig = bundle.getString(OptionActivity.SAVED_GAMES_CONFIG_CODE);
+                cardViewOptionGameMode.setVisibility(View.GONE);
+                cardViewOptionMoveFirst.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private boolean checkLastGame() {
+        String gameConfig = preferenceManager.get(Constants.PREF_LAST_GAME_CONFIG, null);
+        if (gameConfig != null) {
+            gameResume = gameConfig;
+            gameResumeHistoryIndex = preferenceManager.get(Constants.PREF_LAST_HISTORY_INDEX, 0);
+
+            buttonGameOptionResume.setVisibility(View.VISIBLE);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -318,6 +370,8 @@ public class OptionActivity extends AppCompatActivity {
         if (editionBlackConfig != null && editionWhiteConfig != null) {
             intent.putExtra(EXTRA_EDITION_BLACK_CONFIG, editionBlackConfig);
             intent.putExtra(EXTRA_EDITION_WHITE_CONFIG, editionWhiteConfig);
+        } else if (savedGameConfig != null) {
+            intent.putExtra(EXTRA_SAVED_GAMES_CONFIG, savedGameConfig);
         }
 
         savePreferences();
@@ -414,6 +468,10 @@ public class OptionActivity extends AppCompatActivity {
     private void onGameActivityResult(Bundle bundle) {
         gameResume = bundle.getString(GAME_RESUME_HISTORY_VALUE_CODE);
         gameResumeHistoryIndex = bundle.getInt(GAME_RESUME_HISTORY_INDEX_VALUE_CODE);
+
+        preferenceManager.put(Constants.PREF_LAST_GAME_CONFIG, gameResume);
+        preferenceManager.put(Constants.PREF_LAST_HISTORY_INDEX, gameResumeHistoryIndex);
+
         buttonGameOptionResume.setVisibility(View.VISIBLE);
     }
 
@@ -464,6 +522,12 @@ public class OptionActivity extends AppCompatActivity {
     private void setOptionPlayAgainst(int playAgainst) {
         optionAgaisnt = playAgainst;
         textViewPlayAgainst.setText(play_against_option_values.get(optionAgaisnt));
+
+        boolean vsAi = playAgainst == Constants.OPTION_PLAY_AGAINST_AI_WHITE || playAgainst == Constants.OPTION_PLAY_AGAINST_AI_BLACK;
+        cardViewOptionAiLevel.setClickable(vsAi);
+        cardViewOptionAiMaxReflexionTime.setClickable(vsAi);
+        cardViewOptionAiPonder.setClickable(vsAi);
+        linearLayoutOptionAi.setAlpha(vsAi ? 1f : 0.5f);
     }
 
     private void setOptionAILevel(int aiLevel) {

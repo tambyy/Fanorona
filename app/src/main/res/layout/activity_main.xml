@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/app_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        />
+
     <LinearLayout
         android:id="@+id/app_title"
         android:layout_width="wrap_content"
@@ -13,27 +21,10 @@
         android:orientation="vertical"
         android:layout_centerInParent="true">
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="FANORONA"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:textColor="#FFFF"
-            android:textStyle="bold"
-            android:transitionName="app_title_transition"
-            android:fontFamily="@font/any_male"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="AKALANA"
-            android:gravity="center"
-            android:textSize="40sp"
-            android:textColor="#FFFF"
-            android:textStyle="bold"
-            android:transitionName="app_title_transition"
-            android:fontFamily="@font/any_male"/>
+            android:layout_height="match_parent"
+            android:src="@drawable/title_ic"/>
 
     </LinearLayout>
 

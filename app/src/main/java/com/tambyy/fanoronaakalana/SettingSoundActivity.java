@@ -5,6 +5,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -23,6 +24,8 @@ public class SettingSoundActivity extends AppCompatActivity {
     @BindView(R.id.setting_sound_save)
     Button buttonSaveSoundSetting;
 
+    private MediaPlayer stopMoveSound;
+
     /**
      * Preference
      */
@@ -38,6 +41,22 @@ public class SettingSoundActivity extends AppCompatActivity {
 
         this.preferenceManager = PreferenceManager.getInstance(this);
         loadPreferences();
+
+        stopMoveSound = MediaPlayer.create(this, R.raw.stop_move);
+        seekBarSoundVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float volume = (float) progress / (float) seekBar.getMax();
+                stopMoveSound.setVolume(volume, volume);
+                stopMoveSound.start();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
     }
 
     private void setupPopupSize() {

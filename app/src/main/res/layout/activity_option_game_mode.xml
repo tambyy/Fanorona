@@ -7,79 +7,43 @@
     tools:context=".OptionGameModeActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="30dp">
+        style="@style/PopupContainer">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#294155"
-            app:cardCornerRadius="20dp">
+            style="@style/PopupBodyContainer">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    style="@style/PopupBg"
                     android:layout_alignLeft="@id/option_game_mode_list"
                     android:layout_alignTop="@+id/option_game_mode_list"
                     android:layout_alignRight="@id/option_game_mode_list"
-                    android:layout_alignBottom="@id/option_game_mode_list"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/background_popup" />
+                    android:layout_alignBottom="@id/option_game_mode_list"/>
 
-                <ImageView
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/background_popup_header" />
+                <ImageView style="@style/PopupHeader"/>
 
                 <LinearLayout
                     android:id="@+id/option_game_mode_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="40dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="20dp">
+                    style="@style/PopupBody"
+                    android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/option_game_mode_riatra"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="#0000"
-                        android:onClick="setGameModeRiatra"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="0dp">
+                        style="@style/OptionsPopupItemContainer"
+                        android:onClick="setGameModeRiatra">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="0dp"
-                            android:orientation="vertical">
+                        <LinearLayout style="@style/OptionsPopupItemContainerLayout">
 
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:adjustViewBounds="true"
+                                style="@style/OptionsPopupItemImage"
                                 android:src="@drawable/option_game_mode_riatra_ic" />
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="30dp"
-                                android:gravity="center"
-                                android:text="@string/game_option_mode_riatra"
-                                android:textColor="#FFF" />
+                                style="@style/PopupItemTitle"
+                                android:text="@string/game_option_mode_riatra" />
 
                         </LinearLayout>
 
@@ -87,35 +51,18 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/option_game_mode_vela_black"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="#0FFF"
-                        android:onClick="setGameModeVelaBlack"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="0dp">
+                        style="@style/OptionsPopupItemContainer"
+                        android:onClick="setGameModeVelaBlack">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="0dp"
-                            android:orientation="vertical">
+                        <LinearLayout style="@style/OptionsPopupItemContainerLayout">
 
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:adjustViewBounds="true"
+                                style="@style/OptionsPopupItemImage"
                                 android:src="@drawable/option_game_mode_vela_black_ic" />
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="30dp"
-                                android:gravity="center"
-                                android:text="@string/game_option_mode_vela_black"
-                                android:textColor="#FFF" />
+                                style="@style/PopupItemTitle"
+                                android:text="@string/game_option_mode_vela_black" />
 
                         </LinearLayout>
 
@@ -123,35 +70,18 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/option_game_mode_vela_white"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="#0FFF"
-                        android:onClick="setGameModeVelaWhite"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="0dp">
+                        style="@style/OptionsPopupItemContainer"
+                        android:onClick="setGameModeVelaWhite">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="0dp"
-                            android:orientation="vertical">
+                        <LinearLayout style="@style/OptionsPopupItemContainerLayout">
 
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:adjustViewBounds="true"
+                                style="@style/OptionsPopupItemImage"
                                 android:src="@drawable/option_game_mode_vela_white_ic" />
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="30dp"
-                                android:gravity="center"
-                                android:text="@string/game_option_mode_vela_white"
-                                android:textColor="#FFF" />
+                                style="@style/PopupItemTitle"
+                                android:text="@string/game_option_mode_vela_white" />
 
                         </LinearLayout>
 
@@ -166,9 +96,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
+        style="@style/PopupHeaderImage"
         android:src="@drawable/option_game_mode_popup_ic" />
 
 </RelativeLayout>

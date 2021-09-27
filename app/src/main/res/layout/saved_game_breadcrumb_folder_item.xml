@@ -11,10 +11,10 @@
         android:id="@+id/saved_game_breadcrumb_folder_name"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:text="dossier"
+        android:text="@string/saved_games_breadcrumb_home"
         android:textColor="#CCC"
         android:gravity="left|center"
-        android:textSize="16sp"/>
+        android:textSize="@dimen/saved_games_breadcrumb_text_size"/>
 
     <ImageView
         android:id="@+id/saved_game_breadcrumb_folder_next"

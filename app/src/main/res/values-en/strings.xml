@@ -40,6 +40,7 @@
     <string name="game_option_re_edit">Re-edit</string>
 
     <!-- Save games -->
+    <string name="saved_games_breadcrumb_home">Home</string>
     <string name="saved_games_new_folder">New folder</string>
     <string name="saved_games_move_items">Move</string>
     <string name="saved_games_move_items_here">Move here</string>
@@ -47,9 +48,11 @@
     <string name="saved_games_remove">Remove</string>
     <string name="saved_games_edit">Edit</string>
     <string name="saved_games_save_here">Save here</string>
+    <string name="saved_games_continue_game">Continue</string>
     <string name="saved_games_game_name_placeholder">Game name ...</string>
     <string name="saved_games_game_name_empty_msg">You should fill the game name field</string>
     <string name="saved_games_edit_save">Save</string>
+    <string name="saved_games_edit_folder_name">Folder name ...</string>
 
     <!-- Save games -->
     <string name="setting_theme">Theme</string>

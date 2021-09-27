@@ -6,6 +6,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -36,13 +37,13 @@ public class OptionPlayAgainstActivity extends AppCompatActivity {
         setContentView(R.layout.activity_option_play_against);
         ButterKnife.bind(this);
 
-        setPopupDisplay();
+        setupPopupSize();
 
         this.preferenceManager = PreferenceManager.getInstance(this);
         loadPreferences();
     }
 
-    private void setPopupDisplay() {
+    private void setupPopupSize() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -79,16 +80,30 @@ public class OptionPlayAgainstActivity extends AppCompatActivity {
     }
 
     private void showSelectedOption(int option) {
-        optionPlayAgainstHumanCardView.setBackgroundTintList(Constants.OPTION_BC);
-        optionPlayAgainstAiBlackCardView.setBackgroundTintList(Constants.OPTION_BC);
-        optionPlayAgainstAiWhiteCardView.setBackgroundTintList(Constants.OPTION_BC);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            optionPlayAgainstHumanCardView.setBackgroundTintList(Constants.OPTION_BGH);
+            optionPlayAgainstAiBlackCardView.setBackgroundTintList(Constants.OPTION_BGH);
+            optionPlayAgainstAiWhiteCardView.setBackgroundTintList(Constants.OPTION_BGH);
 
-        if (option == Constants.OPTION_PLAY_AGAINST_HUMAN) {
-            optionPlayAgainstHumanCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
-        } else if (option == Constants.OPTION_PLAY_AGAINST_AI_BLACK) {
-            optionPlayAgainstAiBlackCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
-        } else if (option == Constants.OPTION_PLAY_AGAINST_AI_WHITE) {
-            optionPlayAgainstAiWhiteCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
+            if (option == Constants.OPTION_PLAY_AGAINST_HUMAN) {
+                optionPlayAgainstHumanCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            } else if (option == Constants.OPTION_PLAY_AGAINST_AI_BLACK) {
+                optionPlayAgainstAiBlackCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            } else if (option == Constants.OPTION_PLAY_AGAINST_AI_WHITE) {
+                optionPlayAgainstAiWhiteCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            }
+        } else {
+            optionPlayAgainstHumanCardView.setCardBackgroundColor(Constants.OPTION_BG);
+            optionPlayAgainstAiBlackCardView.setCardBackgroundColor(Constants.OPTION_BG);
+            optionPlayAgainstAiWhiteCardView.setCardBackgroundColor(Constants.OPTION_BG);
+
+            if (option == Constants.OPTION_PLAY_AGAINST_HUMAN) {
+                optionPlayAgainstHumanCardView.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            } else if (option == Constants.OPTION_PLAY_AGAINST_AI_BLACK) {
+                optionPlayAgainstAiBlackCardView.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            } else if (option == Constants.OPTION_PLAY_AGAINST_AI_WHITE) {
+                optionPlayAgainstAiWhiteCardView.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            }
         }
     }
 

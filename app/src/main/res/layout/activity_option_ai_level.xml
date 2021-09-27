@@ -7,52 +7,31 @@
     tools:context=".OptionAiLevelActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="30dp">
+        style="@style/PopupContainer">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            android:backgroundTint="#294155">
+            style="@style/PopupBodyContainer">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@drawable/background_popup"
-                    android:scaleType="fitXY"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    style="@style/PopupBg"
                     android:layout_alignTop="@+id/option_ai_level_grid_view"
                     android:layout_alignBottom="@id/option_ai_level_grid_view"
                     android:layout_alignLeft="@id/option_ai_level_grid_view"
                     android:layout_alignRight="@id/option_ai_level_grid_view" />
 
-                <ImageView
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/background_popup_header" />
+                <ImageView style="@style/PopupHeader"/>
 
                 <GridView
                     android:id="@+id/option_ai_level_grid_view"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/PopupBody"
+                    android:horizontalSpacing="@dimen/option_ai_level_grid_view_spacing"
+                    android:verticalSpacing="@dimen/option_ai_level_grid_view_spacing"
                     android:numColumns="4"
-                    android:verticalSpacing="10dp"
-                    android:horizontalSpacing="10dp"
-                    android:stretchMode="columnWidth"
-                    android:gravity="center"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="40dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="20dp"
-                    />
+                    android:stretchMode="columnWidth" />
 
             </RelativeLayout>
 
@@ -61,9 +40,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
+        style="@style/PopupHeaderImage"
         android:src="@drawable/option_ai_level_popup_ic" />
 
 </RelativeLayout>

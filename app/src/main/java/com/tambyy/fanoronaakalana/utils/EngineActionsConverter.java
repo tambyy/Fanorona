@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class EngineActionsConverter {
@@ -27,13 +28,21 @@ public class EngineActionsConverter {
     }
 
     public static String positionsToString(Engine.Point[] positions) {
-        return
-                Arrays.stream(positions).map(EngineActionsConverter::positionToString)
-                        .collect(Collectors.joining(","));
+        StringBuilder sb = new StringBuilder();
+        for (Engine.Point position : positions) {
+            sb.append(positionToString(position));
+            sb.append(',');
+        }
+        return sb.substring(0, sb.length() - 1);
     }
 
     public static Engine.Point[] stringToPositions(String positions) {
-        return Arrays.stream(positions.split(",")).map(EngineActionsConverter::stringToPosition).toArray(Engine.Point[]::new);
+        List<Engine.Point> list = new ArrayList<>();
+        for (String s : positions.split(",")) {
+            Engine.Point point = stringToPosition(s);
+            list.add(point);
+        }
+        return list.toArray(new Engine.Point[0]);
     }
 
     private static List<EngineAction> stringToMovesSequence(String actions, boolean black) {

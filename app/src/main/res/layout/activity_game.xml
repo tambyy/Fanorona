@@ -15,26 +15,32 @@
         android:scaleType="centerCrop"
         />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true">
+        android:backgroundTint="@color/transparent"
+        android:background="@color/transparent">
 
 
         <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="4"
-            android:weightSum="1.0"
-            android:gravity="center">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintDimensionRatio="H,13:5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal">
+
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_weight="0.7"
+                android:layout_weight="2"
                 android:weightSum="1.0"
                 android:gravity="center">
 
@@ -42,49 +48,53 @@
                     android:layout_width="0dip"
                     android:layout_height="match_parent"
                     android:layout_weight="0.45"
-                    android:weightSum="1.0"
+                    android:weightSum="3"
                     android:orientation="vertical">
+
+                    <ImageButton
+                        style="@style/LSGameButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:id="@+id/game_save"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/game_save_ic"
+                        android:onClick="launchSavedGamesActivity"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.4"
-                        android:gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView
-                                android:id="@+id/game_play_agaisnt"
+                            <ImageView
+                                android:id="@+id/game_play_agaisnt_icon"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="#A4CA39"
-                                app:cardCornerRadius="15dp">
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/game_play_against_ai_white_ic" />
-
-                            </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView>
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/game_play_against_ai_white_ic" />
 
                             <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView
-                                android:layout_width="24dp"
+                                android:id="@+id/game_ai_level"
+                                android:layout_width="@dimen/game_ai_level_size"
                                 android:layout_height="wrap_content"
-                                android:layout_alignTop="@+id/game_play_agaisnt"
-                                android:layout_alignRight="@+id/game_play_agaisnt"
-                                android:layout_marginTop="3dp"
-                                android:layout_marginRight="3dp"
-                                android:backgroundTint="#89A049"
-                                app:cardCornerRadius="12dp">
+                                android:layout_alignTop="@+id/game_play_agaisnt_icon"
+                                android:layout_alignRight="@+id/game_play_agaisnt_icon"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginRight="0dp"
+                                app:cardUseCompatPadding="false"
+                                app:cardBackgroundColor="#1B8984">
 
                                 <TextView
                                     android:id="@+id/game_ai_level_text"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:textSize="15sp"
+                                    android:textSize="@dimen/game_ai_level_text_size"
                                     android:text="10"
                                     android:textStyle="bold"
                                     android:textColor="#FFF"
@@ -98,99 +108,62 @@
                             style="@android:style/Widget.ProgressBar.Horizontal"
                             android:id="@+id/game_ai_thinking_progress"
                             android:layout_width="match_parent"
-                            android:layout_height="5dp"
-                            android:layout_marginTop="5dp"
-                            android:max="20"
-                            android:progress="20"
+                            android:layout_height="@dimen/game_ai_progress_bar_size"
+                            android:layout_marginTop="@dimen/game_ai_progress_bar_margin_top"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/ai_thinking_progress_bar_bg"
                             ></ProgressBar>
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <ImageButton
+                        style="@style/LSGameButton"
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.6"
-                        android:gravity="bottom"
-                        android:orientation="vertical">
-
-                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            app:cardCornerRadius="15dp"
-                            android:backgroundTint="#3FFF">
-
-                            <ImageButton
-                                style="@style/LSGameButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:id="@+id/game_save"
-                                android:src="@drawable/game_save_ic"
-                                android:onClick="launchSavedGamesActivity"/>
-
-                        </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView>
-
-                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="15dp"
-                            android:backgroundTint="#3FFF">
-
-                            <ImageButton
-                                style="@style/LSGameButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:id="@+id/game_replay"
-                                android:src="@drawable/game_replay_ic"
-                                android:onClick="replay"/>
-
-                        </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView>
-
-                    </LinearLayout>
+                        android:layout_weight="1"
+                        android:id="@+id/game_replay"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/game_replay_ic"
+                        android:onClick="replay"/>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_weight="16"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:cardCornerRadius="25dp"
-            android:backgroundTint="@color/transparent"
-            app:cardElevation="0dp">
-
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_weight="9"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
 
-                <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
-                    android:id="@+id/game_akalana"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    app:cardCornerRadius="@dimen/game_akalana_corner_radius"
+                    android:backgroundTint="@color/transparent"
+                    app:cardUseCompatPadding="false"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardElevation="0dp">
 
-                </com.tambyy.fanoronaakalana.graphics.customview.AkalanaView>
+                    <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
+                        android:id="@+id/game_akalana"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </com.tambyy.fanoronaakalana.graphics.customview.AkalanaView>
+
+                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
 
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="4"
-            android:weightSum="1.0"
-            android:gravity="center">
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_weight="0.7"
+                android:layout_weight="2"
                 android:weightSum="1.0"
                 android:gravity="center">
 
@@ -208,21 +181,14 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView
+                        <ImageButton
+                            android:id="@+id/game_history_next"
+                            style="@style/LSGameButton"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="15dp"
-                            android:backgroundTint="#0000">
-
-                            <ImageButton
-                                style="@style/LSGameButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:id="@+id/game_history_next"
-                                android:src="@drawable/game_history_next_ic"
-                                android:onClick="nextHistory"/>
-
-                        </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView>
+                            android:layout_height="match_parent"
+                            android:onClick="nextHistory"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/game_history_next_ic" />
 
                     </LinearLayout>
 
@@ -233,22 +199,15 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView
+                        <ImageButton
+                            android:id="@+id/game_stop_moves_sequence"
+                            style="@style/LSGameButton"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="15dp"
-                            android:backgroundTint="#0000">
-
-                            <ImageButton
-                                style="@style/LSGameButton"
-                                android:padding="0dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:id="@+id/game_stop_moves_sequence"
-                                android:src="@drawable/game_stop_move_ic"
-                                android:onClick="stopMovesSequence"/>
-
-                        </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView>
+                            android:layout_height="match_parent"
+                            android:onClick="stopMovesSequence"
+                            android:padding="0dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/game_stop_move_ic" />
 
                     </LinearLayout>
 
@@ -259,21 +218,14 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView
+                        <ImageButton
+                            android:id="@+id/game_history_prev"
+                            style="@style/LSGameButton"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardCornerRadius="15dp"
-                            android:backgroundTint="#0000">
-
-                            <ImageButton
-                                style="@style/LSGameButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:id="@+id/game_history_prev"
-                                android:src="@drawable/game_history_prev_ic"
-                                android:onClick="prevHistory"/>
-
-                        </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView>
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:onClick="prevHistory"
+                            android:src="@drawable/game_history_prev_ic" />
 
                     </LinearLayout>
 
@@ -281,9 +233,10 @@
 
             </LinearLayout>
 
+
         </LinearLayout>
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

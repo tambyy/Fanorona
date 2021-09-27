@@ -254,7 +254,7 @@ int Search::search(const int depth, int alpha, int beta, const int IDDepth) {
             // profondeur suivante pour l'autre joueur
             score = -search(nextDepth, _beta, -alpha);
         } else {
-            if (fanorona.getMode() == GameMode::MODE_VELA && it < last - 2 && nextDepth >= 7) {
+            if (false && fanorona.getMode() == GameMode::MODE_VELA && it < last - 2 && nextDepth >= 4) {
                 // LMR
                 const int reducedDepth = nextDepth - 1;
 
@@ -526,7 +526,7 @@ PieceMoveSession* Search::evaluate(const Fanorona &f, bool forPonder) {
     // pour les profondeurs de recherche initiales paires,
     // on commence la recherche itérative à partir d'une profondeur de niveau 2
     // et celles impaires à partir d'une profondeur de niveau 1
-    int n = (forPonder ? std::max(level + 1, 8) : level);
+    int n = (forPonder ? std::max(level + 3, 8) : level);
     for (
             currentIterativeDeepeningLevel = 1;
         // tant qu'on n'atteind pas le niveau du joeur intelligent dans l'itération

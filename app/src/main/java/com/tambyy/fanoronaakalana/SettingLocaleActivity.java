@@ -5,9 +5,7 @@ import androidx.cardview.widget.CardView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -15,9 +13,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.tambyy.fanoronaakalana.utils.LocaleManager;
-import com.tambyy.fanoronaakalana.utils.PreferenceManager;
-
-import java.util.Locale;
 
 public class SettingLocaleActivity extends AppCompatActivity {
 
@@ -81,16 +76,30 @@ public class SettingLocaleActivity extends AppCompatActivity {
     }
 
     private void showSelectedLocale(String locale) {
-        cardViewSettingLocaleMg.setBackgroundTintList(Constants.OPTION_BC);
-        cardViewSettingLocaleFr.setBackgroundTintList(Constants.OPTION_BC);
-        cardViewSettingLocaleEn.setBackgroundTintList(Constants.OPTION_BC);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cardViewSettingLocaleMg.setBackgroundTintList(Constants.OPTION_BGH);
+            cardViewSettingLocaleFr.setBackgroundTintList(Constants.OPTION_BGH);
+            cardViewSettingLocaleEn.setBackgroundTintList(Constants.OPTION_BGH);
 
-        if (locale.equals(Constants.SETTING_LOCALE_MG)) {
-            cardViewSettingLocaleMg.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
-        } else if (locale.equals(Constants.SETTING_LOCALE_FR)) {
-            cardViewSettingLocaleFr.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
-        } else if (locale.equals(Constants.SETTING_LOCALE_EN)) {
-            cardViewSettingLocaleEn.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
+            if (locale.equals(Constants.SETTING_LOCALE_MG)) {
+                cardViewSettingLocaleMg.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            } else if (locale.equals(Constants.SETTING_LOCALE_FR)) {
+                cardViewSettingLocaleFr.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            } else if (locale.equals(Constants.SETTING_LOCALE_EN)) {
+                cardViewSettingLocaleEn.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            }
+        } else {
+            cardViewSettingLocaleMg.setCardBackgroundColor(Constants.OPTION_BG);
+            cardViewSettingLocaleFr.setCardBackgroundColor(Constants.OPTION_BG);
+            cardViewSettingLocaleEn.setCardBackgroundColor(Constants.OPTION_BG);
+
+            if (locale.equals(Constants.SETTING_LOCALE_MG)) {
+                cardViewSettingLocaleMg.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            } else if (locale.equals(Constants.SETTING_LOCALE_FR)) {
+                cardViewSettingLocaleFr.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            } else if (locale.equals(Constants.SETTING_LOCALE_EN)) {
+                cardViewSettingLocaleEn.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            }
         }
     }
 

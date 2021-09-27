@@ -2,5 +2,6 @@
 <resources>
 
     <integer name="progress_max_value">500</integer>
+    <integer name="progress_volume_max_value">20</integer>
 
 </resources>

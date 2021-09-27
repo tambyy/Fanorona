@@ -16,11 +16,11 @@ android {
 
     defaultConfig {
         applicationId "com.tambyy.fanoronaakalana"
-        minSdkVersion 24
+        minSdkVersion 14
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        buildTypes
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {

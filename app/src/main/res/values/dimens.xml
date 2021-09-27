@@ -1,7 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Opions -->
+    <!-- Text -->
+
+    <dimen name="popup_item_title_text_size">15sp</dimen>
+
+    <dimen name="home_play_text_size">14sp</dimen>
+    <dimen name="home_menu_text_size">13sp</dimen>
+
+    <dimen name="setting_menu_text_size">13sp</dimen>
+
+    <dimen name="option_title_text_size">13sp</dimen>
+    <dimen name="option_value_text_size">14sp</dimen>
+    <dimen name="option_btn_text_size">14sp</dimen>
+
+    <dimen name="option_ai_level_item_text_size">25sp</dimen>
+    <dimen name="option_ai_mrt_item_text_size">16sp</dimen>
+
+    <dimen name="game_ai_level_text_size">14sp</dimen>
+
+    <dimen name="saved_games_folder_name_text_size">13sp</dimen>
+    <dimen name="saved_games_folder_date_text_size">11sp</dimen>
+
+    <dimen name="saved_games_menu_text_size">11sp</dimen>
+    <dimen name="saved_games_name_text_size">13sp</dimen>
+    <dimen name="saved_games_date_text_size">12sp</dimen>
+
+
+    <dimen name="saved_games_breadcrumb_text_size">16sp</dimen>
+
+
+    <!-- Options -->
+
+    <dimen name="option_item_title_margin_top">7dp</dimen>
+    <dimen name="option_item_margin_left_right">15dp</dimen>
+    <dimen name="option_item_margin_top_bottom">10dp</dimen>
+
+    <dimen name="option_btn_height">40dp</dimen>
+
+    <dimen name="option_ai_level_grid_view_spacing">10dp</dimen>
+
+    <dimen name="popup_corner_radius">0dp</dimen>
+    <dimen name="popup_padding">20dp</dimen>
+    <dimen name="popup_padding_top">40dp</dimen>
+    <dimen name="popup_header_size">160dp</dimen>
+    <dimen name="popup_icon_image_size">50dp</dimen>
+    <dimen name="popup_icon_padding_top">30dp</dimen>
+    <dimen name="popup_game_mode_item_margin">10dp</dimen>
+    <dimen name="popup_item_height">40dp</dimen>
+
+
+    <!-- Game -->
+
+    <dimen name="game_ai_level_size">24dp</dimen>
+    <dimen name="game_akalana_corner_radius">0dp</dimen>
+    <dimen name="game_btn_corner_radius">0dp</dimen>
+    <dimen name="game_ai_progress_bar_size">6dp</dimen>
+    <dimen name="game_ai_progress_bar_margin_top">10dp</dimen>
+
+
+    <!-- Edition -->
+
+    <dimen name="edition_akalana_corner_radius">0dp</dimen>
+
+
+    <!-- Saved games -->
+
+    <dimen name="saved_games_grid_view_folder_vspacing">15dp</dimen>
+    <dimen name="saved_games_grid_view_vspacing">7dp</dimen>
+    <dimen name="saved_games_grid_view_hspacing">10dp</dimen>
+    <dimen name="saved_games_grid_view_padding_left_right">7dp</dimen>
+    <dimen name="saved_games_akanala_padding_top">5dp</dimen>
+    <dimen name="saved_games_akanala_padding_bottom">5dp</dimen>
+    <dimen name="saved_games_folder_name_padding_top">5dp</dimen>
+    <dimen name="saved_games_folder_name_padding_left">15dp</dimen>
+    <dimen name="saved_games_folder_size">40dp</dimen>
+    <dimen name="saved_games_menu_weight">6</dimen>
+    <dimen name="saved_games_menu_margin_bottom">10dp</dimen>
+
+    <dimen name="saved_games_item_corner_radius">0dp</dimen>
+
+
     <dimen name="option_icon_size">30dp</dimen>
     <dimen name="option_icon_padding">4dp</dimen>
 
@@ -17,5 +96,11 @@
     <dimen name="option_radio_button_margin_right">0dp</dimen>
     <dimen name="option_radio_button_text_size">14sp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
+
+    <dimen name="setting_theme_item_padding">10dp</dimen>
+    <dimen name="setting_theme_border_radius">7dp</dimen>
+
+    <dimen name="setting_language_item_padding">10dp</dimen>
 
 </resources>

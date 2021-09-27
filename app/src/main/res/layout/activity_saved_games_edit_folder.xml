@@ -53,7 +53,7 @@
                         android:id="@+id/edit_folder_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nom du dossier ..."
+                        android:hint="@string/saved_games_edit_folder_name"
                         android:textColor="#FFF"
                         android:textColorHint="#9FFF"
                         />

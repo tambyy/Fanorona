@@ -27,21 +27,11 @@ public class OptionAiMaxSearchTimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_option_ai_max_search_time);
         ButterKnife.bind(this);
 
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        int width = dm.widthPixels;
-
-        getWindow().setLayout((int) (width * 0.4), WindowManager.LayoutParams.WRAP_CONTENT);
-
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-
-        getWindow().setAttributes(params);
+        setupPopupSize();
 
         List<Integer> times = new ArrayList<>();
 
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 1; i <= 30; i++) {
             times.add(i);
         }
 
@@ -53,4 +43,19 @@ public class OptionAiMaxSearchTimeActivity extends AppCompatActivity {
             finish();
         });
     }
+
+    private void setupPopupSize() {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int width = dm.widthPixels;
+
+        getWindow().setLayout((int) (width * 0.4), WindowManager.LayoutParams.WRAP_CONTENT);
+
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+
+        getWindow().setAttributes(params);
+    }
+
 }

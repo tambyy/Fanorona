@@ -67,10 +67,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="9"
                 android:numColumns="1"
-                android:verticalSpacing="15dp"
+                android:verticalSpacing="@dimen/saved_games_grid_view_folder_vspacing"
                 android:stretchMode="columnWidth"
-                android:paddingLeft="7dp"
-                android:paddingRight="7dp"
+                android:paddingLeft="@dimen/saved_games_grid_view_padding_left_right"
+                android:paddingRight="@dimen/saved_games_grid_view_padding_left_right"
                 android:gravity="center"
                 />
 
@@ -94,11 +94,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="26"
                 android:numColumns="3"
-                android:verticalSpacing="7dp"
-                android:horizontalSpacing="10dp"
+                android:verticalSpacing="@dimen/saved_games_grid_view_vspacing"
+                android:horizontalSpacing="@dimen/saved_games_grid_view_hspacing"
                 android:stretchMode="columnWidth"
-                android:paddingLeft="7dp"
-                android:paddingRight="7dp"
+                android:paddingLeft="@dimen/saved_games_grid_view_padding_left_right"
+                android:paddingRight="@dimen/saved_games_grid_view_padding_left_right"
                 android:gravity="center"
                 />
 
@@ -118,7 +118,7 @@
                         android:id="@+id/saved_games_options"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:layout_weight="6"
+                        android:layout_weight="@dimen/saved_games_menu_weight"
                         android:gravity="top"
                         android:orientation="vertical">
 
@@ -230,6 +230,22 @@
                             <TextView
                                 style="@style/SavedGameButtonText"
                                 android:text="@string/saved_games_save_here" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/saved_games_continue_game"
+                            style="@style/SavedGameButtonLayout"
+                            android:onClick="launchOptionActivity"
+                            android:visibility="gone">
+
+                            <ImageView
+                                style="@style/SavedGameButton"
+                                android:src="@drawable/saved_game_continue_game_ic" />
+
+                            <TextView
+                                style="@style/SavedGameButtonText"
+                                android:text="@string/saved_games_continue_game" />
 
                         </LinearLayout>
 

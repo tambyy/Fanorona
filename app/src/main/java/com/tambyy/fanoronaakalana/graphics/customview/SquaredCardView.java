@@ -7,22 +7,23 @@ import android.widget.Checkable;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
-public class SquaredFromHeightCardView extends CardView implements Checkable {
-    public SquaredFromHeightCardView(@NonNull Context context) {
+public class SquaredCardView extends CardView implements Checkable {
+    public SquaredCardView(@NonNull Context context) {
         super(context);
     }
 
-    public SquaredFromHeightCardView(Context context, AttributeSet attrs) {
+    public SquaredCardView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquaredFromHeightCardView(Context context, AttributeSet attrs, int defStyle) {
+    public SquaredCardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(heightMeasureSpec, heightMeasureSpec);
+        int min = Math.min(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(min, min);
     }
 
     private boolean isChecked = false;

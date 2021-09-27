@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.util.Log;
 
 import com.tambyy.fanoronaakalana.graphics.drawable.Touchable;
@@ -206,14 +207,15 @@ public class Pawn extends Touchable {
             // = (width - (4 * width / 9)) / 2
             float pos = (width - size) / 2f;
 
-            canvas.drawOval(pos, pos, pos + size, pos + size, paint);
-            canvas.drawOval(pos, pos, pos + size, pos + size, strokePaint);
+            RectF mRectF = new RectF(pos, pos, pos + size, pos + size);
+            canvas.drawOval(mRectF, paint);
+            canvas.drawOval(mRectF, strokePaint);
 
             // show movable pieces
             if (state != State.NONE) {
                 final int color = paint.getColor();
                 paint.setColor(defaultMovableColor);
-                canvas.drawOval(pos, pos, pos + size, pos + size, paint);
+                canvas.drawOval(mRectF, paint);
                 paint.setColor(color);
             }
         }

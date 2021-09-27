@@ -1017,10 +1017,11 @@ public class AkalanaView extends SceneView {
     private void updateTraveledPositions() {
         if (traveledPositionsShown && engine != null) {
             List<Point> previousTraveledPositions =
-                    traveledPositions
-                            .stream()
-                            .map(TraveledPosition::getPosition)
-                            .collect(Collectors.toList());
+                    new ArrayList<>();
+            for (TraveledPosition traveledPosition1 : traveledPositions) {
+                Point traveledPosition1Position = traveledPosition1.getPosition();
+                previousTraveledPositions.add(traveledPosition1Position);
+            }
 
             List<Point> currentTraveledPositions = Arrays.asList(engine.traveledPositions());
 
@@ -1258,8 +1259,7 @@ public class AkalanaView extends SceneView {
                     showRemovablePieces(move);
                 } else {
 
-                    // history
-                    onEngineAction(new EngineActionMoveSelectedPiece(engine.currentBlack(), move));
+                    boolean currentBlack = engine.currentBlack();
 
                     // don't show anymore which pieces
                     // are movable
@@ -1297,6 +1297,9 @@ public class AkalanaView extends SceneView {
 
                     // hide last previous movable position
                     hideMovablePositions();
+
+                    // history
+                    onEngineAction(new EngineActionMoveSelectedPiece(currentBlack, move));
 
                     if (engine.moveSessionOpened()) {
                         addAnimation(new TimeoutAnimation(50, animation -> {

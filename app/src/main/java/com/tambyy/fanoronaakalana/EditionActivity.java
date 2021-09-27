@@ -16,11 +16,13 @@ import android.widget.RadioGroup;
 import com.tambyy.fanoronaakalana.config.Theme;
 import com.tambyy.fanoronaakalana.engine.Engine;
 import com.tambyy.fanoronaakalana.graphics.customview.AkalanaView;
+import com.tambyy.fanoronaakalana.graphics.drawable.item.Pawn;
 import com.tambyy.fanoronaakalana.utils.EngineActionsConverter;
 import com.tambyy.fanoronaakalana.utils.PreferenceManager;
 import com.tambyy.fanoronaakalana.utils.ThemeManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EditionActivity extends AppCompatActivity {
 
@@ -79,13 +81,23 @@ public class EditionActivity extends AppCompatActivity {
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
+        List<Engine.Point> result = new ArrayList<>();
+        for (Pawn pawn1 : akalanaView.getBlackActivePieces()) {
+            Engine.Point point1 = new Engine.Point(pawn1.getFx(), pawn1.getFy());
+            result.add(point1);
+        }
         savedInstanceState.putString(
                 EditionActivity.EDITION_BLACK_CONFIG_VALUE_CODE,
-                EngineActionsConverter.positionsToString(akalanaView.getBlackActivePieces().stream().map(pawn -> new Engine.Point(pawn.getFx(), pawn.getFy())).toArray(Engine.Point[]::new))
+                EngineActionsConverter.positionsToString(result.toArray(new Engine.Point[0]))
         );
+        List<Engine.Point> list = new ArrayList<>();
+        for (Pawn pawn : akalanaView.getWhiteActivePieces()) {
+            Engine.Point point = new Engine.Point(pawn.getFx(), pawn.getFy());
+            list.add(point);
+        }
         savedInstanceState.putString(
                 EditionActivity.EDITION_WHITE_CONFIG_VALUE_CODE,
-                EngineActionsConverter.positionsToString(akalanaView.getWhiteActivePieces().stream().map(pawn -> new Engine.Point(pawn.getFx(), pawn.getFy())).toArray(Engine.Point[]::new))
+                EngineActionsConverter.positionsToString(list.toArray(new Engine.Point[0]))
         );
     }
 
@@ -146,8 +158,18 @@ public class EditionActivity extends AppCompatActivity {
     public void launchOptionActivity(View v) {
         Intent intent = new Intent(this, OptionActivity.class);
 
-        intent.putExtra(OptionActivity.EDITION_BLACK_VALUE_CODE, EngineActionsConverter.positionsToString(akalanaView.getBlackActivePieces().stream().map(pawn -> new Engine.Point(pawn.getFx(), pawn.getFy())).toArray(Engine.Point[]::new)));
-        intent.putExtra(OptionActivity.EDITION_WHITE_VALUE_CODE, EngineActionsConverter.positionsToString(akalanaView.getWhiteActivePieces().stream().map(pawn -> new Engine.Point(pawn.getFx(), pawn.getFy())).toArray(Engine.Point[]::new)));
+        List<Engine.Point> result = new ArrayList<>();
+        for (Pawn pawn1 : akalanaView.getBlackActivePieces()) {
+            Engine.Point point1 = new Engine.Point(pawn1.getFx(), pawn1.getFy());
+            result.add(point1);
+        }
+        intent.putExtra(OptionActivity.EDITION_BLACK_VALUE_CODE, EngineActionsConverter.positionsToString(result.toArray(new Engine.Point[0])));
+        List<Engine.Point> list = new ArrayList<>();
+        for (Pawn pawn : akalanaView.getWhiteActivePieces()) {
+            Engine.Point point = new Engine.Point(pawn.getFx(), pawn.getFy());
+            list.add(point);
+        }
+        intent.putExtra(OptionActivity.EDITION_WHITE_VALUE_CODE, EngineActionsConverter.positionsToString(list.toArray(new Engine.Point[0])));
 
         setResult(RESULT_OK, intent);
         startActivity(intent);
@@ -158,7 +180,7 @@ public class EditionActivity extends AppCompatActivity {
      *
      */
     private void loadPreferences() {
-        themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 0l), theme -> {
+        themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 1l), theme -> {
             if (theme != null) {
                 akalanaView.setTheme(theme);
             }

@@ -1,11 +1,6 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="100dp"
-    android:height="100dp"
-    android:viewportWidth="100"
-    android:viewportHeight="100">
-  <path
-      android:pathData="M28,52.4l39.7,27.2c2.3,1.6 5.1,-0.8 4.1,-3.4L61.2,51.1c-0.3,-0.7 -0.3,-1.4 0,-2.1l10.6,-25.1c1.1,-2.6 -1.9,-4.9 -4.1,-3.4L28.1,47.8C26.5,48.9 26.5,51.2 28,52.4z"
-      android:strokeWidth="2"
-      android:fillColor="#212A38"
-      android:strokeColor="#FFC200"/>
-</vector>
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_enabled="false"
+      android:drawable="@drawable/game_history_prev_disabled_ic" />
+  <item android:drawable="@drawable/game_history_prev_regular_ic" />
+</selector>

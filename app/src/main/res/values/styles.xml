@@ -21,6 +21,62 @@
 
     <!-- Options -->
 
+    <style name="OptionsItem" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginLeft">@dimen/option_item_margin_left_right</item>
+        <item name="android:layout_marginTop">@dimen/option_item_margin_top_bottom</item>
+        <item name="android:layout_marginRight">@dimen/option_item_margin_left_right</item>
+        <item name="android:layout_marginBottom">@dimen/option_item_margin_top_bottom</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:backgroundTint">#0000</item>
+        <item name="cardBackgroundColor">@color/transparent</item>
+    </style>
+
+    <style name="OptionsLayout" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:weightSum">20</item>
+    </style>
+
+    <style name="OptionsItemTitle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_marginTop">@dimen/option_item_title_margin_top</item>
+        <item name="android:textColor">#BFFF</item>
+        <item name="android:textSize">@dimen/option_title_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="OptionsItemValue" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/option_value_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="OptionsBtn" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/option_btn_height</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginLeft">7dp</item>
+        <item name="android:layout_marginRight">7dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:textSize">@dimen/option_btn_text_size</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
     <style name="OptionsItemLayout" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -31,59 +87,97 @@
         <item name="android:paddingBottom">12dp</item>
     </style>
 
-    <!-- Options icon -->
-    <style name="OptionsIcon" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">@dimen/option_icon_size</item>
-        <item name="android:layout_height">@dimen/option_icon_size</item>
-        <item name="android:padding">@dimen/option_icon_padding</item>
-    </style>
-
-    <!-- Options label -->
-    <style name="OptionsLabel" parent="TextAppearance.AppCompat">
+    <style name="PopupContainer" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">30dp</item>
-        <item name="android:paddingLeft">@dimen/option_label_padding_left</item>
-        <item name="android:textSize">@dimen/option_label_text_size</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:gravity">left|center</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-    <!-- Options radio group -->
-    <style name="OptionsRadioGroup" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingTop">@dimen/popup_icon_padding_top</item>
     </style>
 
-    <!-- Options radio -->
-    <style name="OptionsRadio" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/option_radio_button_height</item>
-        <item name="android:padding">@dimen/option_radio_button_padding</item>
+    <style name="PopupBodyContainer" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">@dimen/popup_corner_radius</item>
+        <item name="android:backgroundTint">#294155</item>
+    </style>
+
+    <style name="PopupBg" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:src">@drawable/background_popup</item>
+    </style>
+
+    <style name="PopupHeaderImage" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">@dimen/popup_icon_image_size</item>
+        <item name="android:layout_height">@dimen/popup_icon_image_size</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="PopupHeader" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">@dimen/popup_header_size</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:src">@drawable/background_popup_header</item>
+    </style>
+
+    <style name="PopupBody" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/popup_padding</item>
+        <item name="android:paddingTop">@dimen/popup_padding_top</item>
+        <item name="android:paddingRight">@dimen/popup_padding</item>
+        <item name="android:paddingBottom">@dimen/popup_padding</item>
+    </style>
+
+    <style name="PopupItemTitle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/popup_item_height</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/option_radio_bg</item>
-        <item name="android:button">@android:color/transparent</item>
-        <item name="android:textColor">@color/option_radio_text_color</item>
-        <item name="android:textSize">@dimen/option_radio_button_text_size</item>
-        <item name="android:layout_marginLeft">@dimen/option_radio_button_margin_left</item>
-        <item name="android:layout_marginRight">@dimen/option_radio_button_margin_right</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/popup_item_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
     </style>
 
-    <!-- Options button -->
-    <style name="OptionsButton" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">wrap_content</item>
+    <style name="OptionsPopupItemContainer" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#FFF</item>
-        <item name="android:layout_marginLeft">5dp</item>
-        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:backgroundTint">@color/transparent</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">0dp</item>
     </style>
 
-    <style name="OptionsRadioIALevel" parent="OptionsRadio">
-        <item name="android:layout_width">30dp</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:layout_marginLeft">0dp</item>
-        <item name="android:layout_marginRight">-1dp</item>
+    <style name="SettingItemContainer" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:backgroundTint">@color/transparent</item>
+        <item name="cardBackgroundColor">@color/transparent</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+    </style>
+
+    <style name="OptionsPopupItemContainerLayout" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/popup_game_mode_item_margin</item>
+        <item name="android:layout_marginTop">@dimen/popup_game_mode_item_margin</item>
+        <item name="android:layout_marginRight">@dimen/popup_game_mode_item_margin</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="OptionsPopupItemImage" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
     </style>
 
 
@@ -109,6 +203,13 @@
 
     <!-- Edition -->
 
+    <!-- Options radio group -->
+    <style name="OptionsRadioGroup" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
     <style name="EditionRadioButton" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>
@@ -124,7 +225,7 @@
     <style name="SavedGameButtonLayout" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginBottom">@dimen/saved_games_menu_margin_bottom</item>
         <item name="android:orientation">vertical</item>
     </style>
 
@@ -139,7 +240,7 @@
     <style name="SavedGameButtonText" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/saved_games_menu_text_size</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
     </style>

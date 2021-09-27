@@ -40,6 +40,7 @@
     <string name="game_option_re_edit">Hiverina hanova</string>
 
     <!-- Save games -->
+    <string name="saved_games_breadcrumb_home">Fandraisana</string>
     <string name="saved_games_new_folder">Lahatahiry vaovao</string>
     <string name="saved_games_move_items">Afindra</string>
     <string name="saved_games_move_items_here">Afindra eto</string>
@@ -47,9 +48,11 @@
     <string name="saved_games_remove">Fafana</string>
     <string name="saved_games_edit">Ovaina</string>
     <string name="saved_games_save_here">Tahirizina eto</string>
+    <string name="saved_games_continue_game">Tohizana</string>
     <string name="saved_games_game_name_placeholder">Anaran\'ny lalao ...</string>
     <string name="saved_games_game_name_empty_msg">Ampidiro ny anaran\'ny lalao azafady</string>
     <string name="saved_games_edit_save">Tahirizina</string>
+    <string name="saved_games_edit_folder_name">Lahatahiry ...</string>
 
     <!-- Save games -->
     <string name="setting_theme">Endrika</string>

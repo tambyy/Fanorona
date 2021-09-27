@@ -30,6 +30,7 @@ import com.tambyy.fanoronaakalana.utils.PreferenceManager;
 import com.tambyy.fanoronaakalana.utils.ThemeManager;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.List;
 
 public class SavedGamesReviewActivity extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
     public static final String SAVED_GAME_REVIEW_TIME_CODE = "SAVED_GAME_REVIEW_TIME_CODE";
     public static final String SAVED_GAME_REVIEW_PAUSED_CODE = "SAVED_GAME_REVIEW_PAUSED_CODE";
     public static final String SAVED_GAME_REVIEW_SPEED_CODE = "SAVED_GAME_REVIEW_SPEED_CODE";
+    public static final String SAVED_GAME_REVIEW_REALTIME_CODE = "SAVED_GAME_REVIEW_REALTIME_CODE";
 
     @BindView(R.id.review_akalana)
     AkalanaView akalanaView;
@@ -144,13 +146,15 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
         savedInstanceState.putInt(SAVED_GAME_REVIEW_TIME_CODE, progressTime);
         savedInstanceState.putFloat(SAVED_GAME_REVIEW_SPEED_CODE, akalanaView.getAnimationSpeed());
         savedInstanceState.putBoolean(SAVED_GAME_REVIEW_PAUSED_CODE, reviewPaused);
+        savedInstanceState.putBoolean(SAVED_GAME_REVIEW_REALTIME_CODE, realTime);
     }
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        reviewPaused = savedInstanceState.getBoolean(SAVED_GAME_REVIEW_PAUSED_CODE);
+        setRealTime(savedInstanceState.getBoolean(SAVED_GAME_REVIEW_REALTIME_CODE));
+        setReviewPaused(savedInstanceState.getBoolean(SAVED_GAME_REVIEW_PAUSED_CODE));
         akalanaView.setAnimationSpeed(savedInstanceState.getFloat(SAVED_GAME_REVIEW_SPEED_CODE));
         gotoReview(savedInstanceState.getInt(SAVED_GAME_REVIEW_TIME_CODE));
     }
@@ -315,7 +319,9 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
                 int newProgress = (int) (y * seekBarReviewProgress.getMax());
 
                 if (progress != newProgress) {
-                    seekBarReviewProgress.setProgress(newProgress);
+                    runOnUiThread(() -> {
+                        seekBarReviewProgress.setProgress(newProgress);
+                    });
                 }
             }
         };
@@ -397,22 +403,6 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
     }
 
     /**
-     * On click on '<' button
-     */
-    public void prevReview(View view) {
-        gotoReview(progressTime - ANIM_INTERVAL);
-        setReviewPaused(true);
-    }
-
-    /**
-     * On click on '>' button
-     */
-    public void nextReview(View view) {
-        gotoReview(progressTime + ANIM_INTERVAL);
-        setReviewPaused(true);
-    }
-
-    /**
      * On click on speed button
      */
     public void showReviewSpeedContextMenu(View view) {
@@ -424,16 +414,26 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
      * @param view
      */
     public void toggleRealTime(View view) {
-        realTime = !realTime;
+        setRealTime(!realTime);
+    }
+
+    private void setRealTime(boolean realTime) {
+        this.realTime = realTime;
 
         int reviewDelay = getReviewDelay();
         int seekBarMax = reviewDelay / 80;
         seekBarReviewProgress.setMax(seekBarMax);
 
         if (realTime) {
-            seekBarReviewProgress.setMarkersPosition(reviewActions.stream().mapToInt(engineAction -> {
-                return (int) (engineAction.getTime() * seekBarMax * 2) / (reviewDelay * 3);
-            }).toArray());
+            int[] arr = new int[10];
+            int count = 0;
+            for (EngineAction engineAction : reviewActions) {
+                int i = (int) (engineAction.getTime() * seekBarMax * 2) / (reviewDelay * 3);
+                if (arr.length == count) arr = Arrays.copyOf(arr, count * 2);
+                arr[count++] = i;
+            }
+            arr = Arrays.copyOfRange(arr, 0, count);
+            seekBarReviewProgress.setMarkersPosition(arr);
         } else {
             seekBarReviewProgress.setMarkersPosition(new int[]{});
         }
@@ -445,7 +445,7 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
      *
      */
     private void loadPreferences() {
-        themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 0l), theme -> {
+        themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 1l), theme -> {
             if (theme != null) {
                 akalanaView.setTheme(theme);
             }

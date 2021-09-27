@@ -1,5 +1,7 @@
 package com.tambyy.fanoronaakalana.utils;
 
+import android.util.Log;
+
 import com.tambyy.fanoronaakalana.OptionActivity;
 import com.tambyy.fanoronaakalana.engine.Engine;
 import com.tambyy.fanoronaakalana.engine.EngineAction;
@@ -95,12 +97,12 @@ public class EngineActionsHistoryManager {
      * move to previous action
      */
     public boolean prevHistory(boolean vsAi, boolean aiBlack) {
-        if (historyIndex > 0) {
+        if (hasPrevHistory()) {
             do {
                 --historyIndex;
                 // we ignore piece selection action
                 // and AI action when we want to go to the previous action
-            } while (historyIndex > 0 && ((vsAi && history.get(historyIndex + 1).isBlack() == aiBlack) || history.get(historyIndex) instanceof EngineActionSelectPiece));
+            } while (hasPrevHistory() && ((vsAi && history.get(historyIndex + 1).isBlack() == aiBlack) || history.get(historyIndex) instanceof EngineActionSelectPiece));
 
             return true;
         }
@@ -112,17 +114,31 @@ public class EngineActionsHistoryManager {
      * move to next action
      */
     public boolean nextHistory(boolean vsAi, boolean aiBlack) {
-        if (historyIndex < history.size() - 1) {
+        if (hasNextHistory()) {
             do {
                 ++historyIndex;
                 // we ignore piece selection action
                 // and AI action when we want to go to the next action
-            } while (historyIndex < history.size() - 1 && ((vsAi && history.get(historyIndex + 1).isBlack() == aiBlack) || history.get(historyIndex) instanceof EngineActionSelectPiece));
+            } while (hasNextHistory() && ((vsAi && history.get(historyIndex + 1).isBlack() == aiBlack) || history.get(historyIndex) instanceof EngineActionSelectPiece));
 
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * has prev action
+     */
+    public boolean hasPrevHistory() {
+        return historyIndex > 0;
+    }
+
+    /**
+     * has next action
+     */
+    public boolean hasNextHistory() {
+        return historyIndex < history.size() - 1;
     }
 
     /**

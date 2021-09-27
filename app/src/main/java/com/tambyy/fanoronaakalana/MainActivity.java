@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.tambyy.fanoronaakalana.utils.LocaleManager;
@@ -17,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.app_title)
     LinearLayout linearLayoutAppTitle;
+
+    @BindView(R.id.app_bg)
+    ImageView imageViewBg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private void animateSplashScreen() {
         Animation appTitleAnimation = AnimationUtils.loadAnimation(this, R.anim.app_title_appears_animation);
         linearLayoutAppTitle.setAnimation(appTitleAnimation);
+
+        Animation appBgAnimation = AnimationUtils.loadAnimation(this, R.anim.app_bg_scale_animation);
+        imageViewBg.setAnimation(appBgAnimation);
     }
 
     /**

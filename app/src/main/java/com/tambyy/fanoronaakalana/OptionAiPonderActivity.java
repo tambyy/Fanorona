@@ -6,6 +6,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -33,19 +34,19 @@ public class OptionAiPonderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_option_ai_ponder);
         ButterKnife.bind(this);
 
-        setPopupDisplay();
+        setupPopupSize();
 
         this.preferenceManager = PreferenceManager.getInstance(this);
         loadPreferences();
     }
 
-    private void setPopupDisplay() {
+    private void setupPopupSize() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
 
-        getWindow().setLayout((int) (width * 0.3), WindowManager.LayoutParams.WRAP_CONTENT);
+        getWindow().setLayout((int) (width * 0.4), WindowManager.LayoutParams.WRAP_CONTENT);
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
@@ -71,13 +72,24 @@ public class OptionAiPonderActivity extends AppCompatActivity {
     }
 
     private void showSelectedOption(int option) {
-        optionAiPonderYesCardView.setBackgroundTintList(Constants.OPTION_BC);
-        optionAiPonderNoCardView.setBackgroundTintList(Constants.OPTION_BC);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            optionAiPonderYesCardView.setBackgroundTintList(Constants.OPTION_BGH);
+            optionAiPonderNoCardView.setBackgroundTintList(Constants.OPTION_BGH);
 
-        if (option == Constants.OPTION_AI_PONDER_YES) {
-            optionAiPonderYesCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
-        } else if (option == Constants.OPTION_AI_PONDER_NO) {
-            optionAiPonderNoCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
+            if (option == Constants.OPTION_AI_PONDER_YES) {
+                optionAiPonderYesCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            } else if (option == Constants.OPTION_AI_PONDER_NO) {
+                optionAiPonderNoCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            }
+        } else {
+            optionAiPonderYesCardView.setCardBackgroundColor(Constants.OPTION_BG);
+            optionAiPonderNoCardView.setCardBackgroundColor(Constants.OPTION_BG);
+
+            if (option == Constants.OPTION_AI_PONDER_YES) {
+                optionAiPonderYesCardView.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            } else if (option == Constants.OPTION_AI_PONDER_NO) {
+                optionAiPonderNoCardView.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            }
         }
     }
 

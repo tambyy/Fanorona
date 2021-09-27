@@ -1374,4 +1374,8 @@ void generateOccupation(int pos, Bitboard movablePosition, Bitboard percuteAttac
 void generateAllOccupations();
 void initAttack();
 
+namespace Bitboards {
+    void init();
+}
+
 #endif // BITBOARD_H

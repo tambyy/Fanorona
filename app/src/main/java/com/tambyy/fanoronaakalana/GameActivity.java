@@ -2,10 +2,13 @@ package com.tambyy.fanoronaakalana;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,11 +17,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tambyy.fanoronaakalana.config.Theme;
 import com.tambyy.fanoronaakalana.engine.Engine;
 import com.tambyy.fanoronaakalana.engine.EngineAction;
 import com.tambyy.fanoronaakalana.engine.EngineActionMoveSelectedPiece;
@@ -40,23 +43,34 @@ public class GameActivity extends AppCompatActivity {
     @BindView(R.id.game_akalana)
     AkalanaView akalanaView;
 
+    @BindView(R.id.game_save)
+    ImageButton imageButtonGameSave;
+
+    @BindView(R.id.game_replay)
+    ImageButton imageButtonGameReplay;
+
     @BindView(R.id.game_history_prev)
     ImageButton imageButtonGameHistoryPrev;
-
-    @BindView(R.id.game_history_next)
-    ImageButton imageButtonGameHistoryNext;
 
     @BindView(R.id.game_stop_moves_sequence)
     ImageButton imageButtonGameStopMovesSequence;
 
-    @BindView(R.id.game_save)
-    ImageButton imageButtonGameSave;
+    @BindView(R.id.game_history_next)
+    ImageButton imageButtonGameHistoryNext;
+
+    @BindView(R.id.game_play_agaisnt_icon)
+    ImageView imageViewPlayAgainst;
 
     @BindView(R.id.game_ai_level_text)
     TextView textViewAiLevel;
 
+    @BindView(R.id.game_ai_level)
+    CardView cardViewAiLevel;
+
     @BindView(R.id.game_ai_thinking_progress)
     ProgressBar progressBarAiThinking;
+
+    ObjectAnimator progressBarAiThinkingAnimator;
 
     public static final String EXTRA_GAME_RESUME               = "EXTRA_GAME_RESUME";
     public static final String EXTRA_GAME_RESUME_HISTORY_INDEX = "EXTRA_GAME_RESUME_HISTORY_INDEX";
@@ -96,6 +110,11 @@ public class GameActivity extends AppCompatActivity {
      * AI pondering
      */
     private boolean ponder = false;
+
+    /**
+     * AI thinking
+     */
+    private boolean aiThinking = false;
 
     /**
      * We need to have the begin time
@@ -140,6 +159,7 @@ public class GameActivity extends AppCompatActivity {
         configureAkalana();
         loadPreferences();
         intentFromOptionActivity(savedInstanceState);
+        checkAvailableHistory();
 
         beginTime = System.currentTimeMillis();
     }
@@ -148,19 +168,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        // stop ponder and evaluate process
-        if (evaluateProcess != null || ponderProcess != null) {
-            engine.stopSearch(0);
-
-            try {
-                if (evaluateProcess != null) {
-                    evaluateProcess.get();
-                } else {
-                    ponderProcess.get();
-                }
-            } catch (ExecutionException | InterruptedException ignored) {}
-        }
-
+        stopEngineProcess();
         engine.terminate();
     }
 
@@ -236,17 +244,18 @@ public class GameActivity extends AppCompatActivity {
      *
      */
     private void startAnimateAiThinking() {
-        /*ProgressBarAnimation anim = new ProgressBarAnimation(progressBarAiThinking, 0, progressBarAiThinking.getMax());
-        anim.setDuration(aiMaxReflexionTime);
-        progressBarAiThinking.startAnimation(anim);*/
+        progressBarAiThinkingAnimator = ObjectAnimator.ofInt(progressBarAiThinking, "progress", 0, progressBarAiThinking.getMax());
+        progressBarAiThinkingAnimator.setDuration(aiMaxReflexionTime);
+        progressBarAiThinkingAnimator.setAutoCancel(true);
+        progressBarAiThinkingAnimator.start();
     }
 
     /**
      *
      */
     private void stopAnimateAiThinking() {
-        /*progressBarAiThinking.clearAnimation();
-        progressBarAiThinking.setProgress(progressBarAiThinking.getMax());*/
+        progressBarAiThinkingAnimator.cancel();
+        progressBarAiThinking.setProgress(0);
     }
 
     /**
@@ -272,9 +281,12 @@ public class GameActivity extends AppCompatActivity {
                 // C. CHECK IF THERE'RE A CONFIG FROM EDITION
                 checkOptionActivityEditionConfig(bundle);
 
-                // D. CHECK IF WE MUST RESUME PREVIOUS GAME
-                if (!checkOptionActivityGameResumeConfig(bundle)) {
-                    akalanaView.initConfigFromEngine();
+                // D. CHECK IF WE MUST CONTINUE SAVED GAME
+                if (!checkOptionActivitySavedGameConfig(bundle)) {
+                    // E. CHECK IF WE MUST RESUME PREVIOUS GAME
+                    if (!checkOptionActivityGameResumeConfig(bundle)) {
+                        akalanaView.initConfigFromEngine();
+                    }
                 }
             }
         }
@@ -303,9 +315,13 @@ public class GameActivity extends AppCompatActivity {
         int against = bundle.getInt(OptionActivity.EXTRA_GAME_AGAINST_CODE);
         if (against == 0) {
             vsAi = false;
+            cardViewAiLevel.setVisibility(View.GONE);
+            progressBarAiThinking.setVisibility(View.GONE);
+            imageViewPlayAgainst.setImageResource(R.drawable.game_play_against_human_ic);
         } else {
             vsAi = true;
             aiBlack = against == 1;
+            imageViewPlayAgainst.setImageResource(aiBlack ? R.drawable.game_play_against_ai_black_ic : R.drawable.game_play_against_ai_white_ic);
         }
     }
 
@@ -353,6 +369,30 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * check if this is a game config
+     * from edition
+     * @param bundle
+     */
+    private boolean checkOptionActivitySavedGameConfig(Bundle bundle) {
+        if (bundle.containsKey(OptionActivity.EXTRA_SAVED_GAMES_CONFIG)) {
+            // last game moves history
+            List<EngineAction> actions = EngineActionsConverter.stringToEngineActions(bundle.getString(OptionActivity.EXTRA_SAVED_GAMES_CONFIG));
+            // last game history index
+            int historyIndex = actions.size() - 1;
+            // restore history
+            history.restoreHistory(actions, historyIndex);
+
+            setEngineConfigFromHistory();
+
+            beginTime = System.currentTimeMillis() - actions.get(actions.size() - 1).getTime();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * check if we have a game to resume
      * @param bundle
      */
@@ -381,10 +421,25 @@ public class GameActivity extends AppCompatActivity {
      * @param aiThinking
      */
     private void setAiThinking(boolean aiThinking) {
+        this.aiThinking = aiThinking;
+
         imageButtonGameHistoryPrev.setEnabled(!aiThinking);
         imageButtonGameHistoryNext.setEnabled(!aiThinking);
         imageButtonGameStopMovesSequence.setEnabled(!aiThinking);
         imageButtonGameSave.setEnabled(!aiThinking);
+
+        checkAvailableHistory();
+    }
+
+    /**
+     *
+     */
+    private void checkAvailableHistory() {
+        if (!aiThinking) {
+            imageButtonGameHistoryPrev.setEnabled(history.hasPrevHistory());
+            imageButtonGameHistoryNext.setEnabled(history.hasNextHistory());
+            imageButtonGameStopMovesSequence.setEnabled(engine.moveSessionOpened());
+        }
     }
 
     /**
@@ -424,21 +479,24 @@ public class GameActivity extends AppCompatActivity {
 
             // Just for Log :D :D :D
 
-            CharSequence s = engine.getLastSearchDepth(0) + " - " +
-                    engine.getLastNodesCount(0) + " nd - " +
-                    engine.getLastSearchTime(0) + " ms - " +
-                    (engine.getLastNodesCount(0) / Math.max(1, engine.getLastSearchTime(0))) + " nd/ms";
+            if (evaluateProcess != null) {
+                evaluateProcess = null;
 
-            Log.d("AKALANA", s.toString());
+                CharSequence s = engine.getLastSearchDepth(0) + " - " +
+                        engine.getLastNodesCount(0) + " nd - " +
+                        engine.getLastSearchTime(0) + " ms - " +
+                        (engine.getLastNodesCount(0) / Math.max(1, engine.getLastSearchTime(0))) + " nd/ms";
 
-            // Anim AI search result moves
+                Log.d("AKALANA", s.toString());
 
-            akalanaView.animEngineActions(movesSequenceToEngineActions(!engine.currentBlack(), result), () -> {
-                akalanaView.setTouchable(true);
-                setAiThinking(false);
-            });
-            evaluateProcess = null;
-            stopAnimateAiThinking();
+                // Anim AI search result moves
+
+                akalanaView.animEngineActions(movesSequenceToEngineActions(!engine.currentBlack(), result), () -> {
+                    akalanaView.setTouchable(true);
+                    setAiThinking(false);
+                });
+                stopAnimateAiThinking();
+            }
         }
 
     };
@@ -503,6 +561,7 @@ public class GameActivity extends AppCompatActivity {
         // register action in history
         action.setTime(System.currentTimeMillis() - beginTime);
         history.addHistory(action);
+        checkAvailableHistory();
     };
 
 
@@ -528,6 +587,7 @@ public class GameActivity extends AppCompatActivity {
      */
     private final AkalanaView.MovesSequenceOverListener movesSequenceOverListener = () -> {
         // check if game is over
+        imageButtonGameStopMovesSequence.setEnabled(false);
 
         if (engine.gameOver()) {
 
@@ -587,6 +647,26 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * Stop engine evaluate or ponder process
+     */
+    private void stopEngineProcess() {
+        // stop ponder and evaluate process
+        if (evaluateProcess != null || ponderProcess != null) {
+            engine.stopSearch(0);
+
+            try {
+                if (evaluateProcess != null) {
+                    evaluateProcess.get();
+                    evaluateProcess = null;
+                } else {
+                    ponderProcess.get();
+                    ponderProcess = null;
+                }
+            } catch (ExecutionException | InterruptedException ignored) {}
+        }
+    }
+
+    /**
      * Stop moves sequence
      */
     public void stopMovesSequence(View view) {
@@ -598,8 +678,11 @@ public class GameActivity extends AppCompatActivity {
      * Move to previous action
      */
     public void prevHistory(View view) {
-        if (history.prevHistory(vsAi, aiBlack))
+        if (history.prevHistory(vsAi, aiBlack)) {
             setEngineConfigFromHistory();
+        }
+
+        checkAvailableHistory();
     }
 
     /**
@@ -607,8 +690,11 @@ public class GameActivity extends AppCompatActivity {
      * move to next action
      */
     public void nextHistory(View view) {
-        if (history.nextHistory(vsAi, aiBlack))
+        if (history.nextHistory(vsAi, aiBlack)) {
             setEngineConfigFromHistory();
+        }
+
+        checkAvailableHistory();
     }
 
     /**
@@ -616,6 +702,8 @@ public class GameActivity extends AppCompatActivity {
      * @param view
      */
     public void replay(View view) {
+        stopEngineProcess();
+
         history.backwardHistory();
         setEngineConfigFromHistory();
         beginTime = System.currentTimeMillis();
@@ -640,14 +728,16 @@ public class GameActivity extends AppCompatActivity {
 
         // Theme
 
-        themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 0l), theme -> {
+        themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 1l), theme -> {
             if (theme != null) {
                 akalanaView.setTheme(theme);
             }
         });
 
         // Sound volume
-        float volume = Math.min((float) preferenceManager.get(Constants.PREF_SETTING_SOUND_VOLUME, 10) / 10f, 1f);
+        Resources res = getResources();
+        int maxVolume = res.getInteger(R.integer.progress_volume_max_value);
+        float volume = Math.min((float) preferenceManager.get(Constants.PREF_SETTING_SOUND_VOLUME, maxVolume) / (float) maxVolume, 1f);
 
         movePieceSound.setVolume(volume * 0.05f, volume * 0.05f);
         putPieceSound.setVolume(volume, volume);

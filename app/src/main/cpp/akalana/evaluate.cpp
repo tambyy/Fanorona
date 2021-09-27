@@ -5,6 +5,20 @@
 #define  LOG_TAG    "AKALANA"
 #define  ALOG(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
 
+constexpr int OCCUPATIONS_SCORES[54] = {
+
+        0,        2,    1,    3,    2,    4,    2,    3,    1,    2,        0,
+
+        0,        1,   13,    6,   15,    8,   15,    6,   13,    1,        0,
+
+        0,        3,    5,   17,   13,   20,   13,   17,    5,    3,        0,
+
+        0,        1,   13,    6,   15,    8,   15,    6,   13,    1,        0,
+
+        0,        2,    1,    3,    2,    4,    2,    3,    1,    2
+
+};
+
 constexpr int POSITIONS_SCORES[54] = {
 
         0,        2,    1,    3,    2,    4,    2,    3,    1,    2,        0,
@@ -234,7 +248,7 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
                 // pièces qui menacent des pièces adverses
                 threatingPiecesBitboardThem |= threatingPiecesPerVectorThem = movePositionBack(occupationPositionPerVectorThem & bitboardUs, vector2);
                 if (vela && currentPlayerBlack != velaBlack) {
-                    movablePositionsCountThem += bitCount(threatingPiecesBitboardThem);
+                    movablePositionsCountThem += bitCount(threatingPiecesPerVectorThem);
                 }
                 threatingBitboardPerVectorThem[0][i] = threatingPiecesPerVectorThem;
             }
@@ -647,7 +661,7 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
     Bitboard position = ZARAN_DAKA_1;
 
     for (int i = 0, positionScore; i < 45; ++i) {
-        positionScore = POSITIONS_SCORES[i];
+        positionScore = OCCUPATIONS_SCORES[i];
 
         if (position & bitboardUs) {
             positionsValueUs += positionScore;
@@ -755,7 +769,7 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
 
         const int i = lsb(position);
 
-        positionsValueUs += POSITIONS_SCORES[i];
+        positionsValueUs += OCCUPATIONS_SCORES[i];
 
         if (position & allThreatenedUs) {
             if (position & threatenedBlockedUs) {
@@ -816,7 +830,7 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
 
         const int i = lsb(position);
 
-        positionsValueThem += POSITIONS_SCORES[i];
+        positionsValueThem += OCCUPATIONS_SCORES[i];
 
         if (position & threatenedBitboardThem) {
             if (position & threatenedBlockedThem) {
@@ -863,7 +877,7 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
             position = temp & -temp;
 
             if (position & occupationPositionsBitboardThem) {
-                occupationValueThem += POSITIONS_SCORES[lsb(position)];
+                occupationValueThem += OCCUPATIONS_SCORES[lsb(position)];
             }
         }
     }
@@ -873,7 +887,7 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
             position = temp & -temp;
 
             if (position & movablePositionsBitboardUs) {
-                movableValueUs += POSITIONS_SCORES[lsb(position)];
+                movableValueUs += OCCUPATIONS_SCORES[lsb(position)];
             }
         }
     }
@@ -883,7 +897,7 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
             position = temp & -temp;
 
             if (position & occupationPositionsBitboardUs) {
-                occupationValueUs += POSITIONS_SCORES[lsb(position)];
+                occupationValueUs += OCCUPATIONS_SCORES[lsb(position)];
             }
         }
     }
@@ -893,7 +907,7 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
             position = temp & -temp;
 
             if (position & movablePositionsBitboardThem) {
-                movableValueThem += POSITIONS_SCORES[lsb(position)];
+                movableValueThem += OCCUPATIONS_SCORES[lsb(position)];
             }
         }
     }
@@ -1040,6 +1054,15 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
             bonusUs += 28000;
         }
 
+            // 3.
+        else if (piecesValueUs >= 2 && piecesValueThem == 2 &&
+                 (threatenedBlockedValueThem + threatenedBlockedMoreValueThem +
+                  threatenedValueThem + threatenedThreatValueThem + blockedOnBorderValueThem +
+                  mobileOnCornerValueThem + mobileOnBorderValueThem +
+                  mobileOnBorderMoreValueThem) == 1) {
+            bonusUs += 24000;
+        }
+
             // 3. s'il ne reste plus que 2 pièces
             //    et que toutes les pièces sont
             //    soient bloquées
@@ -1154,7 +1177,14 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
         else if (piecesValueUs == 2 &&
                  (threatenedBlockedValueUs + threatenedValueUs + blockedOnBorderValueUs +
                   mobileOnCornerValueUs + mobileOnBorderValueUs) == piecesValueUs) {
-            bonusThem += 13000;
+            bonusThem += 28000;
+        }
+
+            // 3.
+        else if (piecesValueThem >= 2 && piecesValueUs == 2 &&
+                 (threatenedBlockedValueUs + threatenedValueUs + blockedOnBorderValueUs +
+                  mobileOnCornerValueUs + mobileOnBorderValueUs) == 1) {
+            bonusThem += 24000;
         }
 
             // 3. s'il ne reste plus que 2 pièces

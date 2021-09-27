@@ -1,6 +1,7 @@
 package com.tambyy.fanoronaakalana.graphics.drawable.item;
 
 import android.graphics.Canvas;
+import android.graphics.RectF;
 
 import com.tambyy.fanoronaakalana.engine.Engine.Point;
 import com.tambyy.fanoronaakalana.engine.Engine.Move;
@@ -49,7 +50,8 @@ public class RemovablePawn extends Touchable {
         // = (width - (4 * width / 9)) / 2
         float pos = (width - size) / 2f;
 
-        canvas.drawOval(pos, pos, pos + size, pos + size, paint);
+        RectF mRectF = new RectF(pos, pos, pos + size, pos + size);
+        canvas.drawOval(mRectF, paint);
     }
 
     @Override

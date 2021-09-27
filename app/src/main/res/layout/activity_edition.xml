@@ -15,26 +15,30 @@
         android:scaleType="centerCrop"
         />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true">
-
+        android:backgroundTint="@color/transparent"
+        android:background="@color/transparent">
 
         <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="4"
-            android:weightSum="1.0"
-            android:gravity="center">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintDimensionRatio="H,13:5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_weight="0.7"
+                android:layout_weight="2"
                 android:weightSum="1.0"
                 android:gravity="center">
 
@@ -42,82 +46,66 @@
                     android:layout_width="0dip"
                     android:layout_height="match_parent"
                     android:layout_weight="0.45"
-                    android:weightSum="1.0"
+                    android:weightSum="4"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <RadioGroup
+                        android:id="@+id/edition_type"
+                        style="@style/OptionsRadioGroup"
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.75"
-                        android:gravity="top"
-                        android:orientation="vertical">
+                        android:layout_weight="3"
+                        android:orientation="vertical"
+                        android:gravity="top">
 
-                        <RadioGroup
-                            android:id="@+id/edition_type"
-                            style="@style/OptionsRadioGroup"
+                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthRadioButton
+                            android:id="@+id/edition_black_pawn"
+                            style="@style/EditionRadioButton"
                             android:layout_width="match_parent"
-                            android:layout_height="0dip"
-                            android:layout_weight="3"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:background="@drawable/edition_black_pawn"
+                            android:checked="true"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginRight="0dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="0dp"/>
 
-                            <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthRadioButton
-                                android:id="@+id/edition_black_pawn"
-                                style="@style/EditionRadioButton"
-                                android:layout_width="match_parent"
-                                android:background="@drawable/edition_black_pawn"
-                                android:checked="true"
-                                android:layout_marginTop="0dp"
-                                android:layout_marginRight="0dp"
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginLeft="0dp"/>
+                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthRadioButton
+                            android:id="@+id/edition_white_pawn"
+                            style="@style/EditionRadioButton"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/edition_white_pawn"
+                            android:layout_margin="0dp"
+                            android:layout_marginRight="0dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="0dp"/>
 
-                            <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthRadioButton
-                                android:id="@+id/edition_white_pawn"
-                                style="@style/EditionRadioButton"
-                                android:layout_width="match_parent"
-                                android:background="@drawable/edition_white_pawn"
-                                android:layout_margin="0dp"
-                                android:layout_marginRight="0dp"
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginLeft="0dp"/>
+                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthRadioButton
+                            android:id="@+id/edition_trash"
+                            style="@style/EditionRadioButton"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/edition_trash"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginRight="0dp"
+                            android:layout_marginLeft="0dp"/>
 
-                            <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthRadioButton
-                                android:id="@+id/edition_trash"
-                                style="@style/EditionRadioButton"
-                                android:layout_width="match_parent"
-                                android:background="@drawable/edition_trash_ic"
-                                android:layout_marginTop="0dp"
-                                android:layout_marginRight="0dp"
-                                android:layout_marginLeft="0dp"/>
-
-                        </RadioGroup>
-
-                    </LinearLayout>
+                    </RadioGroup>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.25"
+                        android:layout_weight="1"
                         android:gravity="bottom"
                         android:orientation="vertical">
 
-                        <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView
+                        <ImageButton
+                            android:id="@+id/edition_clear"
+                            style="@style/LSGameButton"
+                            android:padding="0dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="15dp"
-                            android:backgroundTint="#0000">
-
-                            <ImageButton
-                                android:id="@+id/edition_clear"
-                                style="@style/LSGameButton"
-                                android:padding="0dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/edition_clean_ic"
-                                android:onClick="clearBoard"/>
-
-                        </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView>
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/edition_clean_ic"
+                            android:onClick="clearBoard"/>
 
                     </LinearLayout>
 
@@ -125,45 +113,39 @@
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_weight="16"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:cardCornerRadius="25dp"
-            android:backgroundTint="@color/transparent"
-            app:cardElevation="0dp">
-
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_weight="9"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
 
-                <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
-                    android:id="@+id/edition_akalana"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    app:cardCornerRadius="@dimen/game_akalana_corner_radius"
+                    android:backgroundTint="@color/transparent"
+                    app:cardUseCompatPadding="false"
+                    app:cardBackgroundColor="@color/transparent"
+                    app:cardElevation="0dp">
 
-                </com.tambyy.fanoronaakalana.graphics.customview.AkalanaView>
+                    <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
+                        android:id="@+id/edition_akalana"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </com.tambyy.fanoronaakalana.graphics.customview.AkalanaView>
+
+                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
 
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="4"
-            android:weightSum="1.0"
-            android:gravity="center">
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_weight="0.7"
+                android:layout_weight="2"
                 android:weightSum="1.0"
                 android:gravity="center">
 
@@ -175,22 +157,15 @@
                     android:orientation="vertical"
                     android:gravity="center">
 
-                    <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView
+                    <ImageButton
+                        style="@style/LSGameButton"
+                        android:padding="0dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="15dp"
-                        android:backgroundTint="#0000">
-
-                        <ImageButton
-                            style="@style/LSGameButton"
-                            android:padding="0dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/edition_play"
-                            android:src="@drawable/edition_play_ic"
-                            android:onClick="launchOptionActivity"/>
-
-                    </com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthCardView>
+                        android:adjustViewBounds="true"
+                        android:id="@+id/edition_play"
+                        android:src="@drawable/edition_play_ic"
+                        android:onClick="launchOptionActivity"/>
 
                 </LinearLayout>
 
@@ -198,7 +173,6 @@
 
         </LinearLayout>
 
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

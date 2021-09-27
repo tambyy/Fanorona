@@ -6,6 +6,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -33,19 +34,19 @@ public class OptionFirstMoveActivity extends AppCompatActivity {
         setContentView(R.layout.activity_option_first_move);
         ButterKnife.bind(this);
 
-        setPopupDisplay();
+        setupPopupSize();
 
         this.preferenceManager = PreferenceManager.getInstance(this);
         loadPreferences();
     }
 
-    private void setPopupDisplay() {
+    private void setupPopupSize() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
 
-        getWindow().setLayout((int) (width * 0.3), WindowManager.LayoutParams.WRAP_CONTENT);
+        getWindow().setLayout((int) (width * 0.35), WindowManager.LayoutParams.WRAP_CONTENT);
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
@@ -72,13 +73,24 @@ public class OptionFirstMoveActivity extends AppCompatActivity {
     }
 
     private void showSelectedOption(int option) {
-        optionFirstMoveBlackCardView.setBackgroundTintList(Constants.OPTION_BC);
-        optionFirstMoveWhiteCardView.setBackgroundTintList(Constants.OPTION_BC);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            optionFirstMoveBlackCardView.setBackgroundTintList(Constants.OPTION_BGH);
+            optionFirstMoveWhiteCardView.setBackgroundTintList(Constants.OPTION_BGH);
 
-        if (option == Constants.OPTION_FIRST_MOVE_BLACK) {
-            optionFirstMoveBlackCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
-        } else if (option == Constants.OPTION_FIRST_MOVE_WHITE) {
-            optionFirstMoveWhiteCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
+            if (option == Constants.OPTION_FIRST_MOVE_BLACK) {
+                optionFirstMoveBlackCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            } else if (option == Constants.OPTION_FIRST_MOVE_WHITE) {
+                optionFirstMoveWhiteCardView.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            }
+        } else {
+            optionFirstMoveBlackCardView.setCardBackgroundColor(Constants.OPTION_BG);
+            optionFirstMoveWhiteCardView.setCardBackgroundColor(Constants.OPTION_BG);
+
+            if (option == Constants.OPTION_FIRST_MOVE_BLACK) {
+                optionFirstMoveBlackCardView.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            } else if (option == Constants.OPTION_FIRST_MOVE_WHITE) {
+                optionFirstMoveWhiteCardView.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            }
         }
     }
 

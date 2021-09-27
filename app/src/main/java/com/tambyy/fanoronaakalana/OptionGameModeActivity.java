@@ -6,6 +6,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -79,16 +80,30 @@ public class OptionGameModeActivity extends AppCompatActivity {
     }
 
     private void showSelectedOption(int option) {
-        cardViewoptionGameModeRiatra.setBackgroundTintList(Constants.OPTION_BC);
-        cardViewoptionGameModeVelaBlack.setBackgroundTintList(Constants.OPTION_BC);
-        cardViewoptionGameModeVelaWhite.setBackgroundTintList(Constants.OPTION_BC);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cardViewoptionGameModeRiatra.setBackgroundTintList(Constants.OPTION_BGH);
+            cardViewoptionGameModeVelaBlack.setBackgroundTintList(Constants.OPTION_BGH);
+            cardViewoptionGameModeVelaWhite.setBackgroundTintList(Constants.OPTION_BGH);
 
-        if (option == Constants.OPTION_GAME_MODE_RIATRA) {
-            cardViewoptionGameModeRiatra.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
-        } else if (option == Constants.OPTION_GAME_MODE_VELA_BLACK) {
-            cardViewoptionGameModeVelaBlack.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
-        } else if (option == Constants.OPTION_GAME_MODE_VELA_WHITE) {
-            cardViewoptionGameModeVelaWhite.setBackgroundTintList(Constants.SELECTED_OPTION_BC);
+            if (option == Constants.OPTION_GAME_MODE_RIATRA) {
+                cardViewoptionGameModeRiatra.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            } else if (option == Constants.OPTION_GAME_MODE_VELA_BLACK) {
+                cardViewoptionGameModeVelaBlack.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            } else if (option == Constants.OPTION_GAME_MODE_VELA_WHITE) {
+                cardViewoptionGameModeVelaWhite.setBackgroundTintList(Constants.SELECTED_OPTION_BGH);
+            }
+        } else {
+            cardViewoptionGameModeRiatra.setCardBackgroundColor(Constants.OPTION_BG);
+            cardViewoptionGameModeVelaBlack.setCardBackgroundColor(Constants.OPTION_BG);
+            cardViewoptionGameModeVelaWhite.setCardBackgroundColor(Constants.OPTION_BG);
+
+            if (option == Constants.OPTION_GAME_MODE_RIATRA) {
+                cardViewoptionGameModeRiatra.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            } else if (option == Constants.OPTION_GAME_MODE_VELA_BLACK) {
+                cardViewoptionGameModeVelaBlack.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            } else if (option == Constants.OPTION_GAME_MODE_VELA_WHITE) {
+                cardViewoptionGameModeVelaWhite.setCardBackgroundColor(Constants.SELECTED_OPTION_BG);
+            }
         }
     }
 

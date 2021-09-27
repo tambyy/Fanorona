@@ -151,3 +151,9 @@ void initAttack()
         }
     }
 }
+
+void Bitboards::init() {
+    initMobableBitboard();
+    generateAllOccupations();
+    initAttack();
+}

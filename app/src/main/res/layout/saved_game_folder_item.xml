@@ -13,7 +13,7 @@
         android:backgroundTint="@color/transparent">
 
             <ImageView
-                android:layout_width="40dp"
+                android:layout_width="@dimen/saved_games_folder_size"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:layout_centerInParent="true"
@@ -23,7 +23,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/saved_games_folder_size"
                 android:orientation="vertical">
 
                 <TextView
@@ -31,13 +31,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#FFF"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/saved_games_folder_name_text_size"
                     android:ellipsize="end"
                     android:singleLine="false"
                     android:lines="1"
                     android:text="Dossier"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="15dp"
+                    android:paddingTop="@dimen/saved_games_folder_name_padding_top"
+                    android:paddingLeft="@dimen/saved_games_folder_name_padding_left"
                     android:textStyle="bold">
 
                 </TextView>
@@ -48,9 +48,9 @@
                     android:layout_height="wrap_content"
                     android:text="25/01/2021"
                     android:textColor="#BFFF"
-                    android:textSize="11sp"
+                    android:textSize="@dimen/saved_games_folder_date_text_size"
                     android:paddingTop="2dp"
-                    android:paddingLeft="15dp">
+                    android:paddingLeft="@dimen/saved_games_folder_name_padding_left">
 
                 </TextView>
 

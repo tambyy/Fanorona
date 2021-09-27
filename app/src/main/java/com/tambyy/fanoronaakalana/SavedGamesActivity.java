@@ -1,11 +1,8 @@
 package com.tambyy.fanoronaakalana;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,7 +20,6 @@ import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,13 +43,6 @@ public class SavedGamesActivity extends AppCompatActivity {
     @BindView(R.id.saved_games_list_empty_text)
     TextView textViewSavedGamesListEmpty;
 
-    /*
-    @BindView(R.id.saved_games_list_title)
-    TextView textViewSavedGamesListTitle;
-
-    @BindView(R.id.saved_games_folders_list_title)
-    TextView textViewSavedGamesFoldersListTitle;
-*/
     @BindView(R.id.saved_games_options)
     LinearLayout linearLayoutSavedGamesOptions;
 
@@ -74,6 +63,9 @@ public class SavedGamesActivity extends AppCompatActivity {
 
     @BindView(R.id.saved_games_save_game)
     LinearLayout linearLayoutSavedGamesSaveGame;
+
+    @BindView(R.id.saved_games_continue_game)
+    LinearLayout linearLayoutSavedGamesContinueGame;
 
     /**
      * Database
@@ -250,6 +242,18 @@ public class SavedGamesActivity extends AppCompatActivity {
 
         intent.putExtra(EXTRA_GAME_ID, game.getId());
         this.startActivity(intent);
+    }
+
+    /**
+     *
+     */
+    public void launchOptionActivity(View view) {
+        if (savedGameAdapter.getSelectedGamesCount() == 1 && savedGameFolderAdapter.getSelectedFoldersCount() == 0) {
+            Intent intent = new Intent(this, OptionActivity.class);
+
+            intent.putExtra(OptionActivity.SAVED_GAMES_CONFIG_CODE, savedGameAdapter.getSelectedGames().get(0).getConfigs());
+            this.startActivity(intent);
+        }
     }
 
     /**
@@ -726,5 +730,6 @@ public class SavedGamesActivity extends AppCompatActivity {
         linearLayoutSavedGamesMoveItemsValidate.setVisibility(gamesToMove.size() > 0 || foldersToMove.size() > 0 ? View.VISIBLE : View.GONE);
         linearLayoutSavedGamesCancel.setVisibility(gamesToMove.size() > 0 || foldersToMove.size() > 0 ? View.VISIBLE : View.GONE);
         linearLayoutSavedGamesSaveGame.setVisibility(gameToSaveConfigs != null ? View.VISIBLE : View.GONE);
+        linearLayoutSavedGamesContinueGame.setVisibility(selectedItemsCount == 1 && savedGameFolderAdapter.getSelectedFoldersCount() == 0 ? View.VISIBLE : View.GONE);
     }
 }

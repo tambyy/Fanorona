@@ -2,9 +2,7 @@
 #include "FanoronaEngineManager.h"
 
 FanoronaEngineManager::FanoronaEngineManager(int searchCount) {
-    initMobableBitboard();
-    generateAllOccupations();
-    initAttack();
+    Bitboards::init();
 
     this->searchCount = searchCount;
 

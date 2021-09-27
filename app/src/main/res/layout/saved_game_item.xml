@@ -8,13 +8,15 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/transparent"
-            app:cardCornerRadius="8dp">
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="@dimen/saved_games_item_corner_radius">
 
             <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
                 android:id="@+id/saved_game_akalana"
@@ -33,18 +35,20 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:orientation="vertical"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp">
+                android:paddingTop="@dimen/saved_games_akanala_padding_top"
+                android:paddingBottom="@dimen/saved_games_akanala_padding_bottom">
 
                 <TextView
                     android:id="@+id/saved_game_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#FFF"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/saved_games_name_text_size"
                     android:paddingBottom="2dp"
+                    android:text="Jeu"
                     android:textStyle="bold"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:maxLines="1">
 
                 </TextView>
 
@@ -52,8 +56,9 @@
                     android:id="@+id/saved_game_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="00/00/0000"
                     android:textColor="#BFFF"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/saved_games_date_text_size"
                     android:gravity="center">
 
                 </TextView>

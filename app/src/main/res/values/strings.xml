@@ -11,7 +11,7 @@
     <!-- Opions -->
     <string name="game_option_mode">Mode du jeu</string>
     <string name="game_option_against">Jouer contre</string>
-    <string name="game_option_move_first">Joue en premier</string>
+    <string name="game_option_move_first">Premier</string>
     <string name="game_option_ai_level">Niveau de l\'IA</string>
     <string name="game_option_ai_max_time_eval">Temps max</string>
     <string name="game_option_ai_ponder">Ponder</string>
@@ -66,6 +66,7 @@
     <string name="game_option_re_edit">Re-éditer</string>
 
     <!-- Save games -->
+    <string name="saved_games_breadcrumb_home">Accueil</string>
     <string name="saved_games_new_folder">Nouveau dossier</string>
     <string name="saved_games_move_items">Déplacer</string>
     <string name="saved_games_move_items_here">Déplacer ici</string>
@@ -73,11 +74,13 @@
     <string name="saved_games_remove">Supprimer</string>
     <string name="saved_games_edit">Modifier</string>
     <string name="saved_games_save_here">Sauvegarder ici</string>
+    <string name="saved_games_continue_game">Continuer</string>
     <string name="saved_games_game_name_placeholder">Nom de la partie ...</string>
     <string name="saved_games_game_name_empty_msg">Veuillez renseigner le nom de la partie</string>
     <string name="saved_games_edit_save">Sauvegarder</string>
+    <string name="saved_games_edit_folder_name">Nom du dossier ...</string>
 
-    <!-- Save games -->
+    <!-- Setting -->
     <string name="setting_theme">Theme</string>
     <string name="setting_sound">Son</string>
     <string name="setting_language">Langue</string>

@@ -23,10 +23,10 @@ public interface GameDao {
     @Query("DELETE FROM Game WHERE id = :gameId")
     int deleteGame(long gameId);
 
-    @Query("SELECT * FROM Game WHERE folder_id = :folderId ORDER BY created_at DESC")
+    @Query("SELECT * FROM Game WHERE folder_id = :folderId ORDER BY name COLLATE NOCASE")
     List<Game> getChildGames(Long folderId);
 
-    @Query("SELECT * FROM Game WHERE folder_id IS NULL ORDER BY created_at DESC")
+    @Query("SELECT * FROM Game WHERE folder_id IS NULL ORDER BY name COLLATE NOCASE")
     List<Game> getRootGames();
 
 }

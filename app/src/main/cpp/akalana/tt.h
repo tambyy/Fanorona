@@ -106,6 +106,8 @@ private:
 
     int getTTIndex(const int vela, const int black, const int deep) const;
 
+    void transform(Bitboard& black, Bitboard& white) const;
+
 public:
     Tt();
     ~Tt();
@@ -163,12 +165,17 @@ inline void Tt::add(const int vela, const int deep, const bool blackPlayer, cons
 inline void Tt::add(const Fanorona& scene, const int deep, const TTEntry& entry) {
     const bool blackPlayerFirst = scene.getFirstPlayerBlack();
 
+    Bitboard black = serialize(scene, blackPlayerFirst);
+    Bitboard white = serialize(scene, !blackPlayerFirst);
+
+    transform(black, white);
+
     add(
             getVela(scene),
             deep,
             getCurrentPlayer(scene) ? 1 : 0,
-            serialize(scene, blackPlayerFirst),
-            serialize(scene, !blackPlayerFirst),
+            black,
+            white,
             entry
     );
 }
@@ -220,9 +227,13 @@ inline TTEntry* Tt::get(const int vela, const int deep, const int blackPlayer, c
 
 
 	const bool blackPlayerFirst = scene.getFirstPlayerBlack();
-	const Bitboard black = serialize(scene, blackPlayerFirst);
 
-	std::map<Bitboard, std::map<Bitboard, TTEntry>>& map4 = map3[getBlackTeam(black)];
+    Bitboard black = serialize(scene, blackPlayerFirst);
+    Bitboard white = serialize(scene, !blackPlayerFirst);
+
+    transform(black, white);
+
+    std::map<Bitboard, std::map<Bitboard, TTEntry>>& map4 = map3[getBlackTeam(black)];
 
 	const std::map<Bitboard, std::map<Bitboard, TTEntry>>::iterator& it4 = map4.find(black);
 	if (it4 == map4.end()) {
@@ -232,7 +243,7 @@ inline TTEntry* Tt::get(const int vela, const int deep, const int blackPlayer, c
 
 	std::map<Bitboard, TTEntry>& map5 = it4->second;
 
-	const std::map<Bitboard, TTEntry>::iterator& it5 = map5.find(serialize(scene, !blackPlayerFirst));
+	const std::map<Bitboard, TTEntry>::iterator& it5 = map5.find(white);
 	if (it5 == map5.end()) {
 		return NULL;
 	}
@@ -268,6 +279,23 @@ inline int Tt::getBlackTeam(const Bitboard black) const {
 
 inline int Tt::getTTIndex(const int vela, const int black, const int deep) const {
     return (vela << 6) + (black << 5) + deep;
+}
+
+inline void Tt::transform(Bitboard &black, Bitboard &white) const {
+    Bitboard tempB = horizontalSymmetricPosition(black);
+    Bitboard tempC = verticalSymmetricPosition(black);
+    Bitboard tempD = reversePosition(black);
+
+    if (tempB > black && tempB > tempC && tempB > tempD) {
+        black = tempB;
+        white = horizontalSymmetricPosition(white);
+    } else if (tempC > black && tempC > tempB && tempC > tempD) {
+        black = tempC;
+        white = verticalSymmetricPosition(white);
+    } else if (tempD > black && tempD > tempB && tempD > tempC) {
+        black = tempD;
+        white = reversePosition(white);
+    }
 }
 
 #endif // TT_H

@@ -2,17 +2,17 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
 >
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerInParent="true">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/transparent"
             app:cardBackgroundColor="@color/transparent"
@@ -20,7 +20,7 @@
 
             <com.tambyy.fanoronaakalana.graphics.customview.AkalanaView
                 android:id="@+id/saved_game_akalana"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="1000dp"
                 android:background="#999"/>
 
@@ -35,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:orientation="vertical"
-                android:paddingTop="@dimen/saved_games_akanala_padding_top"
-                android:paddingBottom="@dimen/saved_games_akanala_padding_bottom">
+                android:paddingTop="@dimen/saved_games_akalana_padding_top"
+                android:paddingBottom="@dimen/saved_games_akalana_padding_bottom">
 
                 <TextView
                     android:id="@+id/saved_game_name"

@@ -62,7 +62,7 @@ public class ThemeAdapter extends BaseAdapter {
 
         if (convertView == null) {
             viewHolder = new ThemeAdapter.ViewHolder();
-            convertView = inflater.inflate(R.layout.theme_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_theme, parent, false);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ThemeAdapter.ViewHolder) convertView.getTag();

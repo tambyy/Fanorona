@@ -1,5 +1,6 @@
 package com.tambyy.fanoronaakalana.engine;
 
+import android.content.res.AssetManager;
 import android.os.Build;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Engine {
     private native long init(int searchCount);
     private native void initBoard(long fanoronaEngineManagerID);
     private native void terminate(long fanoronaEngineManagerID);
+    private native void loadTTFile(long fanoronaEngineManagerID, AssetManager assetManager);
 
     private native void setMode(long fanoronaEngineManagerID, int mode);
     private native int getVela(long fanoronaEngineManagerID);
@@ -324,6 +326,10 @@ public class Engine {
             terminate(fanoronaEngineManagerID);
             fanoronaEngineManagerID = 0;
         }
+    }
+
+    public void loadTTFile(AssetManager assetManager) {
+        loadTTFile(fanoronaEngineManagerID, assetManager);
     }
 
     public int getMode() {

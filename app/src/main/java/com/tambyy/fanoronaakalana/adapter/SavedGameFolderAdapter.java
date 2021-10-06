@@ -53,7 +53,7 @@ public class SavedGameFolderAdapter extends BaseAdapter {
 
         if (convertView == null) {
             viewHolder = new SavedGameFolderAdapter.ViewHolder();
-            convertView = inflater.inflate(R.layout.saved_game_folder_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_saved_game_folder, parent, false);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (SavedGameFolderAdapter.ViewHolder) convertView.getTag();

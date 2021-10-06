@@ -1042,6 +1042,7 @@ constexpr Bitboard FILES3 =
 constexpr Bitboard RANKS1 =
         RANK_1 |
         RANK_2;
+
 /**
  * @brief RANKS2
  *
@@ -1142,6 +1143,7 @@ constexpr Bitboard SEMI_CENTER =
                 RANK_4
         )
         & FRAME_WITHOUT_BORDER;
+
 /**
  * @brief BORDER
  *
@@ -1191,6 +1193,24 @@ constexpr Bitboard INITIAL_WHITE_POSITION =
         p(2, 6) |
         p(2, 8);
 
+constexpr Bitboard H_SYM_ZONE_A =
+        FILE_1 | FILE_2 | FILE_3 | FILE_4;
+
+constexpr Bitboard H_SYM_ZONE_B =
+        FILE_6 | FILE_7 | FILE_8 | FILE_9;
+
+constexpr Bitboard H_SYM_ZONE_C =
+        FILE_1 | FILE_2 | FILE_6 | FILE_7;
+
+constexpr Bitboard H_SYM_ZONE_D =
+        FILE_3 | FILE_4 | FILE_8 | FILE_9;
+
+constexpr Bitboard H_SYM_ZONE_E =
+        FILE_1 | FILE_3 | FILE_6 | FILE_8;
+
+constexpr Bitboard H_SYM_ZONE_F =
+        FILE_2 | FILE_4 | FILE_7 | FILE_9;
+
 inline int bitCount(const Bitboard bitboard) {
     return __builtin_popcountll(bitboard);
 }
@@ -1228,7 +1248,7 @@ inline Bitboard reversePosition(const Bitboard position)
     return reverseBits(position << 9);
 }
 
-inline Bitboard symmetricPosition(const Bitboard position)
+inline Bitboard verticalSymmetricPosition(const Bitboard position)
 {
     return
             ((position & RANK_1) << COLUMN_COUNT_4) |
@@ -1236,6 +1256,13 @@ inline Bitboard symmetricPosition(const Bitboard position)
             (position & RANK_3) |
             ((position & RANK_4) >> COLUMN_COUNT_2) |
             ((position & RANK_5) >> COLUMN_COUNT_4);
+}
+
+inline Bitboard horizontalSymmetricPosition(const Bitboard position)
+{
+    Bitboard pos = ((position & H_SYM_ZONE_A) << 5) | ((position & H_SYM_ZONE_B) >> 5) | (position & FILE_5);
+    pos = ((pos & H_SYM_ZONE_C) << 2) | ((pos & H_SYM_ZONE_D) >> 2);
+    return ((pos & H_SYM_ZONE_E) << 1) | ((pos & H_SYM_ZONE_F) >> 1);
 }
 
 inline int getXPosition(const Bitboard position) {
@@ -1288,8 +1315,8 @@ inline int getYPosition(const Bitboard position) {
     return -1;
 }
 
-const Bitboard SYM_INITIAL_WHITE_POSITION = symmetricPosition(INITIAL_BLACK_POSITION);
-const Bitboard SYM_INITIAL_BLACK_POSITION = symmetricPosition(INITIAL_WHITE_POSITION);
+const Bitboard SYM_INITIAL_WHITE_POSITION = verticalSymmetricPosition(INITIAL_BLACK_POSITION);
+const Bitboard SYM_INITIAL_BLACK_POSITION = verticalSymmetricPosition(INITIAL_WHITE_POSITION);
 
 constexpr int LAKA_MB =
         (1 << 0)         +              (1 << 1)         +         (1 << 2) +

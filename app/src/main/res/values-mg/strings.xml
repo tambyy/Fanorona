@@ -36,12 +36,14 @@
 
     <!-- Opion Buttons -->
     <string name="game_option_play">Hilalao</string>
-    <string name="game_option_resume">Hiverina</string>
+    <string name="game_option_resume">Tohizana</string>
     <string name="game_option_re_edit">Hiverina hanova</string>
+    <string name="game_over">Tapitra ny lalao!</string>
 
     <!-- Save games -->
     <string name="saved_games_breadcrumb_home">Fandraisana</string>
     <string name="saved_games_new_folder">Lahatahiry vaovao</string>
+    <string name="saved_games_transfer">Alefa</string>
     <string name="saved_games_move_items">Afindra</string>
     <string name="saved_games_move_items_here">Afindra eto</string>
     <string name="saved_games_cancel">Ajanona</string>
@@ -53,6 +55,11 @@
     <string name="saved_games_game_name_empty_msg">Ampidiro ny anaran\'ny lalao azafady</string>
     <string name="saved_games_edit_save">Tahirizina</string>
     <string name="saved_games_edit_folder_name">Lahatahiry ...</string>
+    <string name="saved_games_no_folder">Tsy misy lahatahiry</string>
+    <string name="saved_games_no_game">Tsy misy lalao</string>
+
+    <string name="bt_devices_scan">Hizaha</string>
+    <string name="bt_devices_scanning">Fizahana...</string>
 
     <!-- Save games -->
     <string name="setting_theme">Endrika</string>

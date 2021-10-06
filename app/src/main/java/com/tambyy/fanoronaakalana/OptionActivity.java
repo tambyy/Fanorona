@@ -59,7 +59,7 @@ public class OptionActivity extends AppCompatActivity {
     @BindView(R.id.option_ai_level)
     CardView cardViewOptionAiLevel;
 
-    @BindView(R.id.option_ai_max_relexion_time)
+    @BindView(R.id.option_ai_max_reflexion_time)
     CardView cardViewOptionAiMaxReflexionTime;
 
     @BindView(R.id.option_ai_ponder)
@@ -468,9 +468,6 @@ public class OptionActivity extends AppCompatActivity {
     private void onGameActivityResult(Bundle bundle) {
         gameResume = bundle.getString(GAME_RESUME_HISTORY_VALUE_CODE);
         gameResumeHistoryIndex = bundle.getInt(GAME_RESUME_HISTORY_INDEX_VALUE_CODE);
-
-        preferenceManager.put(Constants.PREF_LAST_GAME_CONFIG, gameResume);
-        preferenceManager.put(Constants.PREF_LAST_HISTORY_INDEX, gameResumeHistoryIndex);
 
         buttonGameOptionResume.setVisibility(View.VISIBLE);
     }

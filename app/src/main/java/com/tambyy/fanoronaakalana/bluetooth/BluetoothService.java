@@ -18,7 +18,7 @@ import android.util.Log;
 
 public class BluetoothService {
     // Debugging
-    private static final String TAG = "BluetoothChatService";
+    private static final String TAG = "AKALANA";
 
     // Name for the SDP record when creating server socket
     private static final String NAME_SECURE = "BluetoothChatSecure";
@@ -102,10 +102,10 @@ public class BluetoothService {
             mSecureAcceptThread = new AcceptThread(true);
             mSecureAcceptThread.start();
         }
-        if (mInsecureAcceptThread == null) {
+        /*if (mInsecureAcceptThread == null) {
             mInsecureAcceptThread = new AcceptThread(false);
             mInsecureAcceptThread.start();
-        }
+        }*/
         // Update UI title
         updateUserInterfaceTitle();
     }
@@ -269,7 +269,7 @@ public class BluetoothService {
         updateUserInterfaceTitle();
 
         // Start the service over to restart listening mode
-        BluetoothService.this.start();
+        // BluetoothService.this.start();
     }
 
     /**
@@ -303,7 +303,7 @@ public class BluetoothService {
         }
 
         public void run() {
-            // Log.d(TAG, "Socket Type: " + mSocketType + "BEGIN mAcceptThread" + this);
+            Log.d(TAG, "Socket Type: " + mSocketType + "BEGIN mAcceptThread" + this);
             setName("AcceptThread" + mSocketType);
 
             BluetoothSocket socket = null;
@@ -461,8 +461,10 @@ public class BluetoothService {
 
         public void run() {
             Log.i(TAG, "BEGIN mConnectedThread");
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[8192];
             int bytes;
+
+            String data = "";
 
             // Keep listening to the InputStream while connected
             while (mState == STATE_CONNECTED) {
@@ -470,9 +472,14 @@ public class BluetoothService {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
 
-                    // Send the obtained bytes to the UI Activity
-                    mHandler.obtainMessage(Constants.MESSAGE_READ, bytes, -1, buffer)
-                            .sendToTarget();
+                    data += new String(buffer, 0, bytes);
+
+                    if (buffer[bytes - 1] == ' ') {
+                        // Send the obtained bytes to the UI Activity
+                        mHandler.obtainMessage(Constants.MESSAGE_READ, data.length(), -1, data.getBytes())
+                                .sendToTarget();
+                        data = "";
+                    }
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();

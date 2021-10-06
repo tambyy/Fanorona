@@ -25,7 +25,7 @@ public class Akalana extends Drawable {
         this.paint.setColor(color);
     }
 
-    public void setLineWidth(int lineWidth) {
+    public void setLineWidth(float lineWidth) {
         this.paint.setStrokeWidth(lineWidth);
     }
 

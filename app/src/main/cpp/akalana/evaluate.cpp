@@ -19,7 +19,7 @@ constexpr int OCCUPATIONS_SCORES[54] = {
 
 };
 
-constexpr int POSITIONS_SCORES[54] = {
+constexpr int EG_OCCUPATIONS_SCORES[54] = {
 
         0,        2,    1,    3,    2,    4,    2,    3,    1,    2,        0,
 

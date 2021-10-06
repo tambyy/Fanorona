@@ -47,7 +47,7 @@ public class OptionAiMaxSearchTimeAdapter extends BaseAdapter {
 
         if (convertView == null) {
             viewHolder = new OptionAiMaxSearchTimeAdapter.ViewHolder();
-            convertView = inflater.inflate(R.layout.option_ai_max_search_time_item, parent,false);
+            convertView = inflater.inflate(R.layout.item_option_ai_max_search_time, parent,false);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (OptionAiMaxSearchTimeAdapter.ViewHolder) convertView.getTag();

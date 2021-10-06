@@ -61,9 +61,8 @@
         android:id="@+id/saved_folder_check"
         android:layout_width="18dp"
         android:layout_height="18dp"
+        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
         android:background="@drawable/saved_game_checked" />
 
 </RelativeLayout>

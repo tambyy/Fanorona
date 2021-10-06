@@ -1,7 +1,6 @@
 package com.tambyy.fanoronaakalana.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +48,7 @@ public class OptionAiLevelAdapter extends BaseAdapter {
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.option_ai_level_item, parent,false);
+            convertView = inflater.inflate(R.layout.item_option_ai_level, parent,false);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

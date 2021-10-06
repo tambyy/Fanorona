@@ -30,7 +30,7 @@ JNIEXPORT void JNICALL Java_com_tambyy_fanoronaakalana_engine_Engine_terminate
     delete reinterpret_cast<FanoronaEngineManager*>(fanoronaEnginePtr);
 }
 
-JNIEXPORT void JNICALL Java_com_tambyy_fanoronaakalana_engine_FanoronaEngineManager_loadTTFile
+JNIEXPORT void JNICALL Java_com_tambyy_fanoronaakalana_engine_Engine_loadTTFile
         (JNIEnv *env, jobject, jlong fanoronaEnginePtr, jobject assetManager)
 {
 

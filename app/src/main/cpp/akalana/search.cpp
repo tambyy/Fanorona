@@ -510,7 +510,7 @@ PieceMoveSession* Search::evaluate(const Fanorona &f, bool forPonder) {
     // Le but c'est de permettre aux pièces du joueur courant
     // de chasser les pièces adverses quand elles sont éloignées et moins nombreuses
     // ou de les fuire quand les pièces adverses sont par contre beaucoup plus nombreuses
-    if (nombrePieces <= 10) {
+    if (nbPieces1 <= 4 || nbPieces2 <= 4) {
         evaluator.setGamePhase(END_GAME);
     }
 

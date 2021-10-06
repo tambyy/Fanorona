@@ -33,6 +33,7 @@ public class Constants {
     public static final String PREF_SETTING_SOUND_VOLUME = "PREF_SETTING_SOUND_VOLUME";
     public static final String PREF_SETTING_LOCALE = "PREF_SETTING_LOCALE";
 
+    public static final String PREF_CURRENT_FOLDER = "PREF_CURRENT_FOLDER";
 
     public static final ColorStateList OPTION_BGH = ColorStateList.valueOf(Color.TRANSPARENT);
     public static final ColorStateList SELECTED_OPTION_BGH = ColorStateList.valueOf(Color.argb(70, 0, 0, 0));
@@ -44,5 +45,16 @@ public class Constants {
     public static final String SETTING_LOCALE_MG = "mg";
     public static final String SETTING_LOCALE_FR = "fr";
     public static final String SETTING_LOCALE_EN = "en";
+
+    // Message types sent from the BluetoothChatService Handler
+    public static final int MESSAGE_STATE_CHANGE = 1;
+    public static final int MESSAGE_READ = 2;
+    public static final int MESSAGE_WRITE = 3;
+    public static final int MESSAGE_DEVICE_NAME = 4;
+    public static final int MESSAGE_TOAST = 5;
+
+    // Key names received from the BluetoothChatService Handler
+    public static final String DEVICE_NAME = "device_name";
+    public static final String TOAST = "toast";
 
 }

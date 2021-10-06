@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tambyy.fanoronaakalana.R;
+import com.tambyy.fanoronaakalana.config.Theme;
 import com.tambyy.fanoronaakalana.engine.Engine;
 import com.tambyy.fanoronaakalana.engine.EngineAction;
 import com.tambyy.fanoronaakalana.graphics.customview.AkalanaView;
@@ -30,6 +31,7 @@ public class SavedGameAdapter extends BaseAdapter {
     private final Engine engine;
     private final Context context;
     private final LayoutInflater inflater;
+    private Theme theme = new Theme();
 
     public SavedGameAdapter(Context context, List<Game> games, Engine engine) {
         this.context = context;
@@ -60,7 +62,7 @@ public class SavedGameAdapter extends BaseAdapter {
 
         if (convertView == null) {
             viewHolder = new SavedGameAdapter.ViewHolder();
-            convertView = inflater.inflate(R.layout.saved_game_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_saved_game, parent, false);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (SavedGameAdapter.ViewHolder) convertView.getTag();
@@ -80,7 +82,8 @@ public class SavedGameAdapter extends BaseAdapter {
         viewHolder.akalana.setMovablePositionsShown(false);
         viewHolder.akalana.setRemovablePawnsShown(false);
         viewHolder.akalana.setTraveledPositionsShown(false);
-        viewHolder.akalana.getAkalana().setLineWidth(2);
+        viewHolder.akalana.getAkalana().setLineWidth(2f);
+        viewHolder.akalana.setTheme(theme);
 
         int i = 0;
         List<EngineAction> actions = EngineActionsConverter.stringToEngineActions(game.getConfigs());
@@ -137,5 +140,10 @@ public class SavedGameAdapter extends BaseAdapter {
 
     public List<Game> getSelectedGames() {
         return selectedGames;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+        notifyDataSetChanged();
     }
 }

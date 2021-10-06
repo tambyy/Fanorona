@@ -11,9 +11,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
         <activity
-            android:name=".SettingLocaleActivity"
-            android:exported="true"
-            android:theme="@style/Theme.FanoronaAkalana.Popup" />
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".OptionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".OptionAiPonderActivity"
             android:exported="true"
@@ -39,12 +53,21 @@
             android:exported="true"
             android:theme="@style/Theme.FanoronaAkalana.Popup" />
         <activity
-            android:name=".BluetoothActivity"
-            android:exported="true" />
+            android:name=".GameActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".EditionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".SavedGamesActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".BluetoothDeviceListActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
         <activity
             android:name=".SavedGamesReviewActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -70,35 +93,17 @@
             android:exported="true"
             android:theme="@style/Theme.FanoronaAkalana.Popup" />
         <activity
-            android:name=".EditionActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape" />
+            android:name=".SettingLocaleActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FanoronaAkalana.Popup" />
         <activity
-            android:name=".GameActivity"
+            android:name=".AboutActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".HomeActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".OptionActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:exported="true"
             android:screenOrientation="landscape" />
     </application>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-    <uses-permission android:name="android.permission.BLUETOOTH" />
 
 </manifest>

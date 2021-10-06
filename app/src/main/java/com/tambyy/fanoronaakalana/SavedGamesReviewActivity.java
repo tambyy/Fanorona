@@ -7,12 +7,16 @@ import butterknife.ButterKnife;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -52,6 +56,9 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
     @BindView(R.id.review_name)
     TextView textViewSavedGameName;
 
+    @BindView(R.id.review_replay)
+    ImageButton imageButtonReviewReplay;
+
     @BindView(R.id.review_pause)
     ImageButton imageButtonReviewPause;
 
@@ -63,6 +70,10 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
 
     @BindView(R.id.review_real_time)
     ImageButton imageButtonReviewRealTime;
+
+    @BindView(R.id.saved_game_review_overlay)
+    RelativeLayout linearLayoutSavedGameReviewOverlay;
+
 
     /**
      * Preference
@@ -98,6 +109,11 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
      *
      */
     private int progressTime = 0;
+
+    /**
+     *
+     */
+    private boolean controlsLayoutShown = false;
 
     /**
      *
@@ -235,8 +251,8 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
     private void configureProgressBar() {
 
         // set seekbar background color
-        seekBarReviewProgress.getProgressDrawable().setColorFilter(Color.rgb(27, 137, 132), android.graphics.PorterDuff.Mode.SRC_IN);
-        seekBarReviewProgress.getThumb().setColorFilter(Color.rgb(27, 158, 151), android.graphics.PorterDuff.Mode.SRC_IN);
+        seekBarReviewProgress.getProgressDrawable().setColorFilter(Color.rgb(255, 194, 0), android.graphics.PorterDuff.Mode.SRC_IN);
+        seekBarReviewProgress.getThumb().setColorFilter(Color.rgb(255, 170, 0), android.graphics.PorterDuff.Mode.SRC_IN);
         seekBarReviewProgress.setMarkersColor(Color.argb(200, 255, 230, 0));
 
         // on seekbar change
@@ -249,6 +265,7 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
                 // until seekbar touch tracking is stopped
                 if (fromUser) {
                     gotoReview((getReviewDelay() * progress) / seekBar.getMax());
+                    showControlsLayout();
                 }
             }
 
@@ -369,7 +386,10 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
      *
      */
     public void replayReview(View view) {
-        replayReview();
+        if (controlsLayoutShown) {
+            replayReview();
+            hideControlsLayout();
+        }
     }
 
     /**
@@ -377,8 +397,11 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
      * Play review
      */
     public void playReview(View view) {
-        akalanaView.startAnimation();
-        setReviewPaused(false);
+        if (controlsLayoutShown) {
+            akalanaView.startAnimation();
+            setReviewPaused(false);
+            hideControlsLayout();
+        }
     }
 
     /**
@@ -386,8 +409,11 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
      * Pause review
      */
     public void pauseReview(View view) {
-        akalanaView.pauseAnimation();
-        setReviewPaused(true);
+        if (controlsLayoutShown) {
+            akalanaView.pauseAnimation();
+            setReviewPaused(true);
+            showControlsLayout(false);
+        }
     }
 
     /**
@@ -414,7 +440,10 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
      * @param view
      */
     public void toggleRealTime(View view) {
-        setRealTime(!realTime);
+        if (controlsLayoutShown) {
+            setRealTime(!realTime);
+            hideControlsLayout();
+        }
     }
 
     private void setRealTime(boolean realTime) {
@@ -439,6 +468,49 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
         }
 
         replayReview();
+    }
+
+    public void toogleShowControlsLayout(View view) {
+        if (controlsLayoutShown) {
+            hideControlsLayout();
+        } else {
+            showControlsLayout();
+        }
+    }
+
+    private Handler hideControlsLayoutHandler = null;
+    private Runnable hideControlsLayoutRunnable = () -> {
+        hideControlsLayout();
+    };
+
+    private void showControlsLayout() {
+        showControlsLayout(true);
+    }
+
+    private void showControlsLayout(boolean hide) {
+        controlsLayoutShown = true;
+        linearLayoutSavedGameReviewOverlay.animate().alpha(1).setDuration(200);
+
+        cancelHideControlsLayoutHandler();
+
+        if (hide) {
+            hideControlsLayoutHandler = new Handler();
+            hideControlsLayoutHandler.postDelayed(hideControlsLayoutRunnable, 2000);
+        }
+    }
+
+    private void hideControlsLayout() {
+        controlsLayoutShown = false;
+        linearLayoutSavedGameReviewOverlay.animate().alpha(0).setDuration(400);
+
+        cancelHideControlsLayoutHandler();
+    }
+
+    private void cancelHideControlsLayoutHandler() {
+        if (hideControlsLayoutHandler != null) {
+            hideControlsLayoutHandler.removeCallbacks(hideControlsLayoutRunnable);
+            hideControlsLayoutHandler = null;
+        }
     }
 
     /**

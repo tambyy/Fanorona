@@ -1,30 +1,35 @@
 {
 	"akalana": {
-		"bg": "akalana.png"
+		"bg": "akalana.png",
+		"line-width": 2,
+		"bg-color": "#FFFFFF",
+		"line-color": "#FFFFFF",
 	},
-	"black": {
-		"default": {
-			"image": "black_default.png"
+	"pieces": {
+		"black": {
+			"default": {
+				"image": "black_default.png"
+			},
+			"movable": {
+				"image": "black_movable.png"
+			},
+			"selected": {
+				"image": "black_selected.png"
+			},
 		},
-		"movable": {
-			"image": "black_movable.png"
-		},
-		"selected": {
-			"image": "black_selected.png"
+		"white": {
+			"default": {
+				"image": "white_default.png"
+			},
+			"movable": {
+				"image": "black_movable.png"
+			},
+			"selected": {
+				"image": "black_selected.png"
+			},
 		}
 	},
-	"white": {
-		"default": {
-			"image": "white_default.png"
-		},
-		"movable": {
-			"image": "white_movable.png"
-		},
-		"selected": {
-			"image": "white_selected.png"
-		}
-	},
-	"position": {
+	"marks": {
 		"traveled": {
 			"color": "#FFFFFF",
 			"opacity": 100
@@ -33,9 +38,9 @@
 			"color": "#FFFFFF",
 			"opacity": 100
 		},
-		"removeble": {
+		"removable": {
 			"color": "#FFFFFF",
 			"opacity": 100
-		},
+		}
 	}
 }

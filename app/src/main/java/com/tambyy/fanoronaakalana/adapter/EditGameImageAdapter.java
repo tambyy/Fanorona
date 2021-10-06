@@ -6,19 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.tambyy.fanoronaakalana.R;
 import com.tambyy.fanoronaakalana.engine.Engine;
 import com.tambyy.fanoronaakalana.engine.EngineAction;
 import com.tambyy.fanoronaakalana.engine.EngineActionSelectPiece;
 import com.tambyy.fanoronaakalana.graphics.customview.AkalanaView;
-import com.tambyy.fanoronaakalana.models.Game;
-import com.tambyy.fanoronaakalana.utils.EngineActionsConverter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EditGameImageAdapter extends BaseAdapter {
 
@@ -61,7 +57,7 @@ public class EditGameImageAdapter extends BaseAdapter {
 
         if (convertView == null) {
             viewHolder = new EditGameImageAdapter.ViewHolder();
-            convertView = inflater.inflate(R.layout.edit_game_image_item, parent, false);
+            convertView = inflater.inflate(R.layout.item_edit_game_image, parent, false);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (EditGameImageAdapter.ViewHolder) convertView.getTag();

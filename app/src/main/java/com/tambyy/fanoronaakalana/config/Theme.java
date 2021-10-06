@@ -5,18 +5,21 @@ import android.graphics.Color;
 
 public class Theme {
 
-    private int akalanaBgColor         = Color.rgb(131, 149, 155);
-    private int akalanaLinesColor      = Color.rgb(184, 200, 204);
+    private int akalanaBgColor         = Color.rgb(197, 186, 168);
+    private int akalanaLinesColor      = Color.argb(80, 61, 30, 7);
 
     private int whiteDefaultColor      = Color.rgb(255, 255, 255);
-    private int whiteStrokeColor       = Color.argb(125, 120, 103, 86);
+    private int whiteStrokeColor       = Color.argb(200, 0, 0, 0);
 
     private int blackDefaultColor      = Color.rgb(31, 16, 9);
-    private int blackStrokeColor       = Color.argb(125, 31, 16, 9);
+    private int blackStrokeColor       = Color.argb(200, 255, 255, 255);
 
-    private int movablePositionColor   = Color.rgb(110, 66, 39);
-    private int removablePositionColor = Color.rgb(255, 150, 30);
-    private int traveledPositionColor  = Color.rgb(255, 255, 255);
+    private int movablePositionColor   = Color.argb(80, 110, 66, 39);
+    private int removablePositionColor = Color.argb(80, 255, 150, 30);
+    private int traveledPositionColor  = Color.argb(80, 255, 255, 255);
+
+    private int blackBorderWidth = 0;
+    private int whiteBorderWidth = 0;
 
     private Bitmap backgroundBitmap = null;
     private Bitmap akalanaBitmap = null;
@@ -32,6 +35,21 @@ public class Theme {
     private Bitmap movablePositionBitmap = null;
     private Bitmap traveledPositionBitmap = null;
     private Bitmap removablePositionBitmap = null;
+
+    private Bitmap scaledBackgroundBitmap = null;
+    private Bitmap scaledAkalanaBitmap = null;
+
+    private Bitmap scaledBlackDefaultBitmap = null;
+    private Bitmap scaledBlackMovableBitmap = null;
+    private Bitmap scaledBlackSelectedBitmap = null;
+
+    private Bitmap scaledWhiteDefaultBitmap = null;
+    private Bitmap scaledWhiteMovableBitmap = null;
+    private Bitmap scaledWhiteSelectedBitmap = null;
+
+    private Bitmap scaledMovablePositionBitmap = null;
+    private Bitmap scaledTraveledPositionBitmap = null;
+    private Bitmap scaledRemovablePositionBitmap = null;
 
     public int getAkalanaBgColor() {
         return akalanaBgColor;
@@ -69,8 +87,32 @@ public class Theme {
         return whiteStrokeColor;
     }
 
+    public int getBlackBorderWidth() {
+        return blackBorderWidth;
+    }
+
+    public void setBlackBorderWidth(int blackBorderWidth) {
+        this.blackBorderWidth = blackBorderWidth;
+    }
+
+    public int getWhiteBorderWidth() {
+        return whiteBorderWidth;
+    }
+
+    public void setWhiteBorderWidth(int whiteBorderWidth) {
+        this.whiteBorderWidth = whiteBorderWidth;
+    }
+
     public void setWhiteDefaultColor(int whiteDefaultColor) {
         this.whiteDefaultColor = whiteDefaultColor;
+    }
+
+    public void setBlackStrokeColor(int blackStrokeColor) {
+        this.blackStrokeColor = blackStrokeColor;
+    }
+
+    public void setWhiteStrokeColor(int whiteStrokeColor) {
+        this.whiteStrokeColor = whiteStrokeColor;
     }
 
     public int getMovablePositionColor() {
@@ -102,7 +144,7 @@ public class Theme {
     }
 
     public void setBackgroundBitmap(Bitmap backgroundBitmap) {
-        this.backgroundBitmap = backgroundBitmap;
+        this.scaledBackgroundBitmap = this.backgroundBitmap = backgroundBitmap;
     }
 
     public Bitmap getAkalanaBitmap() {
@@ -110,7 +152,7 @@ public class Theme {
     }
 
     public void setAkalanaBitmap(Bitmap akalanaBitmap) {
-        this.akalanaBitmap = akalanaBitmap;
+        this.scaledAkalanaBitmap = this.akalanaBitmap = akalanaBitmap;
     }
 
     public Bitmap getBlackDefaultBitmap() {
@@ -118,7 +160,7 @@ public class Theme {
     }
 
     public void setBlackDefaultBitmap(Bitmap blackDefaultBitmap) {
-        this.blackDefaultBitmap = blackDefaultBitmap;
+        this.scaledBlackDefaultBitmap = this.blackDefaultBitmap = blackDefaultBitmap;
     }
 
     public Bitmap getBlackMovableBitmap() {
@@ -126,7 +168,7 @@ public class Theme {
     }
 
     public void setBlackMovableBitmap(Bitmap blackMovableBitmap) {
-        this.blackMovableBitmap = blackMovableBitmap;
+        this.scaledBlackMovableBitmap = this.blackMovableBitmap = blackMovableBitmap;
     }
 
     public Bitmap getBlackSelectedBitmap() {
@@ -134,7 +176,7 @@ public class Theme {
     }
 
     public void setBlackSelectedBitmap(Bitmap blackSelectedBitmap) {
-        this.blackSelectedBitmap = blackSelectedBitmap;
+        this.scaledBlackSelectedBitmap = this.blackSelectedBitmap = blackSelectedBitmap;
     }
 
     public Bitmap getWhiteDefaultBitmap() {
@@ -142,7 +184,7 @@ public class Theme {
     }
 
     public void setWhiteDefaultBitmap(Bitmap whiteDefaultBitmap) {
-        this.whiteDefaultBitmap = whiteDefaultBitmap;
+        this.scaledWhiteDefaultBitmap = this.whiteDefaultBitmap = whiteDefaultBitmap;
     }
 
     public Bitmap getWhiteMovableBitmap() {
@@ -150,7 +192,7 @@ public class Theme {
     }
 
     public void setWhiteMovableBitmap(Bitmap whiteMovableBitmap) {
-        this.whiteMovableBitmap = whiteMovableBitmap;
+        this.scaledWhiteMovableBitmap = this.whiteMovableBitmap = whiteMovableBitmap;
     }
 
     public Bitmap getWhiteSelectedBitmap() {
@@ -158,6 +200,147 @@ public class Theme {
     }
 
     public void setWhiteSelectedBitmap(Bitmap whiteSelectedBitmap) {
-        this.whiteSelectedBitmap = whiteSelectedBitmap;
+        this.scaledWhiteSelectedBitmap = this.whiteSelectedBitmap = whiteSelectedBitmap;
+    }
+
+    public Bitmap getMovablePositionBitmap() {
+        return movablePositionBitmap;
+    }
+
+    public void setMovablePositionBitmap(Bitmap movablePositionBitmap) {
+        this.scaledMovablePositionBitmap = this.movablePositionBitmap = movablePositionBitmap;
+    }
+
+    public Bitmap getTraveledPositionBitmap() {
+        return traveledPositionBitmap;
+    }
+
+    public void setTraveledPositionBitmap(Bitmap traveledPositionBitmap) {
+        this.scaledTraveledPositionBitmap = this.traveledPositionBitmap = traveledPositionBitmap;
+    }
+
+    public Bitmap getRemovablePositionBitmap() {
+        return removablePositionBitmap;
+    }
+
+    public void setRemovablePositionBitmap(Bitmap removablePositionBitmap) {
+        this.scaledRemovablePositionBitmap = this.removablePositionBitmap = removablePositionBitmap;
+    }
+
+    public Bitmap getScaledBackgroundBitmap() {
+        return scaledBackgroundBitmap;
+    }
+
+    public void setScaledBackgroundBitmap(Bitmap scaledBackgroundBitmap) {
+        this.scaledBackgroundBitmap = scaledBackgroundBitmap;
+    }
+
+    public Bitmap getScaledAkalanaBitmap() {
+        return scaledAkalanaBitmap;
+    }
+
+    public void setScaledAkalanaBitmap(Bitmap scaledAkalanaBitmap) {
+        this.scaledAkalanaBitmap = scaledAkalanaBitmap;
+    }
+
+    public Bitmap getScaledBlackDefaultBitmap() {
+        return scaledBlackDefaultBitmap;
+    }
+
+    public void setScaledBlackDefaultBitmap(Bitmap scaledBlackDefaultBitmap) {
+        this.scaledBlackDefaultBitmap = scaledBlackDefaultBitmap;
+    }
+
+    public Bitmap getScaledBlackMovableBitmap() {
+        return scaledBlackMovableBitmap;
+    }
+
+    public void setScaledBlackMovableBitmap(Bitmap scaledBlackMovableBitmap) {
+        this.scaledBlackMovableBitmap = scaledBlackMovableBitmap;
+    }
+
+    public Bitmap getScaledBlackSelectedBitmap() {
+        return scaledBlackSelectedBitmap;
+    }
+
+    public void setScaledBlackSelectedBitmap(Bitmap scaledBlackSelectedBitmap) {
+        this.scaledBlackSelectedBitmap = scaledBlackSelectedBitmap;
+    }
+
+    public Bitmap getScaledWhiteDefaultBitmap() {
+        return scaledWhiteDefaultBitmap;
+    }
+
+    public void setScaledWhiteDefaultBitmap(Bitmap scaledWhiteDefaultBitmap) {
+        this.scaledWhiteDefaultBitmap = scaledWhiteDefaultBitmap;
+    }
+
+    public Bitmap getScaledWhiteMovableBitmap() {
+        return scaledWhiteMovableBitmap;
+    }
+
+    public void setScaledWhiteMovableBitmap(Bitmap scaledWhiteMovableBitmap) {
+        this.scaledWhiteMovableBitmap = scaledWhiteMovableBitmap;
+    }
+
+    public Bitmap getScaledWhiteSelectedBitmap() {
+        return scaledWhiteSelectedBitmap;
+    }
+
+    public void setScaledWhiteSelectedBitmap(Bitmap scaledWhiteSelectedBitmap) {
+        this.scaledWhiteSelectedBitmap = scaledWhiteSelectedBitmap;
+    }
+
+    public Bitmap getScaledMovablePositionBitmap() {
+        return scaledMovablePositionBitmap;
+    }
+
+    public void setScaledMovablePositionBitmap(Bitmap scaledMovablePositionBitmap) {
+        this.scaledMovablePositionBitmap = scaledMovablePositionBitmap;
+    }
+
+    public Bitmap getScaledTraveledPositionBitmap() {
+        return scaledTraveledPositionBitmap;
+    }
+
+    public void setScaledTraveledPositionBitmap(Bitmap scaledTraveledPositionBitmap) {
+        this.scaledTraveledPositionBitmap = scaledTraveledPositionBitmap;
+    }
+
+    public Bitmap getScaledRemovablePositionBitmap() {
+        return scaledRemovablePositionBitmap;
+    }
+
+    public void setScaledRemovablePositionBitmap(Bitmap scaledRemovablePositionBitmap) {
+        this.scaledRemovablePositionBitmap = scaledRemovablePositionBitmap;
+    }
+
+    public void setUnitSize(int unitSize) {
+        if (blackDefaultBitmap != null)
+            this.scaledBlackDefaultBitmap = Bitmap.createScaledBitmap(blackDefaultBitmap, unitSize, unitSize, true);
+
+        if (blackMovableBitmap != null)
+            this.scaledBlackMovableBitmap = Bitmap.createScaledBitmap(blackMovableBitmap, unitSize, unitSize, true);
+
+        if (blackSelectedBitmap != null)
+            this.scaledBlackSelectedBitmap = Bitmap.createScaledBitmap(blackSelectedBitmap, unitSize, unitSize, true);
+
+        if (whiteDefaultBitmap != null)
+            this.scaledWhiteDefaultBitmap = Bitmap.createScaledBitmap(whiteDefaultBitmap, unitSize, unitSize, true);
+
+        if (whiteMovableBitmap != null)
+            this.scaledWhiteMovableBitmap = Bitmap.createScaledBitmap(whiteMovableBitmap, unitSize, unitSize, true);
+
+        if (whiteSelectedBitmap != null)
+            this.scaledWhiteSelectedBitmap = Bitmap.createScaledBitmap(whiteSelectedBitmap, unitSize, unitSize, true);
+
+        if (movablePositionBitmap != null)
+            this.scaledMovablePositionBitmap = Bitmap.createScaledBitmap(movablePositionBitmap, unitSize, unitSize, true);
+
+        if (traveledPositionBitmap != null)
+            this.scaledTraveledPositionBitmap = Bitmap.createScaledBitmap(traveledPositionBitmap, unitSize, unitSize, true);
+
+        if (removablePositionBitmap != null)
+            this.scaledRemovablePositionBitmap = Bitmap.createScaledBitmap(removablePositionBitmap, unitSize, unitSize, true);
     }
 }

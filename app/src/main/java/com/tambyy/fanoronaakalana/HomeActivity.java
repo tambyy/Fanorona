@@ -53,4 +53,12 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     *
+     */
+    public void launchAboutActivity(View v) {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
+    }
+
 }

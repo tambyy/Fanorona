@@ -469,6 +469,7 @@ public class AkalanaView extends SceneView {
      */
     public void setTheme(Theme theme) {
         this.theme = theme;
+        this.theme.setUnitSize(unitSize);
 
         // update akalana bg
         setBackgroundColor(theme.getAkalanaBgColor());
@@ -477,15 +478,11 @@ public class AkalanaView extends SceneView {
 
         // update black pieces bitmaps
 
-        Bitmap blackDefaultBitmap = theme.getBlackDefaultBitmap() != null ? Bitmap.createScaledBitmap(theme.getBlackDefaultBitmap(), unitSize, unitSize, true): null;
-        Bitmap blackMovableBitmap = theme.getBlackMovableBitmap() != null ? Bitmap.createScaledBitmap(theme.getBlackMovableBitmap(), unitSize, unitSize, true): null;
-        Bitmap blackSelectedBitmap = theme.getBlackSelectedBitmap() != null ? Bitmap.createScaledBitmap(theme.getBlackSelectedBitmap(), unitSize, unitSize, true): null;
-
         for (final Pawn pawn : blackActivePieces) {
             pawn.setBitmaps(
-                    blackDefaultBitmap,
-                    blackMovableBitmap,
-                    blackSelectedBitmap
+                    theme.getScaledBlackDefaultBitmap(),
+                    theme.getScaledBlackMovableBitmap(),
+                    theme.getScaledBlackSelectedBitmap()
             );
             pawn.setColor(theme.getBlackDefaultColor());
             pawn.setStrokeColor(theme.getBlackStrokeColor());
@@ -493,24 +490,20 @@ public class AkalanaView extends SceneView {
 
         for (final Pawn pawn : blackPieces) {
             pawn.setBitmaps(
-                    blackDefaultBitmap,
-                    blackMovableBitmap,
-                    blackSelectedBitmap
+                    theme.getScaledBlackDefaultBitmap(),
+                    theme.getScaledBlackMovableBitmap(),
+                    theme.getScaledBlackSelectedBitmap()
             );
             pawn.setColor(theme.getBlackDefaultColor());
             pawn.setStrokeColor(theme.getBlackStrokeColor());
         }
 
-        Bitmap whiteDefaultBitmap = theme.getWhiteDefaultBitmap() != null ? Bitmap.createScaledBitmap(theme.getWhiteDefaultBitmap(), unitSize, unitSize, true) : null;
-        Bitmap whiteMovableBitmap = theme.getWhiteMovableBitmap() != null ? Bitmap.createScaledBitmap(theme.getWhiteMovableBitmap(), unitSize, unitSize, true): null;
-        Bitmap whiteSelectedBitmap = theme.getWhiteSelectedBitmap() != null ? Bitmap.createScaledBitmap(theme.getWhiteSelectedBitmap(), unitSize, unitSize, true): null;
-
         // update black pieces bitmaps
         for (final Pawn pawn : whiteActivePieces) {
             pawn.setBitmaps(
-                    whiteDefaultBitmap,
-                    whiteMovableBitmap,
-                    whiteSelectedBitmap
+                    theme.getScaledWhiteDefaultBitmap(),
+                    theme.getScaledWhiteMovableBitmap(),
+                    theme.getScaledWhiteSelectedBitmap()
             );
             pawn.setColor(theme.getWhiteDefaultColor());
             pawn.setStrokeColor(theme.getWhiteStrokeColor());
@@ -518,14 +511,35 @@ public class AkalanaView extends SceneView {
 
         for (final Pawn pawn : whitePieces) {
             pawn.setBitmaps(
-                    whiteDefaultBitmap,
-                    whiteMovableBitmap,
-                    whiteSelectedBitmap
+                    theme.getScaledWhiteDefaultBitmap(),
+                    theme.getScaledWhiteMovableBitmap(),
+                    theme.getScaledWhiteSelectedBitmap()
             );
             pawn.setColor(theme.getWhiteDefaultColor());
             pawn.setStrokeColor(theme.getWhiteStrokeColor());
         }
 
+        removeMovablePositions();
+        removeRemovablePieces();
+        removeTraveledPositions();
+        showMovablePositions();
+        updateTraveledPositions();
+/*
+        for (final MovablePosition movablePosition : movablePositions) {
+            movablePosition.setColor(theme.getMovablePositionColor());
+            movablePosition.setBitmap(theme.getMovablePositionBitmap());
+        }
+
+        for (final TraveledPosition traveledPosition : traveledPositions) {
+            traveledPosition.setColor(theme.getTraveledPositionColor());
+            traveledPosition.setBitmap(theme.getTraveledPositionBitmap());
+        }
+
+        for (final RemovablePawn removablePawn : removablePawns) {
+            removablePawn.setColor(theme.getRemovablePositionColor());
+            removablePawn.setBitmap(theme.getRemovablePositionBitmap());
+        }
+*/
         draw();
     }
 
@@ -584,19 +598,12 @@ public class AkalanaView extends SceneView {
         super.setMeasuredDimension(unitSize * 9, unitSize * 5);
 
         if (unitSize > 0) {
+            setTheme(theme);
+
             updateAkalanaSize();
             updateBlackPiecesSize();
             updateWhitePiecesSize();
             updateEditionPositionsSize();
-
-            removeMovablePositions();
-            removeRemovablePieces();
-            removeTraveledPositions();
-            showMovablePositions();
-            showMovablePositions();
-            updateTraveledPositions();
-
-            setTheme(theme);
         }
 
         draw();
@@ -740,6 +747,7 @@ public class AkalanaView extends SceneView {
                         movablePosition.setZ(1);
                         movablePosition.setTouchable(false);
                         movablePosition.setColor(theme.getMovablePositionColor());
+                        movablePosition.setBitmap(theme.getScaledMovablePositionBitmap());
                         movablePositions.add(movablePosition);
 
                         // move animation to position
@@ -765,7 +773,7 @@ public class AkalanaView extends SceneView {
                         DrawableOpacityAnimation movablePositionOpacityAnim = new DrawableOpacityAnimation(new SecondDegreeInterpolator());
                         movablePositionOpacityAnim.setDrawable(movablePosition);
                         movablePositionOpacityAnim.setDelay(100);
-                        movablePositionOpacityAnim.setFromTo(0, 80);
+                        movablePositionOpacityAnim.setFromTo(0, 255);
 
                         movablePositionMoveAnim.addDelayExceededListener(new AnimationDelayExceededListener() {
                             @Override
@@ -905,11 +913,12 @@ public class AkalanaView extends SceneView {
      * @return
      */
     private RemovablePawn createRemovablePiece(Point position, Move move) {
-        RemovablePawn removablePawn = new RemovablePawn(position, move);
+        final RemovablePawn removablePawn = new RemovablePawn(position, move);
         removablePawn.setPos(graphicsPosition(position.y), graphicsPosition(position.x));
         removablePawn.setSize(unitSize);
         removablePawn.setZ(3);
         removablePawn.setColor(theme.getRemovablePositionColor());
+        removablePawn.setBitmap(theme.getScaledRemovablePositionBitmap());
 
         synchronized (removablePawns) {
             removablePawns.add(removablePawn);
@@ -925,7 +934,7 @@ public class AkalanaView extends SceneView {
         DrawableOpacityAnimation removablePieceOpacityAnim = new DrawableOpacityAnimation(new SecondDegreeInterpolator());
         removablePieceOpacityAnim.setDrawable(removablePawn);
         removablePieceOpacityAnim.setDelay(150);
-        removablePieceOpacityAnim.setFromTo(0, 120);
+        removablePieceOpacityAnim.setFromTo(0, 255);
 
         // mark.addClickListener(selectPiecesToRemoveListener);
         addAnimation(removablePieceScaleAnim);
@@ -936,6 +945,7 @@ public class AkalanaView extends SceneView {
         removablePawn.addTouchListener(new DrawableTouchListener() {
             @Override
             public void onTouchStart(Touchable touchable) {
+                removablePawn.setTouchable(false);
                 moveSelectedPiece(((RemovablePawn) touchable).getMove(), false);
             }
         });
@@ -1033,6 +1043,7 @@ public class AkalanaView extends SceneView {
                     traveledPosition.setPos(graphicsPosition(position.y), graphicsPosition(position.x));
                     traveledPosition.setZ(1);
                     traveledPosition.setColor(theme.getTraveledPositionColor());
+                    traveledPosition.setBitmap(theme.getScaledTraveledPositionBitmap());
                     traveledPositions.add(traveledPosition);
 
                     // anim traveled position scale
@@ -1045,7 +1056,7 @@ public class AkalanaView extends SceneView {
                     DrawableOpacityAnimation traveledPositionOpacityAnim = new DrawableOpacityAnimation(new SecondDegreeInterpolator());
                     traveledPositionOpacityAnim.setDrawable(traveledPosition);
                     traveledPositionOpacityAnim.setDelay(150);
-                    traveledPositionOpacityAnim.setFromTo(0, 70);
+                    traveledPositionOpacityAnim.setFromTo(0, 255);
 
                     addAnimation(traveledPositionScaleAnim);
                     addAnimation(traveledPositionOpacityAnim);

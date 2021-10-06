@@ -11,12 +11,28 @@
     <!-- Home -->
 
     <style name="HomeButton" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:weightSum">10</item>
+    </style>
+
+    <style name="HomeButtonImage" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">5dp</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">0dip</item>
+        <item name="android:layout_weight">6</item>
+    </style>
+
+    <style name="HomeButtonText" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dip</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#AFFF</item>
+        <item name="android:textSize">@dimen/home_menu_text_size</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Options -->
@@ -24,6 +40,7 @@
     <style name="OptionsItem" parent="CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="cardElevation">0dp</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_marginLeft">@dimen/option_item_margin_left_right</item>
         <item name="android:layout_marginTop">@dimen/option_item_margin_top_bottom</item>
@@ -38,9 +55,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:weightSum">20</item>
+        <item name="android:padding">@dimen/option_item_padding</item>
+    </style>
+
+    <style name="OptionsAiLayout" parent="OptionsLayout">
+        <item name="android:background">@drawable/option_item_ai_bg</item>
     </style>
 
     <style name="OptionsItemTitle" parent="TextAppearance.AppCompat">
@@ -63,6 +82,7 @@
         <item name="android:textSize">@dimen/option_value_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
+        <item name="android:paddingTop">2dp</item>
     </style>
 
     <style name="OptionsBtn" parent="TextAppearance.AppCompat">
@@ -251,7 +271,6 @@
     <style name="ReviewProgressBar" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">20dp</item>
-        <item name="android:layout_marginBottom">15dp</item>
         <item name="android:max">@integer/progress_max_value</item>
     </style>
 

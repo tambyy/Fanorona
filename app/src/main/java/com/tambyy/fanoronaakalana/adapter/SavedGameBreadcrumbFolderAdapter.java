@@ -1,11 +1,9 @@
 package com.tambyy.fanoronaakalana.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.tambyy.fanoronaakalana.R;
 import com.tambyy.fanoronaakalana.SavedGamesActivity;
@@ -32,7 +30,7 @@ public class SavedGameBreadcrumbFolderAdapter extends RecyclerView.Adapter<Saved
     public SavedGameBreadcrumbFolderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.saved_game_breadcrumb_folder_item, parent, false);
+        View view = inflater.inflate(R.layout.item_saved_game_breadcrumb_folder, parent, false);
 
         return new SavedGameBreadcrumbFolderViewHolder(view);
     }

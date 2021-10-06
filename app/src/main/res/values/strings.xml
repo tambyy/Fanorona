@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Fanorona Akalana</string>
+    <string name="app_dev">Tamby Roméo RAKOTONDRABE</string>
 
     <!-- Home -->
     <string name="home_play">Nouvelle partie</string>
@@ -14,7 +15,7 @@
     <string name="game_option_move_first">Premier</string>
     <string name="game_option_ai_level">Niveau de l\'IA</string>
     <string name="game_option_ai_max_time_eval">Temps max</string>
-    <string name="game_option_ai_ponder">Ponder</string>
+    <string name="game_option_ai_ponder">Réflechir</string>
 
     <!-- Opion mode -->
     <string name="game_option_mode_riatra">Riatra</string>
@@ -30,32 +31,6 @@
     <string name="game_option_move_first_black">Noir</string>
     <string name="game_option_move_first_white">Blanc</string>
 
-    <!-- Opion AI level -->
-    <string name="game_option_ai_level_1">1</string>
-    <string name="game_option_ai_level_2">2</string>
-    <string name="game_option_ai_level_3">3</string>
-    <string name="game_option_ai_level_4">4</string>
-    <string name="game_option_ai_level_5">5</string>
-    <string name="game_option_ai_level_6">6</string>
-    <string name="game_option_ai_level_7">7</string>
-    <string name="game_option_ai_level_8">8</string>
-    <string name="game_option_ai_level_9">9</string>
-    <string name="game_option_ai_level_10">10</string>
-    <string name="game_option_ai_level_11">11</string>
-    <string name="game_option_ai_level_12">12</string>
-
-    <!-- Opion AI max time eval in second -->
-    <string name="game_option_ai_max_time_eval_1">1</string>
-    <string name="game_option_ai_max_time_eval_2">2</string>
-    <string name="game_option_ai_max_time_eval_3">3</string>
-    <string name="game_option_ai_max_time_eval_4">4</string>
-    <string name="game_option_ai_max_time_eval_5">5</string>
-    <string name="game_option_ai_max_time_eval_6">6</string>
-    <string name="game_option_ai_max_time_eval_7">7</string>
-    <string name="game_option_ai_max_time_eval_8">8</string>
-    <string name="game_option_ai_max_time_eval_9">9</string>
-    <string name="game_option_ai_max_time_eval_10">10</string>
-
     <!-- Opion AI ponder -->
     <string name="game_option_ai_ponder_yes">Oui</string>
     <string name="game_option_ai_ponder_no">Non</string>
@@ -64,10 +39,12 @@
     <string name="game_option_play">Jouer</string>
     <string name="game_option_resume">Reprendre</string>
     <string name="game_option_re_edit">Re-éditer</string>
+    <string name="game_over">La partie est terminée!</string>
 
     <!-- Save games -->
     <string name="saved_games_breadcrumb_home">Accueil</string>
     <string name="saved_games_new_folder">Nouveau dossier</string>
+    <string name="saved_games_transfer">Transférer</string>
     <string name="saved_games_move_items">Déplacer</string>
     <string name="saved_games_move_items_here">Déplacer ici</string>
     <string name="saved_games_cancel">Annuler</string>
@@ -79,9 +56,14 @@
     <string name="saved_games_game_name_empty_msg">Veuillez renseigner le nom de la partie</string>
     <string name="saved_games_edit_save">Sauvegarder</string>
     <string name="saved_games_edit_folder_name">Nom du dossier ...</string>
+    <string name="saved_games_no_folder">Aucun dossier</string>
+    <string name="saved_games_no_game">Aucune partie</string>
+
+    <string name="bt_devices_scan">Scanner</string>
+    <string name="bt_devices_scanning">Scanner...</string>
 
     <!-- Setting -->
-    <string name="setting_theme">Theme</string>
+    <string name="setting_theme">Thème</string>
     <string name="setting_sound">Son</string>
     <string name="setting_language">Langue</string>
 

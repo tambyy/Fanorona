@@ -17,41 +17,46 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="10"
-        android:gravity="center">
+        android:weightSum="10">
 
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="8"
+            android:gravity="center"
             android:orientation="vertical"
-            android:weightSum="20"
-            android:gravity="center">
+            android:weightSum="20">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="14"
-                android:weightSum="10"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:weightSum="10">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dip"
                     android:layout_weight="5"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView
                         android:id="@+id/option_game_mode"
                         style="@style/OptionsItem"
                         android:onClick="launchOptionGameModeActivity">
 
-                        <RelativeLayout
-                            style="@style/OptionsLayout"
-                            android:background="@drawable/option_game_mode_bg">
+                        <LinearLayout
+                            style="@style/OptionsLayout">
+
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:src="@drawable/option_game_mode_ic" />
 
                             <TextView
                                 style="@style/OptionsItemTitle"
@@ -60,9 +65,9 @@
                             <TextView
                                 android:id="@+id/option_game_mode_text"
                                 style="@style/OptionsItemValue"
-                                android:text="@string/game_option_mode_riatra"/>
+                                android:text="@string/game_option_mode_riatra" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView>
 
@@ -71,9 +76,14 @@
                         style="@style/OptionsItem"
                         android:onClick="launchOptionFirstMoveActivity">
 
-                        <RelativeLayout
-                            style="@style/OptionsLayout"
-                            android:background="@drawable/option_first_move_bg">
+                        <LinearLayout
+                            style="@style/OptionsLayout">
+
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:src="@drawable/option_first_move_ic" />
 
                             <TextView
                                 style="@style/OptionsItemTitle"
@@ -82,30 +92,36 @@
                             <TextView
                                 android:id="@+id/option_first_move_text"
                                 style="@style/OptionsItemValue"
-                                android:text="Noir"/>
+                                android:text="@string/game_option_move_first_black" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView>
 
                     <com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView
+                        android:id="@+id/option_play_against"
                         style="@style/OptionsItem"
                         android:onClick="launchOptionPlayAgainstActivity">
 
-                        <RelativeLayout
-                            style="@style/OptionsLayout"
-                            android:background="@drawable/option_play_against_bg">
+                        <LinearLayout
+                            style="@style/OptionsLayout">
+
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:src="@drawable/option_play_against_ic" />
 
                             <TextView
                                 style="@style/OptionsItemTitle"
-                                android:text="@string/game_option_against"/>
+                                android:text="@string/game_option_against" />
 
                             <TextView
                                 android:id="@+id/option_play_against_text"
                                 style="@style/OptionsItemValue"
-                                android:text="Humain"/>
+                                android:text="@string/game_option_against_human" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView>
 
@@ -124,9 +140,14 @@
                         style="@style/OptionsItem"
                         android:onClick="launchOptionAiLevelActivity">
 
-                        <RelativeLayout
-                            style="@style/OptionsLayout"
-                            android:background="@drawable/option_ai_level_bg">
+                        <LinearLayout
+                            style="@style/OptionsAiLayout">
+
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:src="@drawable/option_ai_level_ic" />
 
                             <TextView
                                 style="@style/OptionsItemTitle"
@@ -135,31 +156,36 @@
                             <TextView
                                 android:id="@+id/option_ai_level_text"
                                 style="@style/OptionsItemValue"
-                                android:text="10"/>
+                                android:text="8" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView>
 
                     <com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView
-                        android:id="@+id/option_ai_max_relexion_time"
+                        android:id="@+id/option_ai_max_reflexion_time"
                         style="@style/OptionsItem"
                         android:onClick="launchOptionAiMaxSearchTimeActivity">
 
-                        <RelativeLayout
-                            style="@style/OptionsLayout"
-                            android:background="@drawable/option_ai_max_reflexion_time_bg">
+                        <LinearLayout
+                            style="@style/OptionsAiLayout">
+
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:src="@drawable/option_ai_max_reflexion_time_ic" />
 
                             <TextView
                                 style="@style/OptionsItemTitle"
-                                android:text="@string/game_option_ai_max_time_eval"/>
+                                android:text="@string/game_option_ai_max_time_eval" />
 
                             <TextView
                                 android:id="@+id/option_ai_max_relexion_time_text"
                                 style="@style/OptionsItemValue"
-                                android:text="10s"/>
+                                android:text="10s" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView>
 
@@ -168,20 +194,25 @@
                         style="@style/OptionsItem"
                         android:onClick="launchOptionAiPonderActivity">
 
-                        <RelativeLayout
-                            style="@style/OptionsLayout"
-                            android:background="@drawable/option_ai_ponder_bg">
+                        <LinearLayout
+                            style="@style/OptionsAiLayout">
+
+                            <ImageView
+                                android:layout_width="fill_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:src="@drawable/option_ai_ponder_ic" />
 
                             <TextView
                                 style="@style/OptionsItemTitle"
-                                android:text="@string/game_option_ai_ponder"/>
+                                android:text="@string/game_option_ai_ponder" />
 
                             <TextView
                                 android:id="@+id/option_ai_ponder_text"
                                 style="@style/OptionsItemValue"
-                                android:text="Oui" />
+                                android:text="@string/game_option_ai_ponder_yes" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView>
 
@@ -192,32 +223,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
-                android:orientation="horizontal"
                 android:layout_weight="3"
-                android:gravity="center|bottom">
+                android:gravity="center|bottom"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/game_option_play"
                     style="@style/OptionsBtn"
-                    android:background="@drawable/btn_blue"
-                    android:text="@string/game_option_play"
-                    android:onClick="launchGameActivity"/>
+                    android:background="@drawable/btn_green"
+                    android:onClick="launchGameActivity"
+                    android:text="@string/game_option_play" />
 
                 <Button
                     android:id="@+id/game_option_resume"
                     style="@style/OptionsBtn"
-                    android:background="@drawable/btn_green"
+                    android:background="@drawable/btn_blue"
+                    android:onClick="resumeGameActivity"
                     android:text="@string/game_option_resume"
-                    android:visibility="gone"
-                    android:onClick="resumeGameActivity"/>
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/game_option_re_edit"
                     style="@style/OptionsBtn"
                     android:background="@drawable/btn_orange"
+                    android:onClick="resumeEditionActivity"
                     android:text="@string/game_option_re_edit"
-                    android:visibility="gone"
-                    android:onClick="resumeEditionActivity"/>
+                    android:visibility="gone" />
 
             </LinearLayout>
 

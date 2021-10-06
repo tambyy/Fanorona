@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.tambyy.fanoronaakalana.config.Theme;
 import com.tambyy.fanoronaakalana.dao.PreferenceDao;
@@ -13,6 +14,9 @@ import com.tambyy.fanoronaakalana.dao.ThemeDao;
 import com.tambyy.fanoronaakalana.database.FanoronaDatabase;
 import com.tambyy.fanoronaakalana.graphics.customview.AkalanaView;
 import com.tambyy.fanoronaakalana.graphics.drawable.item.Pawn;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -100,9 +104,17 @@ public class ThemeManager {
                                     case "white_selected.png":
                                         configTheme.setWhiteSelectedBitmap(bitmap);
                                         break;
+                                    case "movable_position.png":
+                                        configTheme.setMovablePositionBitmap(bitmap);
+                                        break;
+                                    case "traveled_position.png":
+                                        configTheme.setTraveledPositionBitmap(bitmap);
+                                        break;
+                                    case "removable_position.png":
+                                        configTheme.setRemovablePositionBitmap(bitmap);
+                                        break;
                                 }
-                            } catch (IOException e) {
-                            }
+                            } catch (IOException e) {}
                         }
 
                         return configTheme;
@@ -127,4 +139,87 @@ public class ThemeManager {
         loadThemeProcess.execute(themeId);
     }
 
+    public void parseJson(String json, Theme theme, String folder) {
+        try {
+            JSONObject config = new JSONObject(json);
+
+            // akalana
+            JSONObject akalana = config.optJSONObject("akalana");
+            if (akalana != null) {
+                String akalanaBg = akalana.optString("bg");
+                if (akalanaBg != null) {
+
+                } else {
+                    String akalanaBgColor = akalana.optString("bg-color");
+                    String akalanaLineColor = akalana.optString("line-color");
+                    int akalanaLineWidth = akalana.optInt("line-width", 1);
+                }
+            }
+
+            // pieces
+            JSONObject pieces = config.optJSONObject("pieces");
+
+            JSONObject blackPieces = pieces.optJSONObject("black");
+            if (blackPieces != null) {
+                JSONObject defaultPieces = blackPieces.optJSONObject("default");
+                if (defaultPieces != null) {
+                    String image = defaultPieces.optString("image");
+                    if (image != null) {
+                        InputStream in = assetManager.open(folder + "/" + image);
+                        Bitmap bitmap = BitmapFactory.decodeStream(in);
+                        theme.setBlackDefaultBitmap(bitmap);
+                    } else {
+                        String color = defaultPieces.optString("color");
+                        String borderColor = defaultPieces.optString("border-color");
+                        int borderWidth = defaultPieces.optInt("border-width");
+
+                        if (color != null) {
+                            theme.setBlackDefaultColor(Color.parseColor(color));
+                        }
+                        if (borderColor != null) {
+                            theme.setBlackStrokeColor(Color.parseColor(color));
+                        }
+
+                        theme.setWhiteBorderWidth(borderWidth);
+                    }
+                }
+
+                JSONObject movablePieces = blackPieces.optJSONObject("default");
+                if (movablePieces != null) {
+                    String image = movablePieces.optString("image");
+                    if (image != null) {
+                        InputStream in = assetManager.open(folder + "/" + image);
+                        Bitmap bitmap = BitmapFactory.decodeStream(in);
+                        theme.setBlackMovableBitmap(bitmap);
+                    } else {
+                        String color = movablePieces.optString("color");
+                        String borderColor = movablePieces.optString("border-color");
+                        int borderWidth = movablePieces.optInt("border-width");
+                    }
+                }
+
+                JSONObject selectedPieces = blackPieces.optJSONObject("default");
+                if (selectedPieces != null) {
+                    String image = selectedPieces.optString("image");
+                    if (image != null) {
+                        InputStream in = assetManager.open(folder + "/" + image);
+                        Bitmap bitmap = BitmapFactory.decodeStream(in);
+                        theme.setBlackSelectedBitmap(bitmap);
+                    } else {
+                        String color = selectedPieces.optString("color");
+                        String borderColor = selectedPieces.optString("border-color");
+                        int borderWidth = selectedPieces.optInt("border-width");
+                    }
+                }
+
+            }
+
+            // marks
+            JSONObject marks = config.optJSONObject("marks");
+
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+            Log.i("AKALANA", e.getMessage());
+        }
+    }
 }

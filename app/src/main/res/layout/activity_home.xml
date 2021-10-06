@@ -16,50 +16,51 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="10"
-        android:gravity="center">
+        android:weightSum="10">
 
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="7"
+            android:gravity="center"
             android:orientation="vertical"
-            android:weightSum="10"
-            android:gravity="center">
+            android:weightSum="10">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="5"
-                android:weightSum="10"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:weightSum="10">
 
                 <com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView
                     android:layout_width="match_parent"
                     android:layout_height="0dip"
                     android:layout_centerInParent="true"
+                    android:layout_weight="6"
                     android:backgroundTint="@color/transparent"
                     app:cardBackgroundColor="@color/transparent"
-                    android:layout_weight="6">
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/home_play_bg"
-                        android:weightSum="10"
+                        android:onClick="launchOptionActivity"
                         android:orientation="vertical"
-                        android:onClick="launchOptionActivity">
+                        android:weightSum="10">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dip"
                             android:layout_weight="7"
+                            android:gravity="center"
                             android:orientation="vertical"
-                            android:weightSum="10"
                             android:src="@drawable/home_play_ic"
-                            android:gravity="center">
+                            android:weightSum="10">
 
                             <ImageView
                                 android:layout_width="match_parent"
@@ -74,13 +75,13 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="0dip"
-                            android:layout_weight="3"
                             android:layout_alignParentBottom="true"
+                            android:layout_weight="3"
+                            android:gravity="center"
                             android:text="@string/home_play"
                             android:textColor="#AFFF"
-                            android:gravity="center"
                             android:textSize="@dimen/home_play_text_size"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -91,113 +92,62 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
-                android:orientation="horizontal"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:weightSum="10"
+                    style="@style/HomeButton"
                     android:onClick="launchEditionActivity">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="6"
-                        android:src="@drawable/home_edit_ic"/>
+                        style="@style/HomeButtonImage"
+                        android:src="@drawable/home_edit_ic" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="4"
-                        android:layout_alignParentBottom="true"
-                        android:text="@string/home_edit"
-                        android:textColor="#AFFF"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/home_menu_text_size"/>
+                        style="@style/HomeButtonText"
+                        android:text="@string/home_edit" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:weightSum="10"
+                    style="@style/HomeButton"
                     android:onClick="launchSavedGamesActivity">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="6"
-                        android:src="@drawable/home_save_ic"/>
+                        style="@style/HomeButtonImage"
+                        android:src="@drawable/home_save_ic" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="4"
-                        android:layout_alignParentBottom="true"
-                        android:text="@string/home_save"
-                        android:textColor="#AFFF"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/home_menu_text_size"/>
+                        style="@style/HomeButtonText"
+                        android:text="@string/home_save" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:weightSum="10"
+                    style="@style/HomeButton"
                     android:onClick="launchSettingActivity">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="6"
-                        android:src="@drawable/home_setting_ic"/>
+                        style="@style/HomeButtonImage"
+                        android:src="@drawable/home_setting_ic" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="4"
-                        android:layout_alignParentBottom="true"
-                        android:text="@string/home_setting"
-                        android:textColor="#AFFF"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/home_menu_text_size"/>
+                        style="@style/HomeButtonText"
+                        android:text="@string/home_setting" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:weightSum="10">
+                    style="@style/HomeButton"
+                    android:onClick="launchAboutActivity">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="6"
-                        android:src="@drawable/home_about_ic"/>
+                        style="@style/HomeButtonImage"
+                        android:src="@drawable/home_about_ic" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="4"
-                        android:layout_alignParentBottom="true"
-                        android:text="@string/home_about"
-                        android:textColor="#AFFF"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/home_menu_text_size"/>
+                        style="@style/HomeButtonText"
+                        android:text="@string/home_about" />
 
                 </LinearLayout>
 

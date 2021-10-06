@@ -24,9 +24,9 @@ public interface FolderDao {
     @Query("DELETE FROM Folder WHERE id = :folderId")
     int deleteFolder(long folderId);
 
-    @Query("SELECT * FROM Folder WHERE parent_id = :parentId")
+    @Query("SELECT * FROM Folder WHERE parent_id = :parentId ORDER BY name COLLATE NOCASE")
     List<Folder> getChildFolders(Long parentId);
 
-    @Query("SELECT * FROM Folder WHERE parent_id IS NULL")
+    @Query("SELECT * FROM Folder WHERE parent_id IS NULL ORDER BY name COLLATE NOCASE")
     List<Folder> getRootFolders();
 }

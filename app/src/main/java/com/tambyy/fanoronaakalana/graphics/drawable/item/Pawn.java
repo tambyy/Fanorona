@@ -61,7 +61,7 @@ public class Pawn extends Touchable {
     public Pawn(boolean black) {
         this.black = black;
         strokePaint.setStyle(Paint.Style.STROKE);
-        strokePaint.setStrokeWidth(2);
+        strokePaint.setStrokeWidth(1.5f);
     }
 
     /**

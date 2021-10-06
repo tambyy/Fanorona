@@ -38,10 +38,12 @@
     <string name="game_option_play">Play</string>
     <string name="game_option_resume">Resume</string>
     <string name="game_option_re_edit">Re-edit</string>
+    <string name="game_over">Game over!</string>
 
     <!-- Save games -->
     <string name="saved_games_breadcrumb_home">Home</string>
     <string name="saved_games_new_folder">New folder</string>
+    <string name="saved_games_transfer">Transfer</string>
     <string name="saved_games_move_items">Move</string>
     <string name="saved_games_move_items_here">Move here</string>
     <string name="saved_games_cancel">Cancel</string>
@@ -53,6 +55,11 @@
     <string name="saved_games_game_name_empty_msg">You should fill the game name field</string>
     <string name="saved_games_edit_save">Save</string>
     <string name="saved_games_edit_folder_name">Folder name ...</string>
+    <string name="saved_games_no_folder">No folder</string>
+    <string name="saved_games_no_game">No game</string>
+
+    <string name="bt_devices_scan">Scan</string>
+    <string name="bt_devices_scanning">Scanning...</string>
 
     <!-- Save games -->
     <string name="setting_theme">Theme</string>

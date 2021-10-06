@@ -18,13 +18,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="20"
+        android:weightSum="8"
         android:gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dip"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:orientation="horizontal"
             android:paddingRight="20dp"
             android:paddingLeft="20dp"
@@ -32,17 +32,40 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/saved_games_folders_breadcrumb"
-                android:layout_width="match_parent"
+                android:layout_width="0dip"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:background="#0000"/>
+
+            <ImageButton
+                android:id="@+id/saved_games_bt_send"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:scaleType="fitCenter"
+                android:padding="5dp"
+                android:src="@drawable/saved_game_bt_send_ic"
+                android:onClick="bluetoothSelectDevice"/>
+
+            <ImageButton
+                android:id="@+id/saved_games_bt_receive"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:scaleType="fitCenter"
+                android:padding="5dp"
+                android:src="@drawable/saved_game_bt_receive_ic"
+                android:onClick="bluetoothPrepareReceivingData"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dip"
-            android:layout_weight="17"
+            android:layout_weight="7"
             android:weightSum="40"
             android:paddingLeft="13dp"
             android:gravity="right">
@@ -54,7 +77,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="9"
                 android:gravity="center"
-                android:text="Aucun dossier"
+                android:text="@string/saved_games_no_folder"
                 android:textColor="#777"
                 android:textSize="16dp"
                 android:textStyle="bold"
@@ -81,7 +104,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="26"
                 android:gravity="center"
-                android:text="Aucune partie"
+                android:text="@string/saved_games_no_game"
                 android:textColor="#777"
                 android:textSize="16dp"
                 android:textStyle="bold"
@@ -124,16 +147,32 @@
 
                         <LinearLayout
                             android:id="@+id/saved_games_create_folder"
-                            style="@style/SavedGameButtonLayout">
+                            style="@style/SavedGameButtonLayout"
+                            android:onClick="createFolder">
 
                             <ImageView
                                 style="@style/SavedGameButton"
-                                android:onClick="createFolder"
                                 android:src="@drawable/saved_game_create_folder_ic" />
 
                             <TextView
                                 style="@style/SavedGameButtonText"
                                 android:text="@string/saved_games_new_folder" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/saved_games_send_bt"
+                            style="@style/SavedGameButtonLayout"
+                            android:onClick="bluetoothSendData"
+                            android:visibility="gone">
+
+                            <ImageView
+                                style="@style/SavedGameButton"
+                                android:src="@drawable/saved_game_send_bt_ic" />
+
+                            <TextView
+                                style="@style/SavedGameButtonText"
+                                android:text="@string/saved_games_transfer" />
 
                         </LinearLayout>
 

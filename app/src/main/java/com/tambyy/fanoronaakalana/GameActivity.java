@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -156,8 +157,8 @@ public class GameActivity extends AppCompatActivity {
 
         setAiThinking(false);
         loadSoundEffects();
-        configureAkalana();
         loadPreferences();
+        configureAkalana();
         intentFromOptionActivity(savedInstanceState);
         checkAvailableHistory();
 
@@ -218,6 +219,7 @@ public class GameActivity extends AppCompatActivity {
             beginTime = System.currentTimeMillis() - history.getHistory().get(history.getHistory().size() - 1).getTime();
         }
         // ...
+        checkAvailableHistory();
     }
 
     /**
@@ -237,6 +239,7 @@ public class GameActivity extends AppCompatActivity {
         akalanaView.setEngine(engine);
         akalanaView.addEngineActionListener(engineActionListenerPushHistory);
         akalanaView.addEngineActionListener(engineActionListenerSoundEffect);
+        akalanaView.addEngineActionListener(engineActionListenerSaveLastConfig);
         akalanaView.addMovesSequenceOverListener(movesSequenceOverListener);
     }
 
@@ -246,7 +249,9 @@ public class GameActivity extends AppCompatActivity {
     private void startAnimateAiThinking() {
         progressBarAiThinkingAnimator = ObjectAnimator.ofInt(progressBarAiThinking, "progress", 0, progressBarAiThinking.getMax());
         progressBarAiThinkingAnimator.setDuration(aiMaxReflexionTime);
-        progressBarAiThinkingAnimator.setAutoCancel(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            progressBarAiThinkingAnimator.setAutoCancel(true);
+        }
         progressBarAiThinkingAnimator.start();
     }
 
@@ -480,21 +485,23 @@ public class GameActivity extends AppCompatActivity {
             // Just for Log :D :D :D
 
             if (evaluateProcess != null) {
-                evaluateProcess = null;
-
+/*
                 CharSequence s = engine.getLastSearchDepth(0) + " - " +
                         engine.getLastNodesCount(0) + " nd - " +
                         engine.getLastSearchTime(0) + " ms - " +
                         (engine.getLastNodesCount(0) / Math.max(1, engine.getLastSearchTime(0))) + " nd/ms";
 
                 Log.d("AKALANA", s.toString());
-
+*/
                 // Anim AI search result moves
+
+                evaluateProcess = null;
 
                 akalanaView.animEngineActions(movesSequenceToEngineActions(!engine.currentBlack(), result), () -> {
                     akalanaView.setTouchable(true);
                     setAiThinking(false);
                 });
+
                 stopAnimateAiThinking();
             }
         }
@@ -581,6 +588,15 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
+
+    /**
+     *
+     */
+    private final AkalanaView.EngineActionListener engineActionListenerSaveLastConfig = action -> {
+        preferenceManager.put(Constants.PREF_LAST_GAME_CONFIG, EngineActionsConverter.engineActionsToString(new ArrayList<>(history.getHistory()), true));
+        preferenceManager.put(Constants.PREF_LAST_HISTORY_INDEX, history.getHistoryIndex());
+    };
+
     /**
      * this will be call after each engine action
      * (init, piece selection, move, move sequence stop)
@@ -598,11 +614,8 @@ public class GameActivity extends AppCompatActivity {
             // or save game
             // or toggle to vela mode
 
-            if (!engine.winner()) {
-                Toast.makeText(this, "Vous pouvez faire mieux ;)!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Félicitations, vous avez gagné!", Toast.LENGTH_SHORT).show();
-            }
+            Resources res = getResources();
+            Toast.makeText(this, res.getString(R.string.game_over), Toast.LENGTH_SHORT).show();
 
         } else {
 

@@ -606,7 +606,7 @@ inline Bitboard Fanorona::removedPieces(const Bitboard position, const Vector ve
 }
 
 inline Bitboard Fanorona::addPieceAt(const Bitboard config, const Bitboard position) {
-    return config | position;
+    return (config | position) & FRAME;
 }
 
 inline Bitboard Fanorona::removePieceAt(const Bitboard config, const Bitboard position) {

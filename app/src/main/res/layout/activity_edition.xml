@@ -80,7 +80,6 @@
                             android:layout_marginLeft="0dp"/>
 
                         <com.tambyy.fanoronaakalana.graphics.customview.SquaredFromWidthRadioButton
-                            android:id="@+id/edition_trash"
                             style="@style/EditionRadioButton"
                             android:layout_width="match_parent"
                             android:background="@drawable/edition_trash"
@@ -98,7 +97,6 @@
                         android:orientation="vertical">
 
                         <ImageButton
-                            android:id="@+id/edition_clear"
                             style="@style/LSGameButton"
                             android:padding="0dp"
                             android:layout_width="match_parent"
@@ -163,7 +161,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        android:id="@+id/edition_play"
                         android:src="@drawable/edition_play_ic"
                         android:onClick="launchOptionActivity"/>
 

@@ -58,6 +58,9 @@
     <string name="saved_games_no_folder">No folder</string>
     <string name="saved_games_no_game">No game</string>
 
+    <string name="saved_games_transfert_runnning">Games transfer ...</string>
+    <string name="saved_games_transfert_finished">Games transfer finished</string>
+
     <string name="bt_devices_scan">Scan</string>
     <string name="bt_devices_scanning">Scanning...</string>
 
@@ -65,5 +68,7 @@
     <string name="setting_theme">Theme</string>
     <string name="setting_sound">Sound</string>
     <string name="setting_language">Language</string>
+
+    <string name="about_not_to_sell">Not to sell</string>
 
 </resources>

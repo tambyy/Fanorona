@@ -99,7 +99,6 @@
                     </com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView>
 
                     <com.tambyy.fanoronaakalana.graphics.customview.SquaredCardView
-                        android:id="@+id/option_play_against"
                         style="@style/OptionsItem"
                         android:onClick="launchOptionPlayAgainstActivity">
 

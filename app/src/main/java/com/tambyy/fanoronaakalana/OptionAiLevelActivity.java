@@ -42,7 +42,7 @@ public class OptionAiLevelActivity extends AppCompatActivity {
 
         getWindow().setAttributes(params);
 
-        for (int i = 1; i <= 12; ++i) {
+        for (int i = 1; i <= 16; ++i) {
             aiStats.add(new AIStat(i, 0));
         }
 

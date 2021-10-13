@@ -8,6 +8,15 @@
 #include <string>
 #include "akalana/search.h"
 
+struct TTExistingEntry {
+    Bitboard black;
+    Bitboard white;
+    bool blackFirst;
+
+public:
+    TTExistingEntry(Bitboard black, Bitboard white, bool blackFirst) : black(black), white(white), blackFirst(blackFirst) {}
+};
+
 class FanoronaEngineManager {
 public:
     FanoronaEngineManager(int searchCount);
@@ -72,6 +81,8 @@ private:
     Search* searchs;
 
     char* returnChars;
+
+    void initExistingTTEntry(Tt* tt);
 };
 
 

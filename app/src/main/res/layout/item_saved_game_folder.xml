@@ -12,14 +12,18 @@
         android:orientation="horizontal"
         android:backgroundTint="@color/transparent">
 
-            <ImageView
+            <RelativeLayout
                 android:layout_width="@dimen/saved_games_folder_size"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:layout_centerInParent="true"
-                android:src="@drawable/saved_game_folder_ic">
+                android:layout_height="match_parent">
 
-            </ImageView>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/saved_game_folder_ic" />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,13 +47,12 @@
                 </TextView>
 
                 <TextView
-                    android:id="@+id/saved_folder_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="25/01/2021"
                     android:textColor="#BFFF"
                     android:textSize="@dimen/saved_games_folder_date_text_size"
-                    android:paddingTop="2dp"
+                    android:layout_marginTop="2dp"
                     android:paddingLeft="@dimen/saved_games_folder_name_padding_left">
 
                 </TextView>
@@ -59,6 +62,14 @@
 
     <ImageView
         android:id="@+id/saved_folder_check"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/saved_game_check" />
+
+    <ImageView
+        android:id="@+id/saved_folder_checked"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_centerVertical="true"

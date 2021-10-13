@@ -5,8 +5,8 @@ import android.graphics.Color;
 
 public class Theme {
 
-    private int akalanaBgColor         = Color.rgb(197, 186, 168);
-    private int akalanaLinesColor      = Color.argb(80, 61, 30, 7);
+    private int akalanaBgColor         = Color.rgb(198, 178, 158);
+    private int akalanaLinesColor      = Color.argb(100, 56, 20, 5);
 
     private int whiteDefaultColor      = Color.rgb(255, 255, 255);
     private int whiteStrokeColor       = Color.argb(200, 0, 0, 0);

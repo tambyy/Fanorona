@@ -21,12 +21,6 @@ Search::~Search()
 
 int Search::search(const int depth, int alpha, int beta, const int IDDepth) {
 
-    if (fanorona.getWhiteBitboard() == (p(1,1)|p(1,3)|p(1,5)|p(2,2)|p(2,3)|p(2,4)|p(1,8)|p(3,1)|p(3,3))) {
-        ALOG("%d", fanorona.getCurrentPlayerBlack());
-        ALOG("%s", fanorona.toString().c_str());
-    }
-
-
     if (!forPonder && maxNodesCountToExplore > 0 && maxNodesCountToExplore <= nodesCount) {
         stopSearching();
     }
@@ -102,13 +96,10 @@ int Search::search(const int depth, int alpha, int beta, const int IDDepth) {
 
     // TRANSPOSTION TABLE
 
-    int bestScore = MIN_SCORE;
     const int oldAlpha = alpha;
-    unsigned int childNodesCount = nodesCount;
     TTEntry* entry = NULL;
 
     if (playerMemory && IDDepth == 0) {
-
         // Vérifier l'occurence de la configuration actuelle de la scene
         // dans la table de transposition
         entry = playerMemory->get(fanorona, depth);
@@ -160,6 +151,8 @@ int Search::search(const int depth, int alpha, int beta, const int IDDepth) {
 
     const int moveGenDepth = IDDepth > 0 ? IDDepth : depth;
     PieceMoveSession* pms = refutationTable[moveGenDepth];
+    int bestScore = MIN_SCORE;
+    unsigned int childNodesCount = nodesCount;
 
 
     //////////////////////////////////////////////////////////////////
@@ -692,7 +685,7 @@ PieceMoveSession* Search::evaluate(const Fanorona &f, bool forPonder) {
     evaluationTime = (std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime)).count();
 
     for (PieceMoveSession* it = last - 1; it >= refutationTable[currentIterativeDeepeningLevel]; --it) {
-        //ALOG(" >> %s", it->toString().c_str());
+        ALOG(" >> %s", it->toString().c_str());
     }
     return ms;
 }

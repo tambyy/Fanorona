@@ -107,6 +107,13 @@ std::string pretty(const Bitboard position);
 
 /**
  *
+ * @param position
+ * @return
+ */
+std::string prettyBitboard(const Bitboard position);
+
+/**
+ *
  * @param position1
  * @param position2
  * @return
@@ -1211,12 +1218,22 @@ constexpr Bitboard H_SYM_ZONE_E =
 constexpr Bitboard H_SYM_ZONE_F =
         FILE_2 | FILE_4 | FILE_7 | FILE_9;
 
+constexpr Bitboard P_SYM_ZONE_A = (1ull << 32) - 1;
+constexpr Bitboard P_SYM_ZONE_B = P_SYM_ZONE_A << 32;
+
 inline int bitCount(const Bitboard bitboard) {
     return __builtin_popcountll(bitboard);
 }
 
-inline int reverseBits(const Bitboard bitboard) {
-    return __builtin_bswap64(bitboard);
+inline Bitboard reverseBits(Bitboard i) {
+    //return __builtin_bswap64(bitboard);
+
+    i = (i & 0x5555555555555555ll) << 1 | (i >> 1) & 0x5555555555555555ll;
+    i = (i & 0x3333333333333333ll) << 2 | (i >> 2) & 0x3333333333333333ll;
+    i = (i & 0x0f0f0f0f0f0f0f0fll) << 4 | (i >> 4) & 0x0f0f0f0f0f0f0f0fll;
+    i = (i & 0x00ff00ff00ff00ffll) << 8 | (i >> 8) & 0x00ff00ff00ff00ffll;
+    i = (i << 48) | ((i & 0xffff0000ll) << 16) | ((i >> 16) & 0xffff0000ll) | (i >> 48);
+    return i;
 }
 
 inline int lsb(Bitboard b) {
@@ -1245,7 +1262,7 @@ inline Bitboard movePositionBack(const Bitboard position, const Vector vector)
 
 inline Bitboard reversePosition(const Bitboard position)
 {
-    return reverseBits(position << 9);
+    return reverseBits(position) >> 9;
 }
 
 inline Bitboard verticalSymmetricPosition(const Bitboard position)
@@ -1260,9 +1277,9 @@ inline Bitboard verticalSymmetricPosition(const Bitboard position)
 
 inline Bitboard horizontalSymmetricPosition(const Bitboard position)
 {
-    Bitboard pos = ((position & H_SYM_ZONE_A) << 5) | ((position & H_SYM_ZONE_B) >> 5) | (position & FILE_5);
+    Bitboard pos = ((position & H_SYM_ZONE_A) << 5) | ((position & H_SYM_ZONE_B) >> 5);
     pos = ((pos & H_SYM_ZONE_C) << 2) | ((pos & H_SYM_ZONE_D) >> 2);
-    return ((pos & H_SYM_ZONE_E) << 1) | ((pos & H_SYM_ZONE_F) >> 1);
+    return ((pos & H_SYM_ZONE_E) << 1) | ((pos & H_SYM_ZONE_F) >> 1) | (position & FILE_5);
 }
 
 inline int getXPosition(const Bitboard position) {

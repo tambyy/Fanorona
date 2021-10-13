@@ -214,6 +214,10 @@ public class SavedGamesActivity extends AppCompatActivity {
         // loadPreferences();
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null) {
+            imageButtonSavedGamesBtSend.setVisibility(View.GONE);
+            imageButtonSavedGamesBtReceive.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -869,6 +873,9 @@ public class SavedGamesActivity extends AppCompatActivity {
         linearLayoutSavedGamesSaveGame.setVisibility(gameToSaveConfigs != null ? View.VISIBLE : View.GONE);
         linearLayoutSavedGamesContinueGame.setVisibility(selectedItemsCount == 1 && savedGameFolderAdapter.getSelectedFoldersCount() == 0 ? View.VISIBLE : View.GONE);
 
+        savedGameAdapter.setShowSelectionBox(selectedItemsCount > 0);
+        savedGameFolderAdapter.setShowSelectionBox(selectedItemsCount > 0);
+
         imageButtonSavedGamesBtSend.setImageResource(bluetoothConnected ? R.drawable.saved_game_bt_send_active_ic : R.drawable.saved_game_bt_send_ic);
     }
 
@@ -963,6 +970,9 @@ public class SavedGamesActivity extends AppCompatActivity {
             // Get the message bytes and tell the BluetoothChatService to write
             byte[] send = dataToSend.getBytes();
             mChatService.write(send);
+            savedGameAdapter.clearSelectedGames();
+            savedGameFolderAdapter.clearSelectedFolders();
+            checkEnabledButtons();
         }
     }
 
@@ -1008,15 +1018,15 @@ public class SavedGamesActivity extends AppCompatActivity {
      * Makes this device discoverable for 300 seconds (5 minutes).
      */
     private void bluetoothSaveData(String data) {
-        synchronized (this) {
-            try {
-                JSONArray jsonArray = new JSONArray(data);
-                bluetoothSaveGameFolder(jsonArray, currentFolder);
-                this.refreshCurrentFolder();
-                Toast.makeText(SavedGamesActivity.this, "Transfert terminé!", Toast.LENGTH_SHORT);
-            } catch (JSONException e) {
-                Log.e("AKALANA", "bluetoothSaveData", e);
-            }
+        this.runOnUiThread(() -> Toast.makeText(this, R.string.saved_games_transfert_runnning, Toast.LENGTH_SHORT));
+
+        try {
+            JSONArray jsonArray = new JSONArray(data);
+            bluetoothSaveGameFolder(jsonArray, currentFolder);
+            this.refreshCurrentFolder();
+            this.runOnUiThread(() -> Toast.makeText(this, R.string.saved_games_transfert_finished, Toast.LENGTH_SHORT));
+        } catch (JSONException e) {
+            Log.e("AKALANA", "bluetoothSaveData", e);
         }
     }
 

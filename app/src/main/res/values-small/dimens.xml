@@ -62,7 +62,7 @@
 
     <!-- Saved games -->
 
-    <dimen name="saved_games_grid_view_folder_vspacing">10dp</dimen>
+    <dimen name="saved_games_grid_view_folder_vspacing">7dp</dimen>
     <dimen name="saved_games_grid_view_vspacing">3dp</dimen>
     <dimen name="saved_games_grid_view_hspacing">5dp</dimen>
     <dimen name="saved_games_grid_view_padding_left_right">3dp</dimen>
@@ -78,7 +78,5 @@
 
     <dimen name="setting_theme_item_padding">3dp</dimen>
     <dimen name="setting_theme_border_radius">4dp</dimen>
-
-    <dimen name="setting_language_item_padding">3dp</dimen>
 
 </resources>

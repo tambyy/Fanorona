@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -41,7 +44,7 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
-    private static final int ANIM_INTERVAL = 250;
+    private static final int ANIM_INTERVAL = 300;
     public static final String SAVED_GAME_REVIEW_TIME_CODE = "SAVED_GAME_REVIEW_TIME_CODE";
     public static final String SAVED_GAME_REVIEW_PAUSED_CODE = "SAVED_GAME_REVIEW_PAUSED_CODE";
     public static final String SAVED_GAME_REVIEW_SPEED_CODE = "SAVED_GAME_REVIEW_SPEED_CODE";
@@ -72,7 +75,10 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
     ImageButton imageButtonReviewRealTime;
 
     @BindView(R.id.saved_game_review_overlay)
-    RelativeLayout linearLayoutSavedGameReviewOverlay;
+    FrameLayout linearLayoutSavedGameReviewOverlay;
+
+    @BindView(R.id.saved_game_review_overlay_content)
+    RelativeLayout linearLayoutSavedGameReviewOverlayContent;
 
 
     /**
@@ -236,8 +242,8 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
                 reviewActions = EngineActionsConverter.stringToEngineActions(game.getConfigs());
                 seekBarReviewProgress.setMax(reviewActions.size() * 3);
 
-                if (reviewActions.get(reviewActions.size() - 1).getTime() > 0) {
-                    imageButtonReviewRealTime.setVisibility(View.VISIBLE);
+                if (reviewActions.get(reviewActions.size() - 1).getTime() == 0) {
+                    imageButtonReviewRealTime.setVisibility(View.GONE);
                 }
 
                 textViewSavedGameName.setText(game.getName());
@@ -303,11 +309,41 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
         reviewPaused = paused;
 
         if (paused) {
-            imageButtonReviewPause.setVisibility(View.GONE);
+            android.view.animation.Animation hidePauseAnimation = AnimationUtils.loadAnimation(this, R.anim.hide_game_review_pause);
+            imageButtonReviewPause.setAnimation(hidePauseAnimation);
+            hidePauseAnimation.setAnimationListener(new android.view.animation.Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(android.view.animation.Animation animation) {}
+                @Override
+                public void onAnimationRepeat(android.view.animation.Animation animation) {}
+
+                @Override
+                public void onAnimationEnd(android.view.animation.Animation animation) {
+                    imageButtonReviewPause.setVisibility(View.GONE);
+                }
+            });
+
             imageButtonReviewPlay.setVisibility(View.VISIBLE);
+            android.view.animation.Animation showPlayAnimation = AnimationUtils.loadAnimation(this, R.anim.show_game_review_play);
+            imageButtonReviewPlay.setAnimation(showPlayAnimation);
         } else {
+            android.view.animation.Animation hidePlayAnimation = AnimationUtils.loadAnimation(this, R.anim.hide_game_review_play);
+            imageButtonReviewPlay.setAnimation(hidePlayAnimation);
+            hidePlayAnimation.setAnimationListener(new android.view.animation.Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(android.view.animation.Animation animation) {}
+                @Override
+                public void onAnimationRepeat(android.view.animation.Animation animation) {}
+
+                @Override
+                public void onAnimationEnd(android.view.animation.Animation animation) {
+                    imageButtonReviewPlay.setVisibility(View.GONE);
+                }
+            });
+
             imageButtonReviewPause.setVisibility(View.VISIBLE);
-            imageButtonReviewPlay.setVisibility(View.GONE);
+            android.view.animation.Animation showPauseAnimation = AnimationUtils.loadAnimation(this, R.anim.show_game_review_pause);
+            imageButtonReviewPause.setAnimation(showPauseAnimation);
         }
     }
 
@@ -331,14 +367,16 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
         return new Animation(new LinearInterpolator()) {
             @Override
             public void advance(double y) {
-                progressTime = (int) (getReviewDelay() * y);
-                int progress = seekBarReviewProgress.getProgress();
-                int newProgress = (int) (y * seekBarReviewProgress.getMax());
+                if (controlsLayoutShown || y == 1) {
+                    progressTime = (int) (getReviewDelay() * y);
+                    int progress = seekBarReviewProgress.getProgress();
+                    int newProgress = (int) (y * seekBarReviewProgress.getMax());
 
-                if (progress != newProgress) {
-                    runOnUiThread(() -> {
-                        seekBarReviewProgress.setProgress(newProgress);
-                    });
+                    if (progress != newProgress) {
+                        runOnUiThread(() -> {
+                            seekBarReviewProgress.setProgress(newProgress);
+                        });
+                    }
                 }
             }
         };
@@ -479,9 +517,7 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
     }
 
     private Handler hideControlsLayoutHandler = null;
-    private Runnable hideControlsLayoutRunnable = () -> {
-        hideControlsLayout();
-    };
+    private Runnable hideControlsLayoutRunnable = () -> hideControlsLayout();
 
     private void showControlsLayout() {
         showControlsLayout(true);
@@ -489,7 +525,8 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
 
     private void showControlsLayout(boolean hide) {
         controlsLayoutShown = true;
-        linearLayoutSavedGameReviewOverlay.animate().alpha(1).setDuration(200);
+        linearLayoutSavedGameReviewOverlayContent.setVisibility(View.VISIBLE);
+        linearLayoutSavedGameReviewOverlay.animate().alpha(1).setDuration(300);
 
         cancelHideControlsLayoutHandler();
 
@@ -501,7 +538,13 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
 
     private void hideControlsLayout() {
         controlsLayoutShown = false;
-        linearLayoutSavedGameReviewOverlay.animate().alpha(0).setDuration(400);
+        linearLayoutSavedGameReviewOverlay.animate().setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (!controlsLayoutShown)
+                    linearLayoutSavedGameReviewOverlayContent.setVisibility(View.GONE);
+            }
+        }).alpha(0).setDuration(500);
 
         cancelHideControlsLayoutHandler();
     }

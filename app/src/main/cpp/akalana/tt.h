@@ -5,6 +5,8 @@
 #include <map>
 #include <iostream>
 
+#include <inttypes.h>
+
 struct TTEntry {
 public:
     TTEntry() :
@@ -195,6 +197,7 @@ inline void Tt::add(const int vela, const int deep, const int blackPlayer, const
     }
 
     const int index = getTTIndex(vela, blackPlayer, deep - 1);
+
     std::map<Bitboard, std::map<Bitboard, TTEntry>>* map3 = FOUND_RESULTS[index];
     if (map3 == NULL) {
         map3 = FOUND_RESULTS[index] = new std::map<Bitboard, std::map<Bitboard, TTEntry>>[MAX_BLACK_TEAM_MASK];
@@ -219,12 +222,10 @@ inline TTEntry* Tt::get(const int vela, const int deep, const int blackPlayer, c
         return NULL;
     }
 
-
     std::map<Bitboard, std::map<Bitboard, TTEntry>>* map3 = FOUND_RESULTS[getTTIndex(vela, blackPlayer, deep - 1)];
     if (map3 == NULL) {
 		return NULL;
 	}
-
 
 	const bool blackPlayerFirst = scene.getFirstPlayerBlack();
 
@@ -240,15 +241,14 @@ inline TTEntry* Tt::get(const int vela, const int deep, const int blackPlayer, c
 		return NULL;
 	}
 
-
 	std::map<Bitboard, TTEntry>& map5 = it4->second;
 
 	const std::map<Bitboard, TTEntry>::iterator& it5 = map5.find(white);
 	if (it5 == map5.end()) {
 		return NULL;
 	}
-		
-	return &(it5->second);
+
+    return &(it5->second);
 }
 
 inline int Tt::getVela(const Fanorona& scene) const {

@@ -10,7 +10,7 @@ public class AnimationsManager {
      * 30 images par seconde (1000 ms)
      * alors le temps d'intervalle entre deux images sera 1000 ms / 30
      */
-    public static int ANIMATION_TIME_INTERVAL = 1000 / 100;
+    public static int ANIMATION_TIME_INTERVAL = 1000 / 80;
 
     /**
      * Animation -> temps d'éxecution écoulé

@@ -97,16 +97,6 @@
         <item name="android:maxLines">1</item>
     </style>
 
-    <style name="OptionsItemLayout" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:paddingLeft">7dp</item>
-        <item name="android:paddingRight">7dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
-    </style>
-
     <style name="PopupContainer" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -203,15 +193,6 @@
 
     <!-- Game -->
 
-    <style name="GameButton" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="android:background">@color/transparent</item>
-        <item name="android:scaleType">fitCenter</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
     <style name="LSGameButton" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>
@@ -272,24 +253,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">20dp</item>
         <item name="android:max">@integer/progress_max_value</item>
-    </style>
-
-    <style name="ReviewButton" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">40dp</item>
-        <item name="android:background">@color/transparent</item>
-        <item name="android:scaleType">fitCenter</item>
-        <item name="android:padding">7dp</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-    <style name="ReviewButtonLand" parent="TextAppearance.AppCompat">
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:background">@color/transparent</item>
-        <item name="android:scaleType">fitCenter</item>
-        <item name="android:padding">7dp</item>
-        <item name="android:layout_weight">1</item>
     </style>
 
 </resources>

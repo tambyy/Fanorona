@@ -29,6 +29,24 @@ std::string pretty(const Bitboard position) {
     return result;
 }
 
+std::string prettyBitboard(const Bitboard position) {
+    std::string result = "";
+
+    for (int i = 0; i < 64; ++i) {
+        if (position & (1L << i)) {
+            result += " @ ";
+        } else {
+            result += " . ";
+        }
+
+        if ((i + 1) % 8 == 0) {
+            result += "\n";
+        }
+    }
+
+    return result;
+}
+
 std::string pretty(const Bitboard position1, const Bitboard position2) {
     std::string result = "";
 

@@ -31,6 +31,7 @@ public class SavedGameAdapter extends BaseAdapter {
     private final Engine engine;
     private final Context context;
     private final LayoutInflater inflater;
+    private boolean showSelectionBox = false;
     private Theme theme = new Theme();
 
     public SavedGameAdapter(Context context, List<Game> games, Engine engine) {
@@ -102,7 +103,7 @@ public class SavedGameAdapter extends BaseAdapter {
         viewHolder.gameChecked = (ImageView) convertView.findViewById(R.id.saved_game_checked);
 
         boolean gameSelected = isGameSelected(game);
-        viewHolder.gameCheck.setVisibility(selectedGames.size() > 0 && !gameSelected ? View.VISIBLE : View.GONE);
+        viewHolder.gameCheck.setVisibility(showSelectionBox && !gameSelected ? View.VISIBLE : View.GONE);
         viewHolder.gameChecked.setVisibility(gameSelected ? View.VISIBLE : View.GONE);
 
         return convertView;
@@ -126,10 +127,19 @@ public class SavedGameAdapter extends BaseAdapter {
 
     public void toggleSelectGame(Game game) {
         if (isGameSelected(game)) {
-            selectedGames.remove(game);
+            unselectGame(game);
         } else {
-            selectedGames.add(game);
+            selectGame(game);
         }
+    }
+
+    public void selectGame(Game game) {
+        selectedGames.add(game);
+        notifyDataSetChanged();
+    }
+
+    public void unselectGame(Game game) {
+        selectedGames.remove(game);
         notifyDataSetChanged();
     }
 
@@ -140,6 +150,11 @@ public class SavedGameAdapter extends BaseAdapter {
 
     public List<Game> getSelectedGames() {
         return selectedGames;
+    }
+
+    public void setShowSelectionBox(boolean showSelectionBox) {
+        this.showSelectionBox = showSelectionBox;
+        notifyDataSetChanged();
     }
 
     public void setTheme(Theme theme) {

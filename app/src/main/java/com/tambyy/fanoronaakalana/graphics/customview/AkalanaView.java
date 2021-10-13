@@ -822,13 +822,13 @@ public class AkalanaView extends SceneView {
             // anim movable position scale
             DrawableScaleAnimation movablePositionScaleAnim = new DrawableScaleAnimation(new SecondDegreeInterpolator());
             movablePositionScaleAnim.setDrawable(movablePosition);
-            movablePositionScaleAnim.setDelay(150);
+            movablePositionScaleAnim.setDelay(180);
             movablePositionScaleAnim.setFromTo(1f, 0f);
 
             // anim movable position opacity
             DrawableOpacityAnimation movablePositionOpacityAnim = new DrawableOpacityAnimation(new SecondDegreeInterpolator());
             movablePositionOpacityAnim.setDrawable(movablePosition);
-            movablePositionOpacityAnim.setDelay(150);
+            movablePositionOpacityAnim.setDelay(180);
             movablePositionOpacityAnim.setFromTo(80, 0);
 
             addAnimation(movablePositionScaleAnim);
@@ -927,13 +927,13 @@ public class AkalanaView extends SceneView {
         // anim removable piece scale
         DrawableScaleAnimation removablePieceScaleAnim = new DrawableScaleAnimation(new SecondDegreeInterpolator());
         removablePieceScaleAnim.setDrawable(removablePawn);
-        removablePieceScaleAnim.setDelay(150);
+        removablePieceScaleAnim.setDelay(180);
         removablePieceScaleAnim.setFromTo(0f, 1f);
 
         // anim removable piece opacity
         DrawableOpacityAnimation removablePieceOpacityAnim = new DrawableOpacityAnimation(new SecondDegreeInterpolator());
         removablePieceOpacityAnim.setDrawable(removablePawn);
-        removablePieceOpacityAnim.setDelay(150);
+        removablePieceOpacityAnim.setDelay(180);
         removablePieceOpacityAnim.setFromTo(0, 255);
 
         // mark.addClickListener(selectPiecesToRemoveListener);
@@ -995,13 +995,13 @@ public class AkalanaView extends SceneView {
             // anim removable piece scale
             DrawableScaleAnimation removablePieceScaleAnim = new DrawableScaleAnimation(new SecondDegreeInterpolator());
             removablePieceScaleAnim.setDrawable(removablePawn);
-            removablePieceScaleAnim.setDelay(150);
+            removablePieceScaleAnim.setDelay(200);
             removablePieceScaleAnim.setFromTo(1f, 0f);
 
             // anim removable piece opacity
             DrawableOpacityAnimation removablePieceOpacityAnim = new DrawableOpacityAnimation(new SecondDegreeInterpolator());
             removablePieceOpacityAnim.setDrawable(removablePawn);
-            removablePieceOpacityAnim.setDelay(150);
+            removablePieceOpacityAnim.setDelay(200);
             removablePieceOpacityAnim.setFromTo(120, 0);
 
             addAnimation(removablePieceScaleAnim);
@@ -1049,13 +1049,13 @@ public class AkalanaView extends SceneView {
                     // anim traveled position scale
                     DrawableScaleAnimation traveledPositionScaleAnim = new DrawableScaleAnimation(new SecondDegreeInterpolator());
                     traveledPositionScaleAnim.setDrawable(traveledPosition);
-                    traveledPositionScaleAnim.setDelay(150);
+                    traveledPositionScaleAnim.setDelay(200);
                     traveledPositionScaleAnim.setFromTo(0f, 1f);
 
                     // anim traveled position opacity
                     DrawableOpacityAnimation traveledPositionOpacityAnim = new DrawableOpacityAnimation(new SecondDegreeInterpolator());
                     traveledPositionOpacityAnim.setDrawable(traveledPosition);
-                    traveledPositionOpacityAnim.setDelay(150);
+                    traveledPositionOpacityAnim.setDelay(200);
                     traveledPositionOpacityAnim.setFromTo(0, 255);
 
                     addAnimation(traveledPositionScaleAnim);
@@ -1073,13 +1073,13 @@ public class AkalanaView extends SceneView {
                     // anim traveled position scale
                     DrawableScaleAnimation traveledPositionScaleAnim = new DrawableScaleAnimation(new SecondDegreeInterpolator());
                     traveledPositionScaleAnim.setDrawable(traveledPosition);
-                    traveledPositionScaleAnim.setDelay(150);
+                    traveledPositionScaleAnim.setDelay(200);
                     traveledPositionScaleAnim.setFromTo(1f, 0f);
 
                     // anim traveled position opacity
                     DrawableOpacityAnimation traveledPositionOpacityAnim = new DrawableOpacityAnimation(new SecondDegreeInterpolator());
                     traveledPositionOpacityAnim.setDrawable(traveledPosition);
-                    traveledPositionOpacityAnim.setDelay(150);
+                    traveledPositionOpacityAnim.setDelay(200);
                     traveledPositionOpacityAnim.setFromTo(80, 0);
 
                     addAnimation(traveledPositionScaleAnim);
@@ -1218,7 +1218,7 @@ public class AkalanaView extends SceneView {
                     // to the position where the selected piece is supposed to move
                     DrawableMoveAnimation vatoMoveAnim = new DrawableMoveAnimation(new SecondDegreeInterpolator());
                     vatoMoveAnim.setDrawable(pawn);
-                    vatoMoveAnim.setDelay(600);
+                    vatoMoveAnim.setDelay(800);
                     vatoMoveAnim.setFromTo(pawn.getX(), pawn.getY(), animToX, animToY);
 
                     // anim movable position scale
@@ -1230,7 +1230,7 @@ public class AkalanaView extends SceneView {
                     // anim movable position opacity
                     DrawableOpacityAnimation vatoOpacityAnim = new DrawableOpacityAnimation(new SecondDegreeInterpolator());
                     vatoOpacityAnim.setDrawable(pawn);
-                    vatoOpacityAnim.setDelay(80);
+                    vatoOpacityAnim.setDelay(120);
                     vatoOpacityAnim.setFromTo(255, 0);
 
                     // add animations
@@ -1415,7 +1415,7 @@ public class AkalanaView extends SceneView {
      * @param actions
      */
     public void animEngineActions(List<EngineAction> actions, MovesSequenceAnimationOverListener movesSequenceAnimationOverListener) {
-        animEngineActions(actions, movesSequenceAnimationOverListener, 250);
+        animEngineActions(actions, movesSequenceAnimationOverListener, 300);
     }
 
     /**

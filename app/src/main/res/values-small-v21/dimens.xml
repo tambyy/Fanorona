@@ -3,9 +3,6 @@
     <dimen name="popup_corner_radius">15dp</dimen>
 
     <dimen name="game_akalana_corner_radius">15dp</dimen>
-    <dimen name="game_btn_corner_radius">50dp</dimen>
-
-    <dimen name="edition_akalana_corner_radius">15dp</dimen>
 
     <dimen name="saved_games_item_corner_radius">4dp</dimen>
 </resources>

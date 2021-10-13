@@ -22,6 +22,7 @@ public class SavedGameFolderAdapter extends BaseAdapter {
     private final List<Folder> folders;
     private final Context context;
     private final LayoutInflater inflater;
+    private boolean showSelectionBox = false;
 
     public SavedGameFolderAdapter(Context context, List<Folder> folders) {
         this.context = context;
@@ -65,7 +66,10 @@ public class SavedGameFolderAdapter extends BaseAdapter {
         viewHolder.folderName.setText(folder.getName());
 
         viewHolder.folderCheck = (ImageView) convertView.findViewById(R.id.saved_folder_check);
-        viewHolder.folderCheck.setVisibility(isFolderSelected(folder) ? View.VISIBLE : View.GONE);
+        viewHolder.folderChecked = (ImageView) convertView.findViewById(R.id.saved_folder_checked);
+
+        viewHolder.folderCheck.setVisibility(showSelectionBox ? View.VISIBLE : View.GONE);
+        viewHolder.folderChecked.setVisibility(isFolderSelected(folder) ? View.VISIBLE : View.GONE);
 
         return convertView;
     }
@@ -73,6 +77,7 @@ public class SavedGameFolderAdapter extends BaseAdapter {
     private static class ViewHolder {
         public TextView folderName;
         public ImageView folderCheck;
+        public ImageView folderChecked;
     }
 
     public int getSelectedFoldersCount() {
@@ -94,6 +99,11 @@ public class SavedGameFolderAdapter extends BaseAdapter {
 
     public void clearSelectedFolders() {
         selectedFolders.clear();
+        notifyDataSetChanged();
+    }
+
+    public void setShowSelectionBox(boolean showSelectionBox) {
+        this.showSelectionBox = showSelectionBox;
         notifyDataSetChanged();
     }
 

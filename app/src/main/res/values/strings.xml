@@ -59,6 +59,9 @@
     <string name="saved_games_no_folder">Aucun dossier</string>
     <string name="saved_games_no_game">Aucune partie</string>
 
+    <string name="saved_games_transfert_runnning">Transfert des parties en cours</string>
+    <string name="saved_games_transfert_finished">Transfert des parties terminé</string>
+
     <string name="bt_devices_scan">Scanner</string>
     <string name="bt_devices_scanning">Scanner...</string>
 
@@ -66,5 +69,7 @@
     <string name="setting_theme">Thème</string>
     <string name="setting_sound">Son</string>
     <string name="setting_language">Langue</string>
+
+    <string name="about_not_to_sell">A ne pas vendre</string>
 
 </resources>

@@ -1,6 +1,11 @@
 
 #include "FanoronaEngineManager.h"
 
+#include <inttypes.h>
+#include <android/log.h>
+#define  LOG_TAG    "AKALANA"
+#define  ALOG(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
+
 FanoronaEngineManager::FanoronaEngineManager(int searchCount) {
     Bitboards::init();
 
@@ -9,10 +14,84 @@ FanoronaEngineManager::FanoronaEngineManager(int searchCount) {
     searchs = new Search[searchCount];
 
     for (int i = 0; i < searchCount; ++i) {
-        searchs[i].setTt(new Tt());
+        Tt* tt = new Tt();
+        searchs[i].setTt(tt);
+        initExistingTTEntry(tt);
     }
 
     returnChars = new char[128];
+}
+
+void FanoronaEngineManager::initExistingTTEntry(Tt* tt) {
+    int ttentriesCount = 31;
+    TTExistingEntry ttentries[] = {
+            TTExistingEntry(17987857129930752ull, 2770203518ull, false),
+            TTExistingEntry(17987719690977280ull, 2770269150ull, false),
+            TTExistingEntry(17987444813070336ull, 2770301942ull, false),
+            TTExistingEntry(17987994300448768ull, 2703225854ull, false),
+            TTExistingEntry(17987994300448768ull, 2233463806ull, false),
+
+            ////////////////////////////////////// 5
+
+            TTExistingEntry(16298593610629120ull, 551988753406ull, true),
+            TTExistingEntry(16861544503574528ull, 2770203646ull,   true),
+            TTExistingEntry(8978595888234496ull,  2501768190ull,   true),
+            TTExistingEntry(16861543564050432ull, 2770203646ull,   true),
+
+            TTExistingEntry(17706381884784640ull, 2770301950ull,   true),
+            TTExistingEntry(17987994166231040ull,  2434790398ull,   true),
+            TTExistingEntry(17987993226706944ull, 2434790398ull,   true),
+
+            TTExistingEntry(17846638437466112ull, 2770318326ull,   true),
+            TTExistingEntry(17811419705638912ull,  2803839990ull,   true),
+            TTExistingEntry(17952226047688704ull, 2770334678ull,   true),
+
+            TTExistingEntry(16861407198838784ull,  2770334526ull,   true),
+            TTExistingEntry(17706382153220096ull, 140142048126ull,   true),
+
+            TTExistingEntry(17952500925595648ull, 2770236414ull,   true),
+
+            ////////////////////////////////////// 18
+
+            TTExistingEntry(16298594684370944ull, 2232775158ull, false),
+            TTExistingEntry(16861269625733120ull, 2231432094ull, false),
+
+            TTExistingEntry(16859345614536704ull, 2769679102ull, false),
+            TTExistingEntry(16861543429963776ull, 2703094718ull, false),
+            TTExistingEntry(16299143366443008ull, 2232807934ull, false),
+
+            TTExistingEntry(16296395661115392ull, 549841138654ull, false),
+
+
+            TTExistingEntry(17882166541156352ull, 2753451002ull, false),
+
+
+            TTExistingEntry(16861956820434944ull, 2703094590ull, false),
+            TTExistingEntry(16861407333056512ull, 2703225662ull, false),
+
+            TTExistingEntry(17706381884915712ull, 140142048062ull, false),
+
+            ////////////////////////////////////// 28
+
+            TTExistingEntry(17882166406938624ull, 2753516506ull, true),
+            TTExistingEntry(17882132173029376ull, 2770228210ull, true),
+            TTExistingEntry(17882166406938624ull, 2753516506ull, true),
+
+            ////////////////////////////////////// 31
+
+    };
+
+    Fanorona fanorona1;
+    fanorona1.setCurrentPlayerBlack(true);
+    for (int deep = 0; deep <= 12; ++deep) {
+        for (int i = 0; i < ttentriesCount; ++i) {
+            fanorona1.clear();
+            fanorona1.addPieces(ttentries[i].black, true);
+            fanorona1.addPieces(ttentries[i].white, false);
+            fanorona1.setCurrentPlayerBlack(ttentries[i].blackFirst);
+            tt->add(fanorona1, deep, TTEntry((MAX_SCORE - 100) * (deep % 2 == 0 ? 1 : -1), EXACT));
+        }
+    }
 }
 
 int FanoronaEngineManager::vectorToInt(Vector vector) {
@@ -173,6 +252,7 @@ char* FanoronaEngineManager::movePiece(int vector, int percute) {
         Bitboard removedPieces = fanorona.moveSelectedPiece(intToVector(vector), percute == 1);
 
         positionsToChars(removedPieces, returnChars);
+        ALOG(">> %" PRIu64 "ull %" PRIu64 "ull %d", fanorona.getBlackBitboard(), fanorona.getWhiteBitboard(), fanorona.getCurrentPlayerBlack());
     } else {
         returnChars[0] = '\0';
     }

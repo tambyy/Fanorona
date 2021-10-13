@@ -497,9 +497,13 @@ public class GameActivity extends AppCompatActivity {
 
                 evaluateProcess = null;
 
+                akalanaView.setTraveledPositionsShown(false);
+                akalanaView.setMovablePositionsShown(false);
                 akalanaView.animEngineActions(movesSequenceToEngineActions(!engine.currentBlack(), result), () -> {
                     akalanaView.setTouchable(true);
                     setAiThinking(false);
+                    akalanaView.setTraveledPositionsShown(true);
+                    akalanaView.setMovablePositionsShown(true);
                 });
 
                 stopAnimateAiThinking();

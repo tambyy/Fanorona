@@ -58,6 +58,9 @@
     <string name="saved_games_no_folder">Tsy misy lahatahiry</string>
     <string name="saved_games_no_game">Tsy misy lalao</string>
 
+    <string name="saved_games_transfert_runnning">Famindrana lalao ...</string>
+    <string name="saved_games_transfert_finished">Famindrana lalao vita</string>
+
     <string name="bt_devices_scan">Hizaha</string>
     <string name="bt_devices_scanning">Fizahana...</string>
 
@@ -65,5 +68,7 @@
     <string name="setting_theme">Endrika</string>
     <string name="setting_sound">Feo</string>
     <string name="setting_language">Fiteny</string>
+
+    <string name="about_not_to_sell">Tsy azo amidy</string>
 
 </resources>

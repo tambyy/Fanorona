@@ -134,7 +134,9 @@ public class SettingThemeActivity extends AppCompatActivity {
     public void validateEdition() {
         int selectedTheme = themeAdapter.getSelectedTheme();
         if (selectedTheme >= 0) {
-            this.preferenceManager.put(ThemeManager.PREF_THEME, themes.get(selectedTheme).getId());
+            long id = themes.get(selectedTheme).getId();
+            this.preferenceManager.put(ThemeManager.PREF_THEME, id);
+            ((AkalanaApplication) this.getApplication()).setAkalanaTheme(id);
         }
 
         finish();

@@ -7,14 +7,14 @@
 
 Search::Search()
 {
-    for (int i = 0; i < 32; ++i) {
+    for (int i = 0; i < MAX_DEEP; ++i) {
         refutationTable[i] = new PieceMoveSession[MAX_MOVES_COUNT];
     }
 }
 
 Search::~Search()
 {
-    for (int i = 0; i < 32; ++i) {
+    for (int i = 0; i < MAX_DEEP; ++i) {
         delete[] refutationTable[i];
     }
 }
@@ -177,7 +177,13 @@ int Search::search(const int depth, int alpha, int beta, const int IDDepth) {
     }
 
     else if (depth == 1 || depth != currentIterativeDeepeningLevel) {
-        lastMovePerDepth[moveGenDepth] = generate(fanorona, pms, generateMovesSession);
+        bool velaRiatraModeTest =
+                false &&
+                depth != currentIterativeDeepeningLevel &&
+                fanorona.getVela() &&
+                (depth == 1 || (depth == 2 && fanorona.getVelaBlack() != fanorona.getCurrentPlayerBlack()));
+
+        lastMovePerDepth[moveGenDepth] = generate(fanorona, pms, generateMovesSession, velaRiatraModeTest);
     }
 
 
@@ -316,7 +322,7 @@ int Search::search(const int depth, int alpha, int beta, const int IDDepth) {
     childNodesCount = nodesCount - childNodesCount;
 
     // Filtrer les mouvements/scores à mettre dans la table de transposition
-    if (playerMemory && childNodesCount >= (forPonder ? 64 : 20) && bestScore != TIME_ELAPSED_SCORE && std::abs(bestScore) != MAX_SCORE) {
+    if (playerMemory && childNodesCount >= (forPonder ? 256 : 32) && bestScore != TIME_ELAPSED_SCORE && std::abs(bestScore) != MAX_SCORE && IDDepth == 0) {
 
         // const bool saveScore = childNodesCount >= maxNodesCountToSaveForTT;
 
@@ -519,7 +525,7 @@ PieceMoveSession* Search::evaluate(const Fanorona &f, bool forPonder) {
     // pour les profondeurs de recherche initiales paires,
     // on commence la recherche itérative à partir d'une profondeur de niveau 2
     // et celles impaires à partir d'une profondeur de niveau 1
-    int n = (forPonder ? std::max(level + 3, 8) : level);
+    int n = (forPonder ? std::min(MAX_DEEP, std::max(level + 1, 8)) : level);
     for (
             currentIterativeDeepeningLevel = 1;
         // tant qu'on n'atteind pas le niveau du joeur intelligent dans l'itération
@@ -529,7 +535,7 @@ PieceMoveSession* Search::evaluate(const Fanorona &f, bool forPonder) {
     ) {
         //std::cout << currentIterativeDeepeningLevel << " ";
         //ALOG("%d: %d", (int) forPonder, currentIterativeDeepeningLevel);
-        ALOG(" >> %d %d %d %d %d", currentIterativeDeepeningLevel, (int) forPonder, (int) pondering, n, nodesCount);
+        ALOG(" >> %d %d %d %d %d %d", currentIterativeDeepeningLevel, (int) forPonder, (int) pondering, n, nodesCount, playerMemory ? playerMemory->getEntryCount() : 0);
 
         //if (!pondering) {
         //std::cout << currentIterativeDeepeningLevel << " ";
@@ -685,12 +691,13 @@ PieceMoveSession* Search::evaluate(const Fanorona &f, bool forPonder) {
     evaluationTime = (std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime)).count();
 
     for (PieceMoveSession* it = last - 1; it >= refutationTable[currentIterativeDeepeningLevel]; --it) {
-        ALOG(" >> %s", it->toString().c_str());
+        //ALOG(" >> %s", it->toString().c_str());
     }
     return ms;
 }
 
 void Search::ponderEvaluate(const Fanorona &f) {
+    pondering = true;
     pondering = true;
     evaluate(f, true);
     pondering = false;

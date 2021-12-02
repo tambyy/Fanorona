@@ -277,7 +277,8 @@ public class OptionActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * if we want to continue
+     * a game from save
      */
     private void intentFromSavedGamesActivity() {
         Bundle bundle = getIntent().getExtras();
@@ -285,18 +286,33 @@ public class OptionActivity extends AppCompatActivity {
         if (bundle != null) {
             if (bundle.containsKey(OptionActivity.SAVED_GAMES_CONFIG_CODE)) {
                 savedGameConfig = bundle.getString(OptionActivity.SAVED_GAMES_CONFIG_CODE);
+
+                // we cannot edit game mode and who move first
+                // because it's already set in the game to continue config
+                // so we hide these 2 buttons
                 cardViewOptionGameMode.setVisibility(View.GONE);
                 cardViewOptionMoveFirst.setVisibility(View.GONE);
             }
         }
     }
 
+    /**
+     * We show the resume button
+     * if there are a last game played before we do a new game
+     * @return
+     */
     private boolean checkLastGame() {
+
+        // PREF_LAST_GAME_CONFIG:
+        // key for the last game config
         String gameConfig = preferenceManager.get(Constants.PREF_LAST_GAME_CONFIG, null);
+
+        // if key is set in preference manager
         if (gameConfig != null) {
             gameResume = gameConfig;
             gameResumeHistoryIndex = preferenceManager.get(Constants.PREF_LAST_HISTORY_INDEX, 0);
 
+            // show resume button
             buttonGameOptionResume.setVisibility(View.VISIBLE);
 
             return true;

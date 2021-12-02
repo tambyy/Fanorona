@@ -3,6 +3,8 @@
     package="com.tambyy.fanoronaakalana">
 
     <application
+        android:name=".AkalanaApplication"
+        android:isGame="true"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/icon"

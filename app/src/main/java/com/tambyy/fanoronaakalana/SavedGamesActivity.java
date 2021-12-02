@@ -1,5 +1,6 @@
 package com.tambyy.fanoronaakalana;
 
+import android.animation.ObjectAnimator;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
@@ -44,7 +45,7 @@ import butterknife.ButterKnife;
 public class SavedGamesActivity extends AppCompatActivity {
 
     @BindView(R.id.saved_games_folders_breadcrumb)
-    RecyclerView recyvlerViewSavedGamesFoldersBreadcrumb;
+    RecyclerView recyclerViewSavedGamesFoldersBreadcrumb;
 
     @BindView(R.id.saved_games_folders_list)
     GridView gridViewSavedGamesFoldersList;
@@ -307,7 +308,7 @@ public class SavedGamesActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         long currentFolderId = savedInstanceState.getLong(SavedGamesActivity.GAME_FOLDER_ID_CODE);
-        //setCurrentFolder(currentFolderId == 0 ? null : getFolder(currentFolderId));
+        setCurrentFolder(currentFolderId == 0 ? null : getFolder(currentFolderId));
     }
 
     /**
@@ -361,8 +362,8 @@ public class SavedGamesActivity extends AppCompatActivity {
     private void initBreadcrumb() {
         savedGameBreadcrumbFolderAdapter = new SavedGameBreadcrumbFolderAdapter(this, breadcrumb);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyvlerViewSavedGamesFoldersBreadcrumb.setAdapter(savedGameBreadcrumbFolderAdapter);
-        recyvlerViewSavedGamesFoldersBreadcrumb.setLayoutManager(layoutManager);
+        recyclerViewSavedGamesFoldersBreadcrumb.setAdapter(savedGameBreadcrumbFolderAdapter);
+        recyclerViewSavedGamesFoldersBreadcrumb.setLayoutManager(layoutManager);
     }
 
     /**

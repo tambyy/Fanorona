@@ -468,6 +468,8 @@ public class AkalanaView extends SceneView {
      * @param theme theme to add
      */
     public void setTheme(Theme theme) {
+        setAutoDrawing(false);
+
         this.theme = theme;
         this.theme.setUnitSize(unitSize);
 
@@ -540,6 +542,8 @@ public class AkalanaView extends SceneView {
             removablePawn.setBitmap(theme.getRemovablePositionBitmap());
         }
 */
+
+        setAutoDrawing(true);
         draw();
     }
 

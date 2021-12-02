@@ -25,8 +25,14 @@ class Tt
 {
 
 public:
-    static constexpr Bitboard MAX_BLACK_TEAM_MASK = (1 << 16);
-    static constexpr int MAX_DEEP = 32;
+    static constexpr int MAX_BLACK_TEAM_COUNT_SHIFT = 12;
+    static constexpr Bitboard MAX_BLACK_TEAM_COUNT = (1ull << MAX_BLACK_TEAM_COUNT_SHIFT);
+    static constexpr Bitboard MAX_BLACK_TEAM_MASK = MAX_BLACK_TEAM_COUNT - 1;
+
+    static constexpr int MAX_DEEP_SHIFT = 4;
+    static constexpr int MAX_DEEP = 1 << MAX_DEEP_SHIFT;
+
+    static constexpr int VELA_COUNT = 3;
 
     /**
      * Integer - Vela : 0 : white(loser), 1 : black(loser), 2 : null
@@ -34,9 +40,11 @@ public:
      * Bitboard    - configuration des pièces noires
      * Bitboard    - configuration des pièces blanches
      */
-    std::map<Bitboard, std::map<Bitboard, TTEntry>>* FOUND_RESULTS[3 * 2 * MAX_DEEP];
+    std::map<Bitboard, std::map<Bitboard, TTEntry>>* FOUND_RESULTS[VELA_COUNT * 2 * MAX_DEEP];
 
 private:
+
+    int entryCount = 0;
 
     /**
      * Ajout d'une nouvelle entrée
@@ -156,6 +164,8 @@ public:
      */
     TTEntry* get(const Fanorona& scene, const int deep) const;
 
+    int getEntryCount() const;
+
     void clear();
 
 };
@@ -200,7 +210,7 @@ inline void Tt::add(const int vela, const int deep, const int blackPlayer, const
 
     std::map<Bitboard, std::map<Bitboard, TTEntry>>* map3 = FOUND_RESULTS[index];
     if (map3 == NULL) {
-        map3 = FOUND_RESULTS[index] = new std::map<Bitboard, std::map<Bitboard, TTEntry>>[MAX_BLACK_TEAM_MASK];
+        map3 = FOUND_RESULTS[index] = new std::map<Bitboard, std::map<Bitboard, TTEntry>>[MAX_BLACK_TEAM_COUNT];
     }
 
     const int blackTeam = getBlackTeam(black);
@@ -215,6 +225,8 @@ inline void Tt::add(const int vela, const int deep, const int blackPlayer, const
     } else {
         it->second[white] = entry;
     }
+
+    ++entryCount;
 }
 
 inline TTEntry* Tt::get(const int vela, const int deep, const int blackPlayer, const Fanorona& scene) const {
@@ -251,6 +263,10 @@ inline TTEntry* Tt::get(const int vela, const int deep, const int blackPlayer, c
     return &(it5->second);
 }
 
+inline int Tt::getEntryCount() const {
+    return entryCount;
+}
+
 inline int Tt::getVela(const Fanorona& scene) const {
     return !scene.getVela() ? 2 : (scene.getVelaBlack() ? 1 : 0);
 }
@@ -269,16 +285,27 @@ inline Bitboard Tt::serialize(const Fanorona& scene, const bool black) {
 }
 
 inline int Tt::getBlackTeam(const Bitboard black) const {
-    return (int) ((
+    Bitboard team = black & MAX_BLACK_TEAM_MASK;
+
+    for (int i = MAX_BLACK_TEAM_COUNT_SHIFT; i < 64; i += MAX_BLACK_TEAM_COUNT_SHIFT) {
+        team ^= (black & (MAX_BLACK_TEAM_MASK << i)) >> i;
+    }
+
+    return (int) team;
+/*
+    return (int) (
             ( black & 0x000000000000FFFFull) ^
             ((black & 0x00000000FFFF0000ull) >> 16) ^
             ((black & 0x0000FFFF00000000ull) >> 32) ^
             ((black & 0xFFFF000000000000ull) >> 48)
-    )/* & MAX_BLACK_TEAM_MASK*/);
+    );
+*/
 }
 
 inline int Tt::getTTIndex(const int vela, const int black, const int deep) const {
-    return (vela << 6) + (black << 5) + deep;
+    // vela * 2 * 2^X + black * 2^X + deep
+    // return (vela << 6) + (black << 5) + deep;
+    return (vela << (MAX_DEEP_SHIFT + 1)) + (black << MAX_DEEP_SHIFT) + deep;
 }
 
 inline void Tt::transform(Bitboard &black, Bitboard &white) const {

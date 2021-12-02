@@ -82,8 +82,9 @@ inline std::string vectorName(Vector vector) {
     return "NULL";
 }
 
-constexpr int MAX_MOVES_COUNT = 4096;
-constexpr int MAX_SESSION_MOVES_COUNT = 24;
+constexpr int MAX_DEEP = 16;
+constexpr int MAX_MOVES_COUNT = 2560;
+constexpr int MAX_SESSION_MOVES_COUNT = 16;
 
 /**
  * @brief MAX_SCORE

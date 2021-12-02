@@ -83,13 +83,13 @@ void FanoronaEngineManager::initExistingTTEntry(Tt* tt) {
 
     Fanorona fanorona1;
     fanorona1.setCurrentPlayerBlack(true);
-    for (int deep = 0; deep <= 12; ++deep) {
+    for (int deep = 0; deep <= 13; ++deep) {
         for (int i = 0; i < ttentriesCount; ++i) {
             fanorona1.clear();
             fanorona1.addPieces(ttentries[i].black, true);
             fanorona1.addPieces(ttentries[i].white, false);
             fanorona1.setCurrentPlayerBlack(ttentries[i].blackFirst);
-            tt->add(fanorona1, deep, TTEntry((MAX_SCORE - 100) * (deep % 2 == 0 ? 1 : -1), EXACT));
+            tt->add(fanorona1, deep, TTEntry(-(MAX_SCORE - 100), EXACT));
         }
     }
 }

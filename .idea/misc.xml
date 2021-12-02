@@ -110,6 +110,7 @@
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/drawable/saved_game_remove.xml" value="0.2671875" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/drawable/saved_game_remove_items_ic.xml" value="0.3138888888888889" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/drawable/saved_game_review.xml" value="0.2671875" />
+        <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/drawable/saved_game_review_border_bottom.xml" value="0.33240740740740743" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/drawable/saved_game_review_header_bg.xml" value="0.2546875" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/drawable/saved_game_review_options_bg.xml" value="0.2546875" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/drawable/saved_game_review_pause_ic.xml" value="0.2546875" />
@@ -129,7 +130,7 @@
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/activity_home.xml" value="0.2986003110419907" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/activity_mode.xml" value="0.36666666666666664" />
-        <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/activity_option.xml" value="1.0" />
+        <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/activity_option.xml" value="0.35005973715651134" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/activity_option_ai_level.xml" value="0.23333333333333334" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/activity_option_ai_max_search_time.xml" value="0.2682291666666667" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/activity_option_ai_ponder.xml" value="0.5" />
@@ -151,8 +152,11 @@
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/edit_game_image_item.xml" value="0.21510416666666668" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/item_bluetooth_device_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/item_edit_game_image.xml" value="0.3067708333333333" />
+        <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/item_option_ai_level.xml" value="0.15260416666666668" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/item_saved_game.xml" value="0.3067708333333333" />
+        <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/item_saved_game_breadcrumb_folder.xml" value="0.36666666666666664" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/item_saved_game_folder.xml" value="0.44328358208955226" />
+        <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/item_saved_game_review_speed.xml" value="0.36666666666666664" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/option_ai_level_item.xml" value="0.21510416666666668" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/option_ai_max_search_time_item.xml" value="0.2682291666666667" />
         <entry key="..\:/Project/FanoronaAkalana/app/src/main/res/layout/saved_game_breadcrumb_folder_item.xml" value="0.171875" />

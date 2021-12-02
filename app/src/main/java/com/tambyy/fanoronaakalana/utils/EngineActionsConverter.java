@@ -28,6 +28,10 @@ public class EngineActionsConverter {
     }
 
     public static String positionsToString(Engine.Point[] positions) {
+        if (positions.length == 0)  {
+            return "";
+        }
+
         StringBuilder sb = new StringBuilder();
         for (Engine.Point position : positions) {
             sb.append(positionToString(position));

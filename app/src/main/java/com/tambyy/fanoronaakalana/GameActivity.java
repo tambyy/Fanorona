@@ -485,14 +485,14 @@ public class GameActivity extends AppCompatActivity {
             // Just for Log :D :D :D
 
             if (evaluateProcess != null) {
-/*
+
                 CharSequence s = engine.getLastSearchDepth(0) + " - " +
                         engine.getLastNodesCount(0) + " nd - " +
                         engine.getLastSearchTime(0) + " ms - " +
                         (engine.getLastNodesCount(0) / Math.max(1, engine.getLastSearchTime(0))) + " nd/ms";
 
                 Log.d("AKALANA", s.toString());
-*/
+
                 // Anim AI search result moves
 
                 evaluateProcess = null;
@@ -638,6 +638,7 @@ public class GameActivity extends AppCompatActivity {
                 // make ponder
 
                 } else if (ponder && ponderProcess == null) {
+                    Log.i("AKALANA", "Ponder");
                     ponderProcess = new PonderProcess();
                     ponderProcess.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
@@ -744,12 +745,14 @@ public class GameActivity extends AppCompatActivity {
     private void loadPreferences() {
 
         // Theme
-
+/*
         themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 1l), theme -> {
             if (theme != null) {
                 akalanaView.setTheme(theme);
             }
         });
+*/
+        akalanaView.setTheme(((AkalanaApplication) this.getApplication()).getAkalanaTheme());
 
         // Sound volume
         Resources res = getResources();

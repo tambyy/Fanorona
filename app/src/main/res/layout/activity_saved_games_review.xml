@@ -124,7 +124,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
-                        android:onClick="showReviewSpeedContextMenu"
+                        android:onClick="toggleSpeedsShown"
                         android:src="@drawable/saved_game_review_speed_ic" />
 
                 </LinearLayout>
@@ -205,5 +205,16 @@
 
         </RelativeLayout>
     </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/saved_game_review_speeds"
+        android:layout_width="@dimen/saved_game_review_speed_width"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="#A000"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/saved_game_review_speed_margin_right"
+        />
 
 </RelativeLayout>

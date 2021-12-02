@@ -150,7 +150,7 @@ public:
             s += moves[i].toString();
         }
 
-        s += " => " + std::to_string(score) + ", " + std::to_string(previousScore) + ", " + std::to_string(removedPiecesCount)/* + "\n" + pretty(catchedPieces)*/;
+        s += " => " + std::to_string(score) + ", " + std::to_string(previousScore) + ", " + std::to_string(removedPiecesCount) + ", " + std::to_string(moveCount)/* + "\n" + pretty(catchedPieces)*/;
 
         return s;
     }

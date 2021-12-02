@@ -166,21 +166,14 @@ public class Pawn extends Touchable {
      * @return
      */
     private Bitmap bitmapToDraw() {
-        Bitmap bitmap;
-
         switch (state) {
             case MOVABLE:
-                bitmap = movableBitmap;
-                break;
+                return movableBitmap;
             case SELECTED:
-                bitmap = selectedBitmap;
-                break;
+                return selectedBitmap;
             default:
-                bitmap = defaultBitmap;
-                break;
+                return defaultBitmap;
         }
-
-        return bitmap != null ? bitmap : defaultBitmap;
     }
 
     @Override

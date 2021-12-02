@@ -19,15 +19,29 @@ constexpr int OCCUPATIONS_SCORES[54] = {
 
 };
 
-constexpr int EG_OCCUPATIONS_SCORES[54] = {
+constexpr int VELA_OCCUPATIONS_SCORES[54] = {
+
+        0,        0,    2,    0,    3,    1,    3,    0,    2,    0,        0,
+
+        0,        2,   -1,   17,   -2,   18,   -2,   17,   -1,    2,        0,
+
+        0,        1,    5,   -5,    7,   -4,    7,   -5,    5,    1,        0,
+
+        0,        2,   -1,   17,   -2,   18,   -2,   17,   -1,    2,        0,
+
+        0,        0,    2,    0,    3,    1,    3,    0,    2,    0
+
+};
+
+constexpr int VELA_OCCUPATIONS_SCORES_2[54] = {
 
         0,        2,    1,    3,    2,    4,    2,    3,    1,    2,        0,
 
-        0,        1,   13,    6,   15,    8,   15,    6,   13,    1,        0,
+        0,       18,   20,   21,   19,   17,   19,   21,   20,   18,        0,
 
-        0,        3,    5,   17,   13,   20,   13,   17,    5,    3,        0,
+        0,        3,    5,   15,   13,   16,   13,   15,    5,    3,        0,
 
-        0,        1,   13,    6,   15,    8,   15,    6,   13,    1,        0,
+        0,       18,   20,   21,   19,   17,   19,   21,   20,   18,        0,
 
         0,        2,    1,    3,    2,    4,    2,    3,    1,    2
 
@@ -769,7 +783,15 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
 
         const int i = lsb(position);
 
-        positionsValueUs += OCCUPATIONS_SCORES[i];
+        if (vela) {
+            if (currentPlayerBlack == velaBlack) {
+                positionsValueUs += VELA_OCCUPATIONS_SCORES[i];
+            } else {
+                positionsValueUs += VELA_OCCUPATIONS_SCORES_2[i];
+            }
+        } else {
+            positionsValueUs += OCCUPATIONS_SCORES[i];
+        }
 
         if (position & allThreatenedUs) {
             if (position & threatenedBlockedUs) {
@@ -830,7 +852,15 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
 
         const int i = lsb(position);
 
-        positionsValueThem += OCCUPATIONS_SCORES[i];
+        if (vela) {
+            if (currentPlayerBlack == velaBlack) {
+                positionsValueThem += VELA_OCCUPATIONS_SCORES_2[i];
+            } else {
+                positionsValueThem += VELA_OCCUPATIONS_SCORES[i];
+            }
+        } else {
+            positionsValueThem += OCCUPATIONS_SCORES[i];
+        }
 
         if (position & threatenedBitboardThem) {
             if (position & threatenedBlockedThem) {
@@ -922,12 +952,25 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
     }
 
 
-    int piecesValueUsB = piecesValueUs - maxThreatValueUs;
-    int piecesValueThemB = piecesValueThem - maxThreatValueThem;
+    int piecesValueUsB;
+    int piecesValueThemB;
+
+    if (vela) {
+        if (velaBlack == currentPlayerBlack) {
+            piecesValueUsB = -maxThreatValueUs;
+            piecesValueThemB = 0;
+        } else {
+            piecesValueUsB = 0;
+            piecesValueThemB = -maxThreatValueThem;
+        }
+    } else {
+        piecesValueUsB = piecesValueUs - maxThreatValueUs;
+        piecesValueThemB = piecesValueThem - maxThreatValueThem;
+    }
 
     scoreUs =
             31000 * (piecesValueUsB > piecesValueThemB ? piecesValueUsB - piecesValueThemB : 0) +
-            10000 * movablePositionsCountUs +
+             3000 * movablePositionsCountUs +
             -6000 * threatenedBlockedValueUs +
             -4500 * blockedOnBorderValueUs +
             -4000 * threatenedValueUs +
@@ -939,13 +982,12 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
              -500 * blockedOnCenterValueUs +
              -400 * threatenedThreatValueUs +
              -300 * blockedValueUs +
-              100 * positionsValueUs +
                 5 * occupationValueUs +
                 4 * movableValueUs;
 
     scoreThem =
             31000 * (piecesValueThemB > piecesValueUsB ? piecesValueThemB - piecesValueUsB : 0) +
-            10000 * movablePositionsCountThem +
+             3000 * movablePositionsCountThem +
             -6000 * threatenedBlockedValueThem +
             -5500 * threatenedBlockedMoreValueThem +
             -4500 * blockedOnBorderValueThem +
@@ -962,6 +1004,19 @@ int Evaluate::evaluateScene(const Fanorona& scene) {
               100 * positionsValueThem +
                 5 * occupationValueThem +
                 4 * movableValueThem;
+
+    if (vela) {
+        if (velaBlack == currentPlayerBlack) {
+            scoreUs += 28000 * positionsValueUs;
+            scoreThem += 28000 * positionsValueThem;
+        } else {
+            scoreUs += 28000 * positionsValueUs;
+            scoreThem += 28000 * positionsValueThem;
+        }
+    } else {
+        scoreUs += 100 * positionsValueUs;
+        scoreThem += 100 * positionsValueThem;
+    }
 
     /*if (gamePhase == MIDDLE_GAME) {
 

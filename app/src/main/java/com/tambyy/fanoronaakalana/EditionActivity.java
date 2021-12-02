@@ -180,11 +180,7 @@ public class EditionActivity extends AppCompatActivity {
      *
      */
     private void loadPreferences() {
-        themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 1l), theme -> {
-            if (theme != null) {
-                akalanaView.setTheme(theme);
-            }
-        });
+        akalanaView.setTheme(((AkalanaApplication) this.getApplication()).getAkalanaTheme());
     }
 
 }

@@ -84,6 +84,7 @@ public class ThemeManager {
                                         configTheme.setBackgroundBitmap(bitmap);
                                         break;
                                     case "akalana.png":
+                                    case "akalana.jpg":
                                         configTheme.setAkalanaBitmap(bitmap);
                                         break;
                                     case "black_default.png":

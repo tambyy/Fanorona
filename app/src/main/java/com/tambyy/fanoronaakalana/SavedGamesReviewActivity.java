@@ -2,11 +2,15 @@ package com.tambyy.fanoronaakalana;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +27,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.tambyy.fanoronaakalana.adapter.SavedGameBreadcrumbFolderAdapter;
+import com.tambyy.fanoronaakalana.adapter.SavedGameReviewSpeedAdapter;
 import com.tambyy.fanoronaakalana.database.FanoronaDatabase;
 import com.tambyy.fanoronaakalana.engine.Engine;
 import com.tambyy.fanoronaakalana.engine.EngineAction;
@@ -37,6 +43,7 @@ import com.tambyy.fanoronaakalana.utils.PreferenceManager;
 import com.tambyy.fanoronaakalana.utils.ThemeManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,6 +87,10 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
     @BindView(R.id.saved_game_review_overlay_content)
     RelativeLayout linearLayoutSavedGameReviewOverlayContent;
 
+    @BindView(R.id.saved_game_review_speeds)
+    RecyclerView recyclerViewSavedGameReviewSpeeds;
+
+    SavedGameReviewSpeedAdapter savedGameReviewSpeedAdapter;
 
     /**
      * Preference
@@ -142,14 +153,15 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
         this.database = FanoronaDatabase.getInstance(this);
         this.preferenceManager = PreferenceManager.getInstance(this);
         this.themeManager = ThemeManager.getInstance(this);
-        loadPreferences();
 
         intentFromSavedGamesActivity();
 
         configureProgressBar();
         configureAkalana();
+        configureSpeeds();
 
-        registerForContextMenu(imageButtonReviewSpeed);
+        loadPreferences();
+        // registerForContextMenu(imageButtonReviewSpeed);
 
         // start review
         replayReview();
@@ -182,48 +194,21 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.review_speed_menu, menu);
+    public void onBackPressed() {
+        // if there're selected items
+        // we unselect items
+        if (speedsShown) {
+            hideSpeeds();
+        } else {
+            // else we go back to the parent activity
+            super.onBackPressed();
+        }
     }
 
-    /**
-     * We implement a context menu
-     * on speed button
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.review_speed_x_025:
-                akalanaView.setAnimationSpeed(0.25f);
-                return true;
-            case R.id.review_speed_x_050:
-                akalanaView.setAnimationSpeed(0.5f);
-                return true;
-            case R.id.review_speed_x_075:
-                akalanaView.setAnimationSpeed(0.75f);
-                return true;
-            case R.id.review_speed_x_100:
-                akalanaView.setAnimationSpeed(1f);
-                return true;
-            case R.id.review_speed_x_125:
-                akalanaView.setAnimationSpeed(1.25f);
-                return true;
-            case R.id.review_speed_x_150:
-                akalanaView.setAnimationSpeed(1.5f);
-                return true;
-            case R.id.review_speed_x_175:
-                akalanaView.setAnimationSpeed(1.75f);
-                return true;
-            case R.id.review_speed_x_200:
-                akalanaView.setAnimationSpeed(2f);
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
+    public void setAnimationSpeed(float speed) {
+        akalanaView.setAnimationSpeed(speed);
+        preferenceManager.put(Constants.PREF_SAVED_GAMES_REVIEW_SPEED, speed);
+        hideSpeeds();
     }
 
     /**
@@ -299,6 +284,45 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
         akalanaView.setRemovablePawnsShown(false);
         akalanaView.setTraveledPositionsShown(false);
         akalanaView.setEngine(engine);
+    }
+
+    /**
+     */
+    private void configureSpeeds() {
+        List<Float> speeds = new ArrayList<>();
+
+        for (int i = 1; i <= 8; ++i) {
+            speeds.add(i * 0.25f);
+        }
+
+        savedGameReviewSpeedAdapter = new SavedGameReviewSpeedAdapter(this, speeds);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerViewSavedGameReviewSpeeds.setAdapter(savedGameReviewSpeedAdapter);
+        recyclerViewSavedGameReviewSpeeds.setLayoutManager(layoutManager);
+    }
+
+    private boolean speedsShown = false;
+
+    public void toggleSpeedsShown(View view) {
+        if (speedsShown) {
+            hideSpeeds();
+        } else {
+            showSpeeds();
+        }
+    }
+
+    private void showSpeeds() {
+        ObjectAnimator anim = ObjectAnimator.ofFloat(recyclerViewSavedGameReviewSpeeds, "translationX", 0, -recyclerViewSavedGameReviewSpeeds.getWidth());
+        anim.setDuration(300);
+        anim.start();
+        speedsShown = true;
+    }
+
+    private void hideSpeeds() {
+        ObjectAnimator anim = ObjectAnimator.ofFloat(recyclerViewSavedGameReviewSpeeds, "translationX", -recyclerViewSavedGameReviewSpeeds.getWidth(), 0);
+        anim.setDuration(200);
+        anim.start();
+        speedsShown = false;
     }
 
     /**
@@ -467,13 +491,6 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
     }
 
     /**
-     * On click on speed button
-     */
-    public void showReviewSpeedContextMenu(View view) {
-        view.showContextMenu();
-    }
-
-    /**
      *
      * @param view
      */
@@ -560,10 +577,10 @@ public class SavedGamesReviewActivity extends AppCompatActivity {
      *
      */
     private void loadPreferences() {
-        themeManager.getTheme(preferenceManager.get(ThemeManager.PREF_THEME, 1l), theme -> {
-            if (theme != null) {
-                akalanaView.setTheme(theme);
-            }
-        });
+        akalanaView.setTheme(((AkalanaApplication) this.getApplication()).getAkalanaTheme());
+
+        float speed = preferenceManager.get(Constants.PREF_SAVED_GAMES_REVIEW_SPEED, 1f);
+        setAnimationSpeed(speed);
+        savedGameReviewSpeedAdapter.setSelectedPosition((int) (speed / 0.25f) - 1);
     }
 }

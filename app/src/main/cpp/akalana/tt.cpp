@@ -2,7 +2,7 @@
 
 Tt::Tt()
 {
-    int size = 3 * 2 * MAX_DEEP;
+    int size = VELA_COUNT * 2 * MAX_DEEP;
     for (int i = 0; i < size; ++i) {
         FOUND_RESULTS[i] = NULL;
     }
@@ -15,7 +15,7 @@ Tt::~Tt()
 
 void Tt::clear()
 {
-    const int size = 3 * 2 * MAX_DEEP;
+    const int size = VELA_COUNT * 2 * MAX_DEEP;
     for (int i = 0; i < size; ++i) {
         std::map<Bitboard, std::map<Bitboard, TTEntry>>* map3 = FOUND_RESULTS[i];
 
@@ -23,4 +23,6 @@ void Tt::clear()
             delete[] map3;
         }
     }
+
+    entryCount = 0;
 }

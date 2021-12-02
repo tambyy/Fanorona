@@ -33,6 +33,10 @@ public class SceneView extends View {
     private boolean drawing = false;
 
     /**
+     */
+    private boolean autoDrawing = true;
+
+    /**
      * Allowing to lock the canvas
      * so that there is no interaction we can do on the canvas when touched
      */
@@ -84,13 +88,21 @@ public class SceneView extends View {
         return animationsManager;
     }
 
+    public boolean isAutoDrawing() {
+        return autoDrawing;
+    }
+
+    public void setAutoDrawing(boolean autoDrawing) {
+        this.autoDrawing = autoDrawing;
+    }
+
     /**
      * Redraw all drawables inside the canvas
      */
     public void draw() {
         // Avoid drawing on the same canvas
         // in different threads simultaneously
-        if (!drawing) {
+        if (!drawing && autoDrawing) {
             drawing = true;
             // it will call onDraw method
             this.postInvalidate();
@@ -296,11 +308,18 @@ public class SceneView extends View {
 
                     // translate canvas to the drawable position
                     final float scale = drawable.getScale();
-                    final float xpos = drawable.getX() + (1f - scale) * drawable.getWidth() / 2;
-                    final float ypos = drawable.getY() + (1f - scale) * drawable.getHeight() / 2;
 
-                    canvas.translate(xpos, ypos);
-                    canvas.scale(scale, scale);
+                    if (scale == 1f) {
+                        canvas.translate(drawable.getX(), drawable.getY());
+                    } else {
+                        final float coef = (1f - scale) / 2f;
+
+                        final float xpos = drawable.getX() + coef * drawable.getWidth();
+                        final float ypos = drawable.getY() + coef * drawable.getHeight();
+
+                        canvas.translate(xpos, ypos);
+                        canvas.scale(scale, scale);
+                    }
 
                     // draw the drawable
                     drawable.draw(canvas);

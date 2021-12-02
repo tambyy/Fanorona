@@ -33,7 +33,7 @@ public class Constants {
     public static final String PREF_SETTING_SOUND_VOLUME = "PREF_SETTING_SOUND_VOLUME";
     public static final String PREF_SETTING_LOCALE = "PREF_SETTING_LOCALE";
 
-    public static final String PREF_CURRENT_FOLDER = "PREF_CURRENT_FOLDER";
+    public static final String PREF_SAVED_GAMES_REVIEW_SPEED = "PREF_SAVED_GAMES_REVIEW_SPEED";
 
     public static final ColorStateList OPTION_BGH = ColorStateList.valueOf(Color.TRANSPARENT);
     public static final ColorStateList SELECTED_OPTION_BGH = ColorStateList.valueOf(Color.argb(70, 0, 0, 0));

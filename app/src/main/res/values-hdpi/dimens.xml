@@ -3,7 +3,7 @@
 
     <!-- Text -->
 
-    <dimen name="popup_item_title_text_size">13sp</dimen>
+    <dimen name="popup_item_title_text_size">10sp</dimen>
 
     <dimen name="home_play_text_size">12sp</dimen>
     <dimen name="home_menu_text_size">11sp</dimen>
@@ -11,7 +11,7 @@
     <dimen name="setting_menu_text_size">11sp</dimen>
 
     <dimen name="option_title_text_size">11sp</dimen>
-    <dimen name="option_value_text_size">13sp</dimen>
+    <dimen name="option_value_text_size">12sp</dimen>
     <dimen name="option_btn_text_size">12sp</dimen>
 
     <dimen name="option_ai_level_item_text_size">15sp</dimen>
@@ -30,17 +30,6 @@
     <dimen name="saved_games_breadcrumb_text_size">12sp</dimen>
 
 
-    <!-- Popup -->
-
-    <dimen name="popup_padding">10dp</dimen>
-    <dimen name="popup_padding_top">30dp</dimen>
-    <dimen name="popup_header_size">100dp</dimen>
-    <dimen name="popup_icon_image_size">30dp</dimen>
-    <dimen name="popup_icon_padding_top">20dp</dimen>
-    <dimen name="popup_game_mode_item_margin">5dp</dimen>
-    <dimen name="popup_item_height">30dp</dimen>
-
-
     <!-- Options -->
 
     <dimen name="option_item_title_margin_top">3dp</dimen>
@@ -52,6 +41,14 @@
 
     <dimen name="option_ai_level_grid_view_spacing">2dp</dimen>
 
+    <dimen name="popup_padding">10dp</dimen>
+    <dimen name="popup_padding_top">30dp</dimen>
+    <dimen name="popup_header_size">100dp</dimen>
+    <dimen name="popup_icon_image_size">30dp</dimen>
+    <dimen name="popup_icon_padding_top">20dp</dimen>
+    <dimen name="popup_game_mode_item_margin">5dp</dimen>
+    <dimen name="popup_item_height">30dp</dimen>
+
 
     <!-- Game -->
 
@@ -61,7 +58,6 @@
 
 
     <!-- Edition -->
-
 
 
     <!-- Saved games -->
@@ -79,7 +75,6 @@
     <dimen name="saved_games_menu_margin_bottom">5dp</dimen>
 
     <dimen name="bt_devices_scan_btn_height">35dp</dimen>
-
 
     <dimen name="setting_theme_item_padding">3dp</dimen>
     <dimen name="setting_theme_border_radius">4dp</dimen>

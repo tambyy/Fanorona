@@ -29,9 +29,9 @@
                     android:id="@+id/option_ai_level_grid_view"
                     style="@style/PopupBody"
                     android:horizontalSpacing="@dimen/option_ai_level_grid_view_spacing"
-                    android:verticalSpacing="@dimen/option_ai_level_grid_view_spacing"
                     android:numColumns="4"
-                    android:stretchMode="columnWidth" />
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="@dimen/option_ai_level_grid_view_spacing" />
 
             </RelativeLayout>
 
